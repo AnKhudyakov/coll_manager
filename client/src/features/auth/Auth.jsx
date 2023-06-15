@@ -1,5 +1,5 @@
-import FormLogin from "@/components/ui-kit/forms/FormLogin";
-import FormReg from "@/components/ui-kit/forms/FormReg";
+import LoginForm from "./login/LoginForm";
+import RegForm from "./registration/RegForm";
 import { Box, Typography } from "@mui/material";
 
 const AuthPage = ({ variant }) => {
@@ -8,7 +8,7 @@ const AuthPage = ({ variant }) => {
     <section>
       <Box p={3} pt="70px" maxWidth="500px" m="0 auto">
         <Typography variant="h3">{title}</Typography>
-        {variant === "login" ? <FormLogin /> : <FormReg />}
+        {variant === "login" ? <LoginForm /> : <RegForm />}
       </Box>
     </section>
   );

@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const HEADERS = {
   "Content-Type": "application/json",
@@ -11,8 +12,8 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use((config) => {
-  config.headers.Authorization = `Bearer ${localStorage.getItem(
-    "access_token"
+  config.headers.Authorization = `Bearer ${Cookies.get("username")(
+    "token"
   )}`;
   return config;
 });

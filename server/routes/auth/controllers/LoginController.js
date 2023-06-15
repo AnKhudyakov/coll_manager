@@ -17,7 +17,7 @@ class LoginController {
         return res.status(200).json({
           user: {
             id: user.id,
-            user_name: user.user_name,
+            username: user.username,
             email: user.email,
             admin: false,
             blocked: false,

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Box, IconButton, useMediaQuery } from "@mui/material";
 import { shades } from "@/styles/theme";
 import {
@@ -8,11 +8,18 @@ import {
   LogoutOutlined,
 } from "@mui/icons-material";
 import SearchMenu from "@/components/SearchMenu";
+import { unsetToken } from "@/helpers/auth";
+import { selectCurrentUser,setCredentials } from "@/features/auth/authSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const user = useSelector(selectCurrentUser);
+  const dispatch = useDispatch();
   const isNonTablet = useMediaQuery("(min-width:700px)");
   const handleLogout = () => {
-    //unset token
+    dispatch(setCredentials({ user: null, token: null }));
+    unsetToken(navigate);
   };
   return (
     <nav>
@@ -62,22 +69,22 @@ const Navbar = () => {
                 <HomeOutlined />
               </IconButton>
             </Link>
-
-            <Link to="/profile">
-              <IconButton sx={{ color: "rgba(255, 255, 255, .8)" }}>
-                <PersonOutline />
-              </IconButton>
-            </Link>
-
-            <Link to="/login">
-              <IconButton
-                onClick={(e) => {}}
-                sx={{ color: "rgba(255, 255, 255, .8)" }}
-              >
-                <LoginOutlined />
-              </IconButton>
-            </Link>
-
+            {user ? (
+              <Link to="/profile">
+                <IconButton sx={{ color: "rgba(255, 255, 255, .8)" }}>
+                  <PersonOutline />
+                </IconButton>
+              </Link>
+            ) : (
+              <Link to="/login">
+                <IconButton
+                  onClick={(e) => {}}
+                  sx={{ color: "rgba(255, 255, 255, .8)" }}
+                >
+                  <LoginOutlined />
+                </IconButton>
+              </Link>
+            )}
             <IconButton
               onClick={handleLogout}
               sx={{ color: "rgba(255, 255, 255, .8)" }}

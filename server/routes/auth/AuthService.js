@@ -10,7 +10,7 @@ class AuthService {
   }
   async createUser(user, password) {
     const newUser = new User({
-      user_name: user.user_name,
+      username: user.username,
       email: user.email,
       password,
       admin: false,

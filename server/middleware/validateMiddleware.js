@@ -1,7 +1,7 @@
 import { body } from "express-validator";
 
 export const validateMiddlewareReg = [
-  body("user_name", "Name must be from 2 to 10 chars").isLength({
+  body("username", "Name must be from 2 to 10 chars").isLength({
     min: 1,
     max: 15,
   }),

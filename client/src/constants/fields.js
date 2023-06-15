@@ -1,5 +1,5 @@
 export const INIT_VALUES_REG = {
-  user_name: "",
+  username: "",
   email: "",
   password: "",
 };

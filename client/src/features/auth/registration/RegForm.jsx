@@ -43,10 +43,10 @@ const FormReg = () => {
         label={"Name"}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
-        value={formik.values.user_name}
-        name="user_name"
-        error={Boolean(formik.touched.user_name && formik.errors.user_name)}
-        helperText={formik.touched.user_name && formik.errors.user_name}
+        value={formik.values.username}
+        name="username"
+        error={Boolean(formik.touched.username && formik.errors.username)}
+        helperText={formik.touched.username && formik.errors.username}
       />
       <TextField
         sx={{ mt: 2 }}
