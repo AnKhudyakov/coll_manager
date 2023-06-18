@@ -12,7 +12,7 @@ export const setToken = (data, navigate) => {
   Cookies.set("jwt", data.token, { sameSite: "strict", secure: true });
   if (Cookies.get("username")) {
     setTimeout(() => {
-      navigate("/");
+      navigate("/profile");
     }, 1500);
   }
 };
@@ -26,3 +26,11 @@ export const unsetToken = (navigate) => {
   Cookies.remove("username");
   navigate("/");
 };
+
+export const getUserId = () => {
+ return Cookies.get("id")
+}
+
+export const getToken = () => {
+  return Cookies.get("jwt")
+ }

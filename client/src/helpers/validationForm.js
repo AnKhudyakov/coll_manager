@@ -35,3 +35,29 @@ export const schemaLogin = yup.object().shape({
     .required("No password provided.")
     .max(10, "Password is too long - should be 10 chars maximum."),
 });
+
+export const schemaCollection = yup.object().shape({
+  name: yup
+    .string()
+    .max(100, "Name is too long - should be 100 chars maximum.")
+    .required("No name provided."),
+  description: yup
+    .string()
+    .required("No description provided.")
+    .max(250, "Description is too long - should be 250 chars maximum."),
+  topic: yup
+    .string()
+    .required("No topic provided.")
+    .max(100, "Topic is too long - should be 100 chars maximum."),
+  });
+
+  export const schemaItem = yup.object().shape({
+    name: yup
+      .string()
+      .max(100, "Name is too long - should be 100 chars maximum.")
+      .required("No name provided."),
+    tags: yup
+      .array()
+      .required("No tags provided.")
+      .max(10, "Should be 5 tags maximum."),
+    });

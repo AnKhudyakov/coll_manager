@@ -5,24 +5,31 @@ import { validateBlocked } from "../../middleware/validateMiddleware.js";
 
 const router = Router();
 
-router.get("/users", authMiddleware, validateBlocked, UserController.getUsers);
+router.get("/", authMiddleware, validateBlocked, UserController.getUsers);
+
+router.get(
+  `/:id`,
+  authMiddleware,
+  validateBlocked,
+  UserController.getUser
+);
 
 router.delete(
-  `/users/:id`,
+  `/:id`,
   authMiddleware,
   validateBlocked,
   UserController.removeUser
 );
 
 router.patch(
-  `/users/block/:id`,
+  `/block/:id`,
   authMiddleware,
   validateBlocked,
   UserController.blockUser
 );
 
 router.patch(
-  `/users/unblock/:id`,
+  `/unblock/:id`,
   authMiddleware,
   validateBlocked,
   UserController.unblockUser

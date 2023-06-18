@@ -70,11 +70,19 @@ const Navbar = () => {
               </IconButton>
             </Link>
             {user ? (
-              <Link to="/profile">
-                <IconButton sx={{ color: "rgba(255, 255, 255, .8)" }}>
-                  <PersonOutline />
+              <>
+                <Link to="/profile">
+                  <IconButton sx={{ color: "rgba(255, 255, 255, .8)" }}>
+                    <PersonOutline />
+                  </IconButton>
+                </Link>
+                <IconButton
+                  onClick={handleLogout}
+                  sx={{ color: "rgba(255, 255, 255, .8)" }}
+                >
+                  <LogoutOutlined />
                 </IconButton>
-              </Link>
+              </>
             ) : (
               <Link to="/login">
                 <IconButton
@@ -85,12 +93,6 @@ const Navbar = () => {
                 </IconButton>
               </Link>
             )}
-            <IconButton
-              onClick={handleLogout}
-              sx={{ color: "rgba(255, 255, 255, .8)" }}
-            >
-              <LogoutOutlined />
-            </IconButton>
           </Box>
         </Box>
       </Box>

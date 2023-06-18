@@ -1,4 +1,5 @@
 import { body } from "express-validator";
+import UserService from "../routes/user/UserService.js";
 
 export const validateMiddlewareReg = [
   body("username", "Name must be from 2 to 10 chars").isLength({
@@ -23,7 +24,7 @@ export const validateMiddlewareLogin = [
 export const validateBlocked = async (req, res, next) => {
   try {
     const user = await UserService.getUserByEmail(req.email);
-    if (user.blocked) {
+    if (!user.blocked) {
       next();
     } else {
       return res.status(405).json({ message: "User was blocked" });

@@ -1,6 +1,7 @@
 import { styled, alpha } from "@mui/material/styles";
 import { Box, InputBase } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import { useNavigate } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -48,9 +49,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const SearchMenu = () => {
+  const navigate = useNavigate();
   const handleSearch = (e) => {
     if (e.keyCode === 13) {
-      console.log("SEARCH");
+      console.log("SEARCH",e.target.value);
+      navigate(`/search?text=${e.target.value}`)
     }
   };
 

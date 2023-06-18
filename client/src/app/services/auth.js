@@ -1,13 +1,13 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import Cookies from "js-cookie";
+import { getToken } from "@/helpers/auth";
 
 export const authApi = createApi({
   reducerPath: "authAPI",
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_URL,
     prepareHeaders: (headers, { getState }) => {
-      const token = Cookies.get("jwt")
-        ? Cookies.get("jwt")
+      const token = getToken()
+        ? getToken()
         : getState().auth.token;
       if (token) {
         headers.set("authorization", `Bearer ${token}`);

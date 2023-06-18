@@ -1,32 +1,32 @@
 import { schemaReg } from "@/helpers/validationForm";
 import { useFormik } from "formik";
 import { INIT_VALUES_REG as initialValues } from "@/constants/fields";
-import { API } from "@/api/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router";
 import { Button, TextField } from "@mui/material";
+import { useRegMutation } from "@/app/services/auth";
 
 const FormReg = () => {
   const navigate = useNavigate();
+  const [reg, { isLoading }] = useRegMutation();
   const handleFormSubmit = async (values, actions) => {
-    API.postReg(values)
-      .then((data) => {
-        actions.resetForm();
-        toast.success("Successful registration");
-        setTimeout(() => {
-          navigate("/login");
-        }, 1500);
-      })
-      .catch((err) => {
-        switch (err.response.status) {
-          case 401:
-            toast.error("Email and Password already exist");
-            break;
-          default:
-            toast.error(err.response.data.message);
-        }
-      });
+    try {
+      await reg(values).unwrap();
+      actions.resetForm();
+      toast.success("Successful registration");
+      setTimeout(() => {
+        navigate("/login");
+      }, 1500);
+    } catch (err) {
+      switch (err.response.status) {
+        case 401:
+          toast.error("Email and Password already exist");
+          break;
+        default:
+          toast.error(err.response.data.message);
+      }
+    }
   };
   const formik = useFormik({
     initialValues,

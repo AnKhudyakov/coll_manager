@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { schemaLogin } from "@/helpers/validationForm";
 import { INIT_VALUES_LOGIN as initialValues } from "@/constants/fields";
 import { Link, useNavigate } from "react-router-dom";
-//import { API } from "@/api/api";
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Box, Button, TextField } from "@mui/material";
@@ -17,21 +17,20 @@ const FormLogin = () => {
   const [login, { isLoading }] = useLoginMutation();
   const handleFormSubmit = async (values, actions) => {
     try {
-    const data = await login(values).unwrap();
-    dispatch(setCredentials(data));
-    setToken(data, navigate);
-    actions.resetForm();
-    toast.success("Successful Login")
-     }
-    catch(err) {
-     switch (err.response.status) {
-       case 400:
+      const data = await login(values).unwrap();
+      dispatch(setCredentials(data));
+      setToken(data, navigate);
+      actions.resetForm();
+      toast.success("Successful Login");
+    } catch (err) {
+      switch (err.response.status) {
+        case 400:
           toast.error("Invalid email or password");
           break;
         default:
           toast.error(err.response.data.message);
       }
-    };
+    }
   };
   const formik = useFormik({
     initialValues,

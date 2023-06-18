@@ -5,8 +5,24 @@ import Layout from "@/components/Layout";
 import Auth from "@/features/auth/Auth";
 import HomePage from "@/components/pages/HomePage";
 import ProfilePage from "@/components/pages/ProfilePage";
+import CollectionPage from "@/features/collection/CollectionPage";
+import ItemPage from "@/features/item/ItemPage";
+import SearchPage from "@/components/pages/SearchPage";
+import { useEffect } from "react";
+import { getToken, getUserId } from "@/helpers/auth";
+import { setCredentials } from "@/features/auth/authSlice";
+import { useDispatch } from "react-redux";
+import { useGetUserByIdQuery } from "@/app/services/user";
 
 function App() {
+  const dispatch = useDispatch();
+  const { data: user, isLoading } = useGetUserByIdQuery(getUserId());
+
+  useEffect(() => {
+    if (user) {
+      dispatch(setCredentials({ user, token: getToken() }));
+    }
+  }, [user]);
   return (
     <BrowserRouter>
       <Layout>
@@ -15,6 +31,9 @@ function App() {
           <Route path="/login" element={<Auth variant="login" />} />
           <Route path="/register" element={<Auth variant="register" />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/collections/:id" element={<CollectionPage />} />
+          <Route path="/items/:id" element={<ItemPage />} />
+          <Route path="/search" element={<SearchPage />} />
         </Routes>
       </Layout>
     </BrowserRouter>

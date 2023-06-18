@@ -13,6 +13,18 @@ class UserController {
       return res.status(500).json({ message: "Server error" });
     }
   }
+  async getUser(req, res) {
+    try {
+      const user = await UserService.getUserById(req.params.id);
+      if (!user) {
+        return res.status(404).json({ message: "User doesn't exist" });
+      }
+      return res.status(200).json(user);
+    } catch (e) {
+      console.log(e);
+      return res.status(500).json({ message: "Server error" });
+    }
+  }
   async removeUser(req, res) {
     try {
       const user = await UserService.removeUser(req.params.id);

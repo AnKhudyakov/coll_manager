@@ -4,7 +4,8 @@ import cors from "cors";
 import mongoose from "mongoose";
 import authRouter from "./routes/auth/authRouter.js";
 import userRouter from "./routes/user/userRouter.js";
-//import collectionRouter from "./routes/collection/collectionRouter.js"
+import collectionRouter from "./routes/collection/collectionRouter.js"
+import itemRouter from "./routes/item/itemRouter.js"
 
 dotenv.config();
 
@@ -20,7 +21,8 @@ app.use(
 app.use(express.json());
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
-//app.use("/collections", collectionRouter);
+app.use("/collections", collectionRouter);
+app.use("/items", itemRouter);
 
 async function start() {
   try {
