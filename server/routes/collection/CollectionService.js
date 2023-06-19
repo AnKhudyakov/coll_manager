@@ -1,4 +1,5 @@
 import Collection from "../../models/Collection.js";
+import User from "../../models/User.js";
 
 class CollectionService {
   async getAllCollections() {
@@ -6,6 +7,10 @@ class CollectionService {
   }
   async createCollection(collection) {
     const newCollection = new Collection(collection);
+    await User.findOneAndUpdate(
+      { _id: collection.author },
+      { $push: { collections: newCollection } }
+    );
     await newCollection.save();
   }
   async getCollectionsByUser(id) {

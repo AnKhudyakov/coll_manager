@@ -1,11 +1,22 @@
 import { Box, Button, Typography } from "@mui/material";
 import Profile from "@/components/Profile";
 import Collections from "@/features/collection/Collections";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CollectionForm from "@/features/collection/CollectionForm";
+import { selectCurrentUser, setCredentials } from "@/features/auth/authSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const ProfilePage = () => {
+  const navigate = useNavigate();
   const [openForm, setOpenForm] = useState(false);
+  const user = useSelector(selectCurrentUser);
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, [user]);
+
   return (
     <Box
       pt="60px"
@@ -15,13 +26,14 @@ const ProfilePage = () => {
     >
       <Box padding="30px" overflow="auto" height="100%">
         <Typography variant="h2">Profile</Typography>
+        <Typography variant="h3">Hello, {user?.username}!</Typography>
         <Box m="20px 0">
           <Profile />
           <Typography variant="h3">Your Collections</Typography>
           <Collections variant="profile" />
           <Box mt={2}>
             {openForm ? (
-              <CollectionForm setOpenForm={setOpenForm}/>
+              <CollectionForm setOpenForm={setOpenForm} />
             ) : (
               <Button onClick={() => setOpenForm(true)}>Add new</Button>
             )}

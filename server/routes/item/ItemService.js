@@ -1,11 +1,21 @@
 import Item from "../../models/Item.js";
+import Collection from "../../models/Collection.js";
+import TagService from "../tag/tagService.js";
 
 class ItemService {
   async getAllItems() {
     return await Item.find({});
   }
   async createItem(item) {
-    const newItem = new Item(item);
+    item.tags.forEach(async (tag) => {
+      await TagService.createTag({ content: tag });
+    });
+    const idsTag = await TagService.getTagId(item.tags);
+    const newItem = new Item({ ...item, tags: idsTag });
+    await Collection.findOneAndUpdate(
+      { _id: item.collectionId },
+      { $push: { items: newItem } }
+    );
     await newItem.save();
   }
   async getItemsByUser(id) {
@@ -23,11 +33,7 @@ class ItemService {
   }
   async updateItem(req) {
     const { id } = req.params;
-    await Item.findOneAndUpdate(
-      { _id: id },
-      { ...req.body },
-      { new: true }
-    );
+    await Item.findOneAndUpdate({ _id: id }, { ...req.body }, { new: true });
   }
 }
 

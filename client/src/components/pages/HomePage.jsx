@@ -9,9 +9,9 @@ const HomePage = () => {
   return (
     <section>
       <Box p={3} pt="70px">
-        <Typography variant="h3">Popular</Typography>
+        <Typography variant="h3">Largest</Typography>
         <Box m="20px 0">
-          <Collections variant="popular" />
+          <Collections variant="largest" />
         </Box>
       </Box>
       <ToastContainer

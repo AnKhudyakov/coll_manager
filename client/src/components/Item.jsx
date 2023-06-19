@@ -25,7 +25,7 @@ const Item = ({ item }) => {
           <Typography gutterBottom variant="h5" component="div">
             Tags:
           </Typography>
-          {item?.tags.map((tag) => (
+          {item?.tags?.map((tag) => (
             <Button key={tag} onClick={() => navigate(`/search?text=${tag}`)}>
               #{tag}
             </Button>

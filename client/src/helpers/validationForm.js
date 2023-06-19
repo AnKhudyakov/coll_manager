@@ -44,7 +44,7 @@ export const schemaCollection = yup.object().shape({
   description: yup
     .string()
     .required("No description provided.")
-    .max(250, "Description is too long - should be 250 chars maximum."),
+    .max(450, "Description is too long - should be 250 chars maximum."),
   topic: yup
     .string()
     .required("No topic provided.")

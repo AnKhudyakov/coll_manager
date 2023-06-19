@@ -6,6 +6,7 @@ import authRouter from "./routes/auth/authRouter.js";
 import userRouter from "./routes/user/userRouter.js";
 import collectionRouter from "./routes/collection/collectionRouter.js"
 import itemRouter from "./routes/item/itemRouter.js"
+import tagRouter from "./routes/tag/tagRouter.js"
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.use("/auth", authRouter);
 app.use("/users", userRouter);
 app.use("/collections", collectionRouter);
 app.use("/items", itemRouter);
+app.use("/tags", tagRouter);
 
 async function start() {
   try {

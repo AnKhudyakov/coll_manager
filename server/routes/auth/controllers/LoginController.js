@@ -16,7 +16,7 @@ class LoginController {
         const token = AuthService.createToken(user.email);
         return res.status(200).json({
           user: {
-            id: user.id,
+            _id: user.id,
             username: user.username,
             email: user.email,
             admin: false,

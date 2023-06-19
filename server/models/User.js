@@ -16,6 +16,12 @@ const User = new Schema({
   },
   admin: { type: Boolean, required: true },
   blocked: { type: Boolean, required: true },
+  collections: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Collection",
+    },
+  ],
 });
 
 export default model("User", User);

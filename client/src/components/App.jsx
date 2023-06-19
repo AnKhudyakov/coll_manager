@@ -16,8 +16,9 @@ import { useGetUserByIdQuery } from "@/app/services/user";
 
 function App() {
   const dispatch = useDispatch();
-  const { data: user, isLoading } = useGetUserByIdQuery(getUserId());
-
+  const { data: user, isLoading } = getUserId()
+    ? useGetUserByIdQuery(getUserId())
+    : "";
   useEffect(() => {
     if (user) {
       dispatch(setCredentials({ user, token: getToken() }));

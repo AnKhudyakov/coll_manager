@@ -11,7 +11,6 @@ const ItemForm = ({ setOpenForm, collectionId }) => {
   const [postItem, { isLoading }] = usePostItemMutation();
   const tags = ["Car", "Wine", "Stock"];
   const handleFormSubmit = async (values, actions) => {
-    console.log("HERE");
     try {
       const newItem = {
         ...values,

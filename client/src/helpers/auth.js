@@ -4,7 +4,7 @@ export const setToken = (data, navigate) => {
   if (typeof window === "undefined") {
     return;
   }
-  Cookies.set("id", data.user.id, { sameSite: "strict", secure: true });
+  Cookies.set("id", data.user._id, { sameSite: "strict", secure: true });
   Cookies.set("username", data.user.username, {
     sameSite: "strict",
     secure: true,
