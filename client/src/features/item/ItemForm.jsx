@@ -9,15 +9,17 @@ import {
   usePostItemMutation,
   useUpdateItemMutation,
 } from "@/app/services/item";
+import { useGetTagsQuery } from "@/app/services/tag";
 
-const ItemForm = ({ setOpenForm, collectionId, variant, name, tags }) => {
+const ItemForm = ({ setOpenForm, collectionId, variant, item }) => {
   const [postItem, { isLoading }] = usePostItemMutation();
-  const [update, { isLoading: isUpdate }] = useUpdateItemMutation();
-  const initTags = ["Car", "Wine", "Stock", "Snowboard"];
+  const [updateItem, { isLoading: isUpdating }] = useUpdateItemMutation();
+  const { data: initTags, isLoading: isLoadingTags } = useGetTagsQuery();
+  const { _id, name, tags } = item;
   const handleFormSubmit = async (values, actions) => {
     try {
       if (variant === "edit") {
-        await update(values).unwrap();
+        await updateItem({id:_id, ...values}).unwrap();
       } else {
         const newItem = {
           ...values,
@@ -29,7 +31,7 @@ const ItemForm = ({ setOpenForm, collectionId, variant, name, tags }) => {
         await postItem(newItem).unwrap();
       }
       actions.resetForm();
-      toast.success("Successful create new item");
+      toast.success("Successful");
       setOpenForm(false);
     } catch (err) {
       toast.error(err.response.data.message);
@@ -67,7 +69,7 @@ const ItemForm = ({ setOpenForm, collectionId, variant, name, tags }) => {
         onChange={(event, value) => {
           formik.setFieldValue("tags", [...value]);
         }}
-        options={initTags}
+        options={initTags ? initTags.map((tag) => tag.content) : []}
         getOptionLabel={(option) => option}
         renderTags={(tagValue, getTagProps) =>
           tagValue.map((option, index) => (
@@ -105,7 +107,7 @@ const ItemForm = ({ setOpenForm, collectionId, variant, name, tags }) => {
             m: "20px 0",
           }}
         >
-          {(variant = "edit" ? "Update" : "Create")}
+          {variant === "edit" ? "Update" : "Create"}
         </Button>
       </Box>
 

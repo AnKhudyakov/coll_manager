@@ -33,6 +33,7 @@ export const collectionApi = createApi({
       query: (id) => ({
         url: `/collections/${id}`,
       }),
+      providesTags: ["Collections"],
     }),
     postCollection: builder.mutation({
       query: (credentials) => ({
@@ -47,12 +48,15 @@ export const collectionApi = createApi({
         url: `/collections/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["Collections"],
     }),
     updateCollection: builder.mutation({
-      query: (id) => ({
+      query: ({id, ...patch}) => ({
         url: `/collections/${id}`,
-        method: "PATCH",
+        method: "PUT",
+        body: patch,
       }),
+      invalidatesTags: ["Collections"],
     }),
   }),
 });

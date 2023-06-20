@@ -1,10 +1,6 @@
-import { Box, Typography } from "@mui/material";
 import { useGetItemsByCollectionQuery } from "@/app/services/item";
-import CollectionCard from "@/components/CollectionCard";
-import { useEffect, useState } from "react";
 import ItemCard from "@/components/ItemCard";
-import { useSelector, useDispatch } from "react-redux";
-import { selectCurrentUser, setCredentials } from "@/features/auth/authSlice";
+import { Box, Typography } from "@mui/material";
 
 const Items = ({ collectionId }) => {
   const { data: items, isLoading } = useGetItemsByCollectionQuery(collectionId)

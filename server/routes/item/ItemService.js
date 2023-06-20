@@ -37,8 +37,13 @@ class ItemService {
   }
   async updateItem(req) {
     const { id } = req.params;
-    await Item.findOneAndUpdate({ _id: id }, { ...req.body }, { new: true });
+    if(req.body.tags){
+    req.body.tags.forEach(async (tag) => {
+      await TagService.createTag({ content: tag });
+    });
+  }
+    const idsTag = await TagService.getTagId(req.body.tags);
+    await Item.findOneAndUpdate({ _id: id }, { ...req.body,tags:idsTag }, { new: true });
   }
 }
-
 export default new ItemService();

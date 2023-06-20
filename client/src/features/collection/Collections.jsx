@@ -16,7 +16,7 @@ const Collections = ({ variant }) => {
       : "";
       
   return (
-    <Box display="flex" flexDirection="column" gap={2} mt={1}>
+    <Box display="flex" flexWrap="wrap" gap={2} mt={1}>
       {!userCollections?.length && variant === "profile" && (
         <Typography>You don't have any collections yet.</Typography>
       )}

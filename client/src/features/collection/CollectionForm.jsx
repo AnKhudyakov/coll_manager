@@ -19,13 +19,19 @@ import ImageIcon from "@mui/icons-material/Image";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { getUserId } from "@/helpers/auth";
-import { usePostCollectionMutation } from "@/app/services/collection";
+import {
+  usePostCollectionMutation,
+  useUpdateCollectionMutation,
+} from "@/app/services/collection";
 import { useState } from "react";
 import { useUploadMutation } from "@/app/services/uplooadImage";
 
-const CollectionForm = ({ setOpenForm }) => {
+const CollectionForm = ({ setOpenForm, variant, collection }) => {
   const [image, setImage] = useState("");
+  const { _id, name, description, topic } = collection;
   const [postCollection, { isLoading }] = usePostCollectionMutation();
+  const [updateCollection, { isLoading: isUpdating }] =
+    useUpdateCollectionMutation();
   const [upload, { isLoading: isUploading }] = useUploadMutation();
   const ref = useRef(null);
   const handleFormSubmit = async (values, actions) => {
@@ -40,24 +46,37 @@ const CollectionForm = ({ setOpenForm }) => {
           import.meta.env.VITE_CLOUDINARY_CLOUD_NAME
         );
         responseUpload = await upload(formData).unwrap();
+        if (variant === "edit") {
+          const collection = {
+            ...values,
+            image: responseUpload ? responseUpload.secure_url : "",
+          };
+          await updateCollection({ id: _id, ...collection }).unwrap();
+        }
+      } else {
+        if (variant === "edit") {
+          await updateCollection({ id: _id, ...values }).unwrap();
+        } else {
+          const newCollection = {
+            ...values,
+            author: getUserId(),
+            image: responseUpload ? responseUpload.secure_url : "",
+            customFields: [],
+          };
+          await postCollection(newCollection).unwrap();
+        }
       }
-      const newCollection = {
-        ...values,
-        author: getUserId(),
-        image: responseUpload ? responseUpload.secure_url : "",
-        customFields: [],
-      };
-      await postCollection(newCollection).unwrap();
       actions.resetForm();
       toast.success("Successful create new collection");
-
       setOpenForm(false);
     } catch (err) {
       toast.error(err.response.data.message);
     }
   };
+  const currentValues =
+    variant === "edit" ? { name, description, topic } : initialValues;
   const formik = useFormik({
-    initialValues,
+    initialValues: currentValues,
     onSubmit: handleFormSubmit,
     validationSchema: schemaCollection,
   });
@@ -169,10 +188,9 @@ const CollectionForm = ({ setOpenForm }) => {
             m: "20px 0",
           }}
         >
-          Create
+          {variant === "edit" ? "Update" : "Create"}
         </Button>
       </Box>
-
       <ToastContainer
         position="bottom-center"
         autoClose={5000}

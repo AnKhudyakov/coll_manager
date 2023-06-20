@@ -1,10 +1,13 @@
+import Item from "../../models/Item.js";
 import Collection from "../../models/Collection.js";
 import User from "../../models/User.js";
 
 class CollectionService {
   async getAllCollections(query) {
     const { limit, sort_by, sort_order } = query;
-    return await Collection.find({}).limit(limit).sort({ [sort_by]: sort_order });
+    return await Collection.find({})
+      .limit(limit)
+      .sort({ [sort_by]: sort_order });
   }
   async createCollection(collection) {
     const newCollection = new Collection(collection);
@@ -22,6 +25,7 @@ class CollectionService {
   }
   async removeCollection(id) {
     const collection = await Collection.findOneAndDelete({ _id: id });
+    await Item.deleteMany({ _id: { $in: collection.items } });
     return collection;
   }
   async updateCollection(req) {

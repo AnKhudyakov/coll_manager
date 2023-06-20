@@ -25,7 +25,7 @@ router.delete(
   CollectionController.removeCollection
 );
 
-router.patch(
+router.put(
   `/:id`,
   authMiddleware,
   validateBlocked,

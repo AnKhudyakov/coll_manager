@@ -22,7 +22,7 @@ router.delete(
   ItemController.removeItem
 );
 
-router.patch(
+router.put(
   `/:id`,
   authMiddleware,
   validateBlocked,

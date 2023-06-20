@@ -1,6 +1,6 @@
 import { useGetCollectionByIdQuery } from "@/app/services/collection";
 import { useParams } from "react-router";
-import CollectionCard from "@/components/CollectionCard";
+import Collection from "./Collection";
 import { Box, Button, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import Items from "../item/Items";
@@ -26,7 +26,7 @@ const CollectionPage = () => {
         <Typography variant="h1">Loading...</Typography>
       ) : (
         <>
-          <CollectionCard collection={collection} />
+          <Collection collection={collection} variant="page"/>
           <Typography variant="h3" mt={2}>
             Items:
           </Typography>

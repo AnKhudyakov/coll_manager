@@ -79,8 +79,7 @@ const Item = ({ item }) => {
           variant="edit"
           setOpenForm={setOpenForm}
           collectionId={item.collectionId}
-          name={item?.name}
-          tags={item?.tags}
+          item={item}
         />
       )}
       <Box p={2}>

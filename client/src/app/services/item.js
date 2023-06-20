@@ -6,9 +6,7 @@ export const itemApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_URL,
     prepareHeaders: (headers, { getState }) => {
-      const token = getToken()
-        ? getToken()
-        : getState().auth.token;
+      const token = getToken() ? getToken() : getState().auth.token;
       if (token) {
         headers.set("authorization", `Bearer ${token}`);
       }
@@ -27,6 +25,7 @@ export const itemApi = createApi({
       query: (id) => ({
         url: `/items/${id}`,
       }),
+      providesTags: ["Items"],
     }),
     getItemsByUser: builder.query({
       query: (id) => ({
@@ -56,9 +55,10 @@ export const itemApi = createApi({
       invalidatesTags: ["Items"],
     }),
     updateItem: builder.mutation({
-      query: (id) => ({
+      query: ({id, ...patch}) => ({
         url: `/items/${id}`,
-        method: "PATCH",
+        method: "PUT",
+        body: patch,
       }),
       invalidatesTags: ["Items"],
     }),

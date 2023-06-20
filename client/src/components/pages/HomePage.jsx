@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
-
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Collections from "@/features/collection/Collections";
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
+import { useGetTagsQuery } from "@/app/services/tag";
 
 const HomePage = () => {
+  const { data: tags, isLoading } = useGetTagsQuery();
   return (
     <section>
       <Box p={3} pt="70px">
@@ -14,17 +13,16 @@ const HomePage = () => {
           <Collections variant="largest" />
         </Box>
       </Box>
-      <ToastContainer
-        position="bottom-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
+      {tags?.map((tag) => (
+                <Button
+                  sx={{ mx: 1 }}
+                  key={tag._id}
+                  onClick={() => navigate(`/search?text=${tag}`)}
+                >
+                  #{tag.content}
+                </Button>
+              ))}
+
     </section>
   );
 };
