@@ -1,4 +1,5 @@
 import ItemService from "../itemService.js";
+import TagService from "../../tag/tagService.js";
 
 class ItemController {
   async getItems(req, res) {
@@ -15,15 +16,16 @@ class ItemController {
   }
   async getItemById(req, res) {
     try {
-      const item = await ItemService.getItemById(
-        req.params.id
-      );
+      const item = await ItemService.getItemById(req.params.id);
       if (!item) {
-        return res
-          .status(404)
-          .json({ message: "Item doesn't exist" });
+        return res.status(404).json({ message: "Item doesn't exist" });
       }
-      return res.status(200).json(item);
+      const tags = (await TagService.getTagContent(item.tags)).map((tag) => tag.content);
+      const resultItem = {
+        ...item._doc,
+        tags,
+      };
+      return res.status(200).json(resultItem);
     } catch (e) {
       console.log(e);
       return res.status(500).json({ message: "Server error" });
@@ -31,15 +33,23 @@ class ItemController {
   }
   async getItemsByCollection(req, res) {
     try {
-      const items = await ItemService.getItemsByCollection(
-        req.params.id
-      );
+      const items = await ItemService.getItemsByCollection(req.params.id);
       if (!items) {
         return res
           .status(404)
           .json({ message: "No items found for collection" });
       }
-      return res.status(200).json(items);
+      const resultItems = await Promise.all(
+        items.map(async (item) => {
+          const tags = await TagService.getTagContent(item.tags);
+          const tagContent = tags.map((tag) => tag.content);
+          return {
+            ...item._doc,
+            tags: tagContent,
+          };
+        })
+      );
+      return res.status(200).json(resultItems);
     } catch (e) {
       console.log(e);
       return res.status(500).json({ message: "Server error" });
@@ -47,13 +57,9 @@ class ItemController {
   }
   async getItemsByUser(req, res) {
     try {
-      const items = await ItemService.getItemsByUser(
-        req.params.id
-      );
+      const items = await ItemService.getItemsByUser(req.params.id);
       if (!items) {
-        return res
-          .status(404)
-          .json({ message: "No items found for user" });
+        return res.status(404).json({ message: "No items found for user" });
       }
       return res.status(200).json(items);
     } catch (e) {
@@ -72,9 +78,7 @@ class ItemController {
   }
   async removeItem(req, res) {
     try {
-      const item = await ItemService.removeItem(
-        req.params.id
-      );
+      const item = await ItemService.removeItem(req.params.id);
       return res.status(200).json(item);
     } catch (e) {
       console.log(e);

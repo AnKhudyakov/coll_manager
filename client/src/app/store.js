@@ -5,6 +5,7 @@ import { authApi } from "./services/auth";
 import { collectionApi } from "./services/collection";
 import { itemApi } from "./services/item";
 import { userApi } from "./services/user";
+import { tagApi } from "./services/tag";
 import { uploadImageApi } from "./services/uplooadImage";
 
 const rootReducer = combineReducers({
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   [collectionApi.reducerPath]: collectionApi.reducer,
   [itemApi.reducerPath]: itemApi.reducer,
   [userApi.reducerPath]: userApi.reducer,
+  [tagApi.reducerPath]: tagApi.reducer,
   [uploadImageApi.reducerPath]: uploadImageApi.reducer,
 });
 
@@ -25,5 +27,6 @@ export const store = configureStore({
       .concat(collectionApi.middleware)
       .concat(itemApi.middleware)
       .concat(userApi.middleware)
+      .concat(tagApi.middleware)
       .concat(uploadImageApi.middleware),
 });

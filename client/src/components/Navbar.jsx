@@ -9,7 +9,7 @@ import {
 } from "@mui/icons-material";
 import SearchMenu from "@/components/SearchMenu";
 import { unsetToken } from "@/helpers/auth";
-import { selectCurrentUser,setCredentials } from "@/features/auth/authSlice";
+import { selectCurrentUser, setCredentials } from "@/features/auth/authSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 const Navbar = () => {

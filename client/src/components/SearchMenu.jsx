@@ -52,7 +52,6 @@ const SearchMenu = () => {
   const navigate = useNavigate();
   const handleSearch = (e) => {
     if (e.keyCode === 13) {
-      console.log("SEARCH",e.target.value);
       navigate(`/search?text=${e.target.value}`)
     }
   };

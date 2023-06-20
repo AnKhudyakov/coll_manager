@@ -10,11 +10,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectCurrentUser, setCredentials } from "@/features/auth/authSlice";
 
 const CollectionPage = () => {
-  // const [collection, setCollection] = useState(null);
   const [openForm, setOpenForm] = useState(false);
   const { id } = useParams();
   const { data: collection, isLoading } = useGetCollectionByIdQuery(id);
-
   const user = useSelector(selectCurrentUser);
 
   return (

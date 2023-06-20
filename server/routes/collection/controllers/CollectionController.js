@@ -3,7 +3,7 @@ import CollectionService from "../CollectionService.js";
 class CollectionController {
   async getCollections(req, res) {
     try {
-      const collections = await CollectionService.getAllCollections();
+      const collections = await CollectionService.getAllCollections(req.query);
       if (!collections) {
         return res.status(404).json({ message: "DB is empty" });
       }
@@ -19,9 +19,7 @@ class CollectionController {
         req.params.id
       );
       if (!collection) {
-        return res
-          .status(404)
-          .json({ message: "Collection doesn't exist" });
+        return res.status(404).json({ message: "Collection doesn't exist" });
       }
       return res.status(200).json(collection);
     } catch (e) {

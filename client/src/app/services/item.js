@@ -15,7 +15,7 @@ export const itemApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["Collection"],
+  tagTypes: ["Item"],
   endpoints: (builder) => ({
     getItems: builder.query({
       query: () => ({
@@ -53,12 +53,14 @@ export const itemApi = createApi({
         url: `/items/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["Items"],
     }),
     updateItem: builder.mutation({
       query: (id) => ({
         url: `/items/${id}`,
         method: "PATCH",
       }),
+      invalidatesTags: ["Items"],
     }),
   }),
 });

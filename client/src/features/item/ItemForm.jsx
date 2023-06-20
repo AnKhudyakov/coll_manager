@@ -5,21 +5,29 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Autocomplete, Box, Button, Chip, TextField } from "@mui/material";
 import { getUserId } from "@/helpers/auth";
-import { usePostItemMutation } from "@/app/services/item";
+import {
+  usePostItemMutation,
+  useUpdateItemMutation,
+} from "@/app/services/item";
 
-const ItemForm = ({ setOpenForm, collectionId }) => {
+const ItemForm = ({ setOpenForm, collectionId, variant, name, tags }) => {
   const [postItem, { isLoading }] = usePostItemMutation();
-  const tags = ["Car", "Wine", "Stock"];
+  const [update, { isLoading: isUpdate }] = useUpdateItemMutation();
+  const initTags = ["Car", "Wine", "Stock", "Snowboard"];
   const handleFormSubmit = async (values, actions) => {
     try {
-      const newItem = {
-        ...values,
-        author: getUserId(),
-        collectionId,
-        likes: [],
-        customFields: [],
-      };
-      await postItem(newItem).unwrap();
+      if (variant === "edit") {
+        await update(values).unwrap();
+      } else {
+        const newItem = {
+          ...values,
+          author: getUserId(),
+          collectionId,
+          likes: [],
+          customFields: [],
+        };
+        await postItem(newItem).unwrap();
+      }
       actions.resetForm();
       toast.success("Successful create new item");
       setOpenForm(false);
@@ -27,12 +35,13 @@ const ItemForm = ({ setOpenForm, collectionId }) => {
       toast.error(err.response.data.message);
     }
   };
+  //TODO: add custom hook getExistValues
+  const currentValues = variant === "edit" ? { name, tags } : initialValues;
   const formik = useFormik({
-    initialValues,
+    initialValues: currentValues,
     onSubmit: handleFormSubmit,
     validationSchema: schemaItem,
   });
-  console.log(formik);
   return (
     <form onSubmit={formik.handleSubmit}>
       <TextField
@@ -51,13 +60,14 @@ const ItemForm = ({ setOpenForm, collectionId }) => {
         sx={{ mt: 2 }}
         multiple
         freeSolo
+        fullWidth
         includeInputInList
         name="tags"
         value={formik.values.tags}
         onChange={(event, value) => {
           formik.setFieldValue("tags", [...value]);
         }}
-        options={tags}
+        options={initTags}
         getOptionLabel={(option) => option}
         renderTags={(tagValue, getTagProps) =>
           tagValue.map((option, index) => (
@@ -68,7 +78,6 @@ const ItemForm = ({ setOpenForm, collectionId }) => {
             />
           ))
         }
-        style={{ width: 500 }}
         renderInput={(params) => (
           <TextField {...params} label="Tags" placeholder="Add tag..." />
         )}
@@ -96,7 +105,7 @@ const ItemForm = ({ setOpenForm, collectionId }) => {
             m: "20px 0",
           }}
         >
-          Create
+          {(variant = "edit" ? "Update" : "Create")}
         </Button>
       </Box>
 

@@ -19,7 +19,7 @@ export const collectionApi = createApi({
   endpoints: (builder) => ({
     getCollections: builder.query({
       query: () => ({
-        url: "/collections",
+        url: "/collections?limit=5&&sort_by=items&sort_order=desc",
       }),
       providesTags: ["Collections"],
     }),

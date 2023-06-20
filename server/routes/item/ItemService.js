@@ -14,7 +14,7 @@ class ItemService {
     const newItem = new Item({ ...item, tags: idsTag });
     await Collection.findOneAndUpdate(
       { _id: item.collectionId },
-      { $push: { items: newItem } }
+      { $push: { items: idsTag } }
     );
     await newItem.save();
   }
@@ -29,6 +29,10 @@ class ItemService {
   }
   async removeItem(id) {
     const item = await Item.findOneAndDelete({ _id: id });
+    await Collection.findOneAndUpdate(
+      { _id: item.collectionId },
+      { $pull: { items: id } }
+    );
     return item;
   }
   async updateItem(req) {
