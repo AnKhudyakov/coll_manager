@@ -23,12 +23,13 @@ const FormLogin = () => {
       actions.resetForm();
       toast.success("Successful Login");
     } catch (err) {
-      switch (err.response.status) {
+      switch (err.status) {
         case 400:
           toast.error("Invalid email or password");
           break;
         default:
-          toast.error(err.response.data.message);
+          toast.error(err.data.message);
+          break;
       }
     }
   };

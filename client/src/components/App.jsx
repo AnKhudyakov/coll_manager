@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router";
 import { BrowserRouter } from "react-router-dom";
 
 import Layout from "@/components/Layout";
-import Auth from "@/features/auth/Auth";
+import AuthPage from "@/features/auth/AuthPage";
 import HomePage from "@/components/pages/HomePage";
 import ProfilePage from "@/components/pages/ProfilePage";
 import CollectionPage from "@/features/collection/CollectionPage";
@@ -13,6 +13,8 @@ import { getToken, getUserId } from "@/helpers/auth";
 import { setCredentials } from "@/features/auth/authSlice";
 import { useDispatch } from "react-redux";
 import { useGetUserByIdQuery } from "@/app/services/user";
+import { Box, CircularProgress } from "@mui/material";
+import AdminPage from "@/components/pages/AdminPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,14 +26,27 @@ function App() {
       dispatch(setCredentials({ user, token: getToken() }));
     }
   }, [user]);
+  if (isLoading) {
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        height="100vh"
+        alignItems="center"
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
   return (
     <BrowserRouter>
       <Layout>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<Auth variant="login" />} />
-          <Route path="/register" element={<Auth variant="register" />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/login" element={<AuthPage variant="login" />} />
+          <Route path="/register" element={<AuthPage variant="register" />} />
+          <Route path="/profile" element={<ProfilePage/>} />
+          <Route path="/admin" element={<AdminPage/>} />
           <Route path="/collections/:id" element={<CollectionPage />} />
           <Route path="/items/:id" element={<ItemPage />} />
           <Route path="/search" element={<SearchPage />} />

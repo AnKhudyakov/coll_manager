@@ -6,9 +6,7 @@ export const collectionApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_URL,
     prepareHeaders: (headers, { getState }) => {
-      const token = getToken()
-        ? getToken()
-        : getState().auth.token;
+      const token = getToken() ? getToken() : getState().auth.token;
       if (token) {
         headers.set("authorization", `Bearer ${token}`);
       }
@@ -18,8 +16,8 @@ export const collectionApi = createApi({
   tagTypes: ["Collection"],
   endpoints: (builder) => ({
     getCollections: builder.query({
-      query: () => ({
-        url: "/collections?limit=5&&sort_by=items&sort_order=desc",
+      query: ({ limit, sort_by, sort_order }) => ({
+        url: `/collections?limit=${limit}&&sort_by=${sort_by}&sort_order=${sort_order}`,
       }),
       providesTags: ["Collections"],
     }),
@@ -51,7 +49,7 @@ export const collectionApi = createApi({
       invalidatesTags: ["Collections"],
     }),
     updateCollection: builder.mutation({
-      query: ({id, ...patch}) => ({
+      query: ({ id, ...patch }) => ({
         url: `/collections/${id}`,
         method: "PUT",
         body: patch,

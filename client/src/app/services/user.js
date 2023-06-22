@@ -21,32 +21,35 @@ export const userApi = createApi({
       query: () => ({
         url: "/users",
       }),
-      providesTags: ["Users"],
+      providesTags: ["User"],
     }),
     getUserById: builder.query({
       query: (id) => ({
         url: `/users/${id}`,
       }),
     }),
-    postUser: builder.mutation({
-      query: (credentials) => ({
-        url: "/users",
-        method: "POST",
-        body: credentials,
-      }),
-      invalidatesTags: ["Collections"],
-    }),
+    // postUser: builder.mutation({
+    //   query: (credentials) => ({
+    //     url: "/users",
+    //     method: "POST",
+    //     body: credentials,
+    //   }),
+    //   invalidatesTags: ["User"],
+    // }),
     removeUser: builder.mutation({
       query: (id) => ({
         url: `/users/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["User"],
     }),
     updateUser: builder.mutation({
-      query: (id) => ({
+      query: ({ id, ...patch }) => ({
         url: `/users/${id}`,
-        method: "PATCH",
+        method: "PUT",
+        body: patch,
       }),
+      invalidatesTags: ["User"],
     }),
   }),
 });
@@ -54,7 +57,7 @@ export const userApi = createApi({
 export const {
   useGetUsersQuery,
   useGetUserByIdQuery,
-  usePostUserMutation,
+  //usePostUserMutation,
   useRemoveUserMutation,
   useUpdateUserMutation,
 } = userApi;

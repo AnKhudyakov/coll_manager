@@ -6,6 +6,7 @@ import {
   PersonOutline,
   LoginOutlined,
   LogoutOutlined,
+  SupervisorAccount,
 } from "@mui/icons-material";
 import SearchMenu from "@/components/SearchMenu";
 import { unsetToken } from "@/helpers/auth";
@@ -21,6 +22,7 @@ const Navbar = () => {
     dispatch(setCredentials({ user: null, token: null }));
     unsetToken(navigate);
   };
+
   return (
     <nav>
       <Box
@@ -37,8 +39,9 @@ const Navbar = () => {
         justifyContent="space-between"
       >
         <Box
-          width={isNonTablet ? "80%" : "100%"}
-          margin={isNonTablet ? "auto" : "5%"}
+        px={2}
+          width={isNonTablet ? "1250px" : "100%"}
+          mx="auto"
           display="flex"
           justifyContent="space-between"
           alignItems="center"
@@ -59,6 +62,7 @@ const Navbar = () => {
           <SearchMenu />
 
           <Box
+          px={1}
             display="flex"
             justifyContent="space-between"
             columnGap={isNonTablet ? "60px" : "15px"}
@@ -71,6 +75,14 @@ const Navbar = () => {
             </Link>
             {user ? (
               <>
+                {user.admin && (
+                  <Link to="/admin">
+                    <IconButton sx={{ color: "rgba(255, 255, 255, .8)" }}>
+                      <SupervisorAccount />
+                    </IconButton>
+                  </Link>
+                )}
+
                 <Link to="/profile">
                   <IconButton sx={{ color: "rgba(255, 255, 255, .8)" }}>
                     <PersonOutline />

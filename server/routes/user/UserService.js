@@ -4,11 +4,19 @@ class UserService {
   async getUserByEmail(email) {
     return await User.findOne({ email });
   }
+  // async createUser(user) {
+  //   const newUser = new User(user);
+  //   await newUser.save();
+  // }
   async getUserById(id) {
     return await User.findOne({ _id: id }).select({ password: 0 });
   }
   async getAllUsers() {
     return await User.find({}).select({ password: 0 });
+  }
+  async updateUser(req) {
+    const { id } = req.params;
+    await User.findOneAndUpdate({ _id: id }, { ...req.body }, { new: true });
   }
   async removeUser(id) {
     const user = await User.findOne({ _id: id }).select({ password: 0 });

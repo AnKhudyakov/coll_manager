@@ -7,21 +7,19 @@ const router = Router();
 
 router.get("/", TagController.getTags);
 
-router.post(`/`, authMiddleware, validateBlocked, TagController.createTag);
+router.post(`/`, authMiddleware, TagController.createTag);
 
 router.get("/:id", TagController.getTagById);
 
 router.delete(
   `/:id`,
   authMiddleware,
-  validateBlocked,
   TagController.removeTag
 );
 
 router.patch(
   `/:id`,
   authMiddleware,
-  validateBlocked,
   TagController.updateTag
 );
 

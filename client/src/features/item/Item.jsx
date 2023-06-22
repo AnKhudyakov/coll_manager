@@ -1,3 +1,7 @@
+import { useRemoveItemMutation } from "@/app/services/item";
+import { selectCurrentUser } from "@/features/auth/authSlice";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import {
   Box,
   Button,
@@ -6,14 +10,9 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { useRemoveItemMutation } from "@/app/services/item";
-import { useGetTagByIdQuery } from "@/app/services/tag";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import { useSelector } from "react-redux";
-import { selectCurrentUser } from "@/features/auth/authSlice";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import ItemForm from "./ItemForm";
 
 const Item = ({ item }) => {

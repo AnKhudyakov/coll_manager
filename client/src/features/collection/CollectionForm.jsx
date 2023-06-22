@@ -28,7 +28,6 @@ import { useUploadMutation } from "@/app/services/uplooadImage";
 
 const CollectionForm = ({ setOpenForm, variant, collection }) => {
   const [image, setImage] = useState("");
-  const { _id, name, description, topic } = collection;
   const [postCollection, { isLoading }] = usePostCollectionMutation();
   const [updateCollection, { isLoading: isUpdating }] =
     useUpdateCollectionMutation();
@@ -47,15 +46,18 @@ const CollectionForm = ({ setOpenForm, variant, collection }) => {
         );
         responseUpload = await upload(formData).unwrap();
         if (variant === "edit") {
-          const collection = {
+          const newCollection = {
             ...values,
             image: responseUpload ? responseUpload.secure_url : "",
           };
-          await updateCollection({ id: _id, ...collection }).unwrap();
+          await updateCollection({
+            id: collection._id,
+            ...newCollection,
+          }).unwrap();
         }
       } else {
         if (variant === "edit") {
-          await updateCollection({ id: _id, ...values }).unwrap();
+          await updateCollection({ id: collection._id, ...values }).unwrap();
         } else {
           const newCollection = {
             ...values,
@@ -70,11 +72,17 @@ const CollectionForm = ({ setOpenForm, variant, collection }) => {
       toast.success("Successful create new collection");
       setOpenForm(false);
     } catch (err) {
-      toast.error(err.response.data.message);
+      toast.error(err.data.message);
     }
   };
   const currentValues =
-    variant === "edit" ? { name, description, topic } : initialValues;
+    variant === "edit"
+      ? {
+          name: collection.name,
+          description: collection.description,
+          topic: collection.topic,
+        }
+      : initialValues;
   const formik = useFormik({
     initialValues: currentValues,
     onSubmit: handleFormSubmit,

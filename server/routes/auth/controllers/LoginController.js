@@ -1,14 +1,10 @@
-import UserService from "../../user/UserService.js";
 import AuthService from "../AuthService.js";
 
 class LoginController {
   async loginUser(req, res) {
     try {
-      const user = await UserService.getUserByEmail(req.body.email);
-      if (!user) {
-        return res.status(404).json({ message: "User doesn't exist" });
-      }
-      const validate = AuthService.validateUser(
+      const user = req.user;
+      const validate = await AuthService.validateUser(
         user.password,
         req.body.password
       );
@@ -19,8 +15,8 @@ class LoginController {
             _id: user.id,
             username: user.username,
             email: user.email,
-            admin: false,
-            blocked: false,
+            admin: user.admin,
+            blocked: user.blocked,
           },
           token,
         });

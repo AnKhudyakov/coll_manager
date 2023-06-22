@@ -15,11 +15,11 @@ const ItemForm = ({ setOpenForm, collectionId, variant, item }) => {
   const [postItem, { isLoading }] = usePostItemMutation();
   const [updateItem, { isLoading: isUpdating }] = useUpdateItemMutation();
   const { data: initTags, isLoading: isLoadingTags } = useGetTagsQuery();
-  const { _id, name, tags } = item;
+  //const { _id, name, tags } = item;
   const handleFormSubmit = async (values, actions) => {
     try {
       if (variant === "edit") {
-        await updateItem({id:_id, ...values}).unwrap();
+        await updateItem({ id: item._id, ...values }).unwrap();
       } else {
         const newItem = {
           ...values,
@@ -34,11 +34,12 @@ const ItemForm = ({ setOpenForm, collectionId, variant, item }) => {
       toast.success("Successful");
       setOpenForm(false);
     } catch (err) {
-      toast.error(err.response.data.message);
+      toast.error(err.data.message);
     }
   };
   //TODO: add custom hook getExistValues
-  const currentValues = variant === "edit" ? { name, tags } : initialValues;
+  const currentValues =
+    variant === "edit" ? { name: item.name, tags: item.tags } : initialValues;
   const formik = useFormik({
     initialValues: currentValues,
     onSubmit: handleFormSubmit,
@@ -76,7 +77,7 @@ const ItemForm = ({ setOpenForm, collectionId, variant, item }) => {
             <Chip
               label={option}
               {...getTagProps({ index })}
-              disabled={tags.indexOf(option) !== -1}
+              disabled={initTags.indexOf(option) !== -1}
             />
           ))
         }

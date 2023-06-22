@@ -1,10 +1,26 @@
 import Item from "../../models/Item.js";
 import Collection from "../../models/Collection.js";
 import TagService from "../tag/tagService.js";
+import User from "../../models/User.js";
 
 class ItemService {
-  async getAllItems() {
-    return await Item.find({});
+  async getAllItems(query) {
+    const { limit, sort_by, sort_order } = query;
+    const items = await Item.find({})
+      .limit(limit)
+      .sort({ [sort_by]: sort_order });
+    const resultItems = await Promise.all(
+      items.map(async (item) => {
+        const collection = await Collection.findOne({ _id: item.collectionId });
+        const user = await User.findOne({ _id: item.author });
+        return {
+          ...item._doc,
+          collectionId: collection.name,
+          author: user.username,
+        };
+      })
+    );
+    return resultItems;
   }
   async createItem(item) {
     item.tags.forEach(async (tag) => {
@@ -14,7 +30,7 @@ class ItemService {
     const newItem = new Item({ ...item, tags: idsTag });
     await Collection.findOneAndUpdate(
       { _id: item.collectionId },
-      { $push: { items: idsTag } }
+      { $push: { items: newItem._id } }
     );
     await newItem.save();
   }
@@ -37,13 +53,25 @@ class ItemService {
   }
   async updateItem(req) {
     const { id } = req.params;
-    if(req.body.tags){
-    req.body.tags.forEach(async (tag) => {
-      await TagService.createTag({ content: tag });
-    });
-  }
+    if (req.body.tags) {
+      req.body.tags.forEach(async (tag) => {
+        await TagService.createTag({ content: tag });
+      });
+    }
     const idsTag = await TagService.getTagId(req.body.tags);
-    await Item.findOneAndUpdate({ _id: id }, { ...req.body,tags:idsTag }, { new: true });
+    if (req.body.like) {
+      await Item.findOneAndUpdate(
+        { _id: id },
+        { ...req.body, tags: idsTag, $addToSet: { likes: req.body.like } },
+        { new: true }
+      );
+    } else {
+      await Item.findOneAndUpdate(
+        { _id: id },
+        { ...req.body, tags: idsTag },
+        { new: true }
+      );
+    }
   }
 }
 export default new ItemService();

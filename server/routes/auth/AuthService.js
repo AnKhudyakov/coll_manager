@@ -19,7 +19,7 @@ class AuthService {
     await newUser.save();
   }
   async validateUser(passwordBD, password) {
-    return bcrypt.compareSync(passwordBD, password);
+    return bcrypt.compareSync(password, passwordBD);
   }
   createToken(id) {
     return jwt.sign({ id }, process.env.SECRET_KEY, { expiresIn: "1h" });

@@ -10,7 +10,6 @@ router.get("/", CollectionController.getCollections);
 router.post(
   `/`,
   authMiddleware,
-  validateBlocked,
   CollectionController.createCollection
 );
 
@@ -21,14 +20,12 @@ router.get("/user/:id", CollectionController.getCollectionsByUser);
 router.delete(
   `/:id`,
   authMiddleware,
-  validateBlocked,
   CollectionController.removeCollection
 );
 
 router.put(
   `/:id`,
   authMiddleware,
-  validateBlocked,
   CollectionController.updateCollection
 );
 

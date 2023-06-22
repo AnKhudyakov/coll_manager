@@ -8,6 +8,7 @@ import ItemForm from "../item/ItemForm";
 import { getUserId } from "@/helpers/auth";
 import { useSelector, useDispatch } from "react-redux";
 import { selectCurrentUser, setCredentials } from "@/features/auth/authSlice";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const CollectionPage = () => {
   const [openForm, setOpenForm] = useState(false);
@@ -23,10 +24,17 @@ const CollectionPage = () => {
       backgroundColor="rgba(255, 255, 255, 1)"
     >
       {isLoading ? (
-        <Typography variant="h1">Loading...</Typography>
+        <Box
+          display="flex"
+          justifyContent="center"
+          height="100vh"
+          alignItems="center"
+        >
+          <CircularProgress />
+        </Box>
       ) : (
         <>
-          <Collection collection={collection} variant="page"/>
+          <Collection collection={collection} variant="page" />
           <Typography variant="h3" mt={2}>
             Items:
           </Typography>

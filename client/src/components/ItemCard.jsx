@@ -8,41 +8,57 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
-// import DeleteIcon from "@mui/icons-material/Delete";
-// import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from "react-router-dom";
-// import { useRemoveItemMutation } from "@/app/services/item";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { selectCurrentUser, setCredentials } from "@/features/auth/authSlice";
+import { useSelector } from "react-redux";
+import { useUpdateItemMutation } from "@/app/services/item";
 
-const ItemCard = ({ item }) => {
+const ItemCard = ({ item, variant }) => {
+  const user = useSelector(selectCurrentUser);
   const navigate = useNavigate();
-  // const [removeItem, { isLoading }] = useRemoveItemMutation();
-  // const handleDeleteItem = () => {
-  //   removeItem(item._id);
-  // };
+  const [updateItem, { isLoading: isUpdating }] = useUpdateItemMutation();
+
   return (
     <Card>
       <Box sx={{ display: "flex", alignItems: "center" }}>
         <CardActionArea onClick={() => navigate(`/items/${item._id}`)}>
           <CardContent>
-            <Typography gutterBottom variant="h3" component="div">
+            <Typography gutterBottom variant="h4" component="div">
               {item?.name}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {item?.likes.length}
-            </Typography>
-            {/* <IconButton sx={{ color: "rgba(255, 255, 255, .8)" }}>
-
-          </IconButton> */}
+            {variant === "last" && (
+              <Box>
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="div"
+                  color="secondary"
+                >
+                  {item?.collectionId}
+                </Typography>
+                <Typography gutterBottom variant="h5" component="div">
+                  {item?.author}
+                </Typography>
+              </Box>
+            )}
           </CardContent>
         </CardActionArea>
-        {/* <Box>
-        <IconButton aria-label="delete" onClick={handleDeleteItem}>
-          <EditIcon />
-        </IconButton>
-        <IconButton aria-label="delete" onClick={handleDeleteItem}>
-          <DeleteIcon />
-        </IconButton>
-        </Box> */}
+        {user && (
+          <Box>
+            <IconButton
+              aria-label="edit"
+              onClick={() =>
+                updateItem({ id: item._id, like: user._id }).unwrap()
+              }
+            >
+              <FavoriteIcon />
+            </IconButton>
+            <Typography gutterBottom variant="body2" color="text.secondary" textAlign="center">
+              {item?.likes.length}
+            </Typography>
+          </Box>
+        )}
       </Box>
     </Card>
   );

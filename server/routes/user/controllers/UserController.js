@@ -13,6 +13,15 @@ class UserController {
       return res.status(500).json({ message: "Server error" });
     }
   }
+  async createUser(req, res) {
+    try {
+      await UserService.createUser(req.body);
+      return res.status(200).json({ message: "User was created" });
+    } catch (e) {
+      console.log(e);
+      return res.status(500).json({ message: "Server error" });
+    }
+  }
   async getUser(req, res) {
     try {
       const user = await UserService.getUserById(req.params.id);
@@ -20,6 +29,15 @@ class UserController {
         return res.status(404).json({ message: "User doesn't exist" });
       }
       return res.status(200).json(user);
+    } catch (e) {
+      console.log(e);
+      return res.status(500).json({ message: "Server error" });
+    }
+  }
+  async updateUser(req, res) {
+    try {
+      await UserService.updateUser(req);
+      return res.status(200).json({ message: "User has been updated" });
     } catch (e) {
       console.log(e);
       return res.status(500).json({ message: "Server error" });

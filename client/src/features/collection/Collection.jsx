@@ -32,14 +32,14 @@ const Collection = ({ collection, variant }) => {
 
   return (
     <>
-    <Card sx={{ width: `${cardWidth}`, display: "flex", alignItems:"center" }}>
+    <Card sx={{width: `${cardWidth}`, display: "flex", alignItems:"center", justifyContent:"space-between", pr:3 }}>
       <CardMedia
         component="img"
         image={collection?.image}
         alt="Collection image"
         sx={{ width: `${imageWidth}`, height: "200px" }}
       />
-      <CardContent sx={{ width: "50%", height: "100%" }}>
+      <CardContent sx={{ width: "100%", height: "100%" }}>
         <Typography gutterBottom variant="h3" component="div">
           {collection?.name}
         </Typography>

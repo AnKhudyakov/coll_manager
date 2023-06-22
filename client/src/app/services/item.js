@@ -16,8 +16,8 @@ export const itemApi = createApi({
   tagTypes: ["Item"],
   endpoints: (builder) => ({
     getItems: builder.query({
-      query: () => ({
-        url: "/items",
+      query: ({limit, sort_by, sort_order}) => ({
+        url: `/items?limit=${limit}&&sort_by=${sort_by}&sort_order=${sort_order}`,
       }),
       providesTags: ["Items"],
     }),

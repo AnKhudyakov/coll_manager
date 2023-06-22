@@ -4,7 +4,7 @@ import TagService from "../../tag/tagService.js";
 class ItemController {
   async getItems(req, res) {
     try {
-      const items = await ItemService.getAllItems();
+      const items = await ItemService.getAllItems(req.query);
       if (!items) {
         return res.status(404).json({ message: "DB is empty" });
       }

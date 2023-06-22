@@ -17,6 +17,7 @@ export const schemaReg = yup.object().shape({
   password: yup
     .string()
     .required("No password provided.")
+    .min(5, "Password must be longer then 5 chars")
     .max(10, "Password is too long - should be 10 chars maximum."),
 });
 
@@ -49,15 +50,15 @@ export const schemaCollection = yup.object().shape({
     .string()
     .required("No topic provided.")
     .max(100, "Topic is too long - should be 100 chars maximum."),
-  });
+});
 
-  export const schemaItem = yup.object().shape({
-    name: yup
-      .string()
-      .max(100, "Name is too long - should be 100 chars maximum.")
-      .required("No name provided."),
-    tags: yup
-      .array()
-      .required("No tags provided.")
-      .max(10, "Should be 5 tags maximum."),
-    });
+export const schemaItem = yup.object().shape({
+  name: yup
+    .string()
+    .max(100, "Name is too long - should be 100 chars maximum.")
+    .required("No name provided."),
+  tags: yup
+    .array()
+    .required("No tags provided.")
+    .max(10, "Should be 5 tags maximum."),
+});

@@ -19,12 +19,12 @@ const FormReg = () => {
         navigate("/login");
       }, 1500);
     } catch (err) {
-      switch (err.response.status) {
+      switch (err.status) {
         case 401:
           toast.error("Email and Password already exist");
           break;
         default:
-          toast.error(err.response.data.message);
+          toast.error(err.data.message);
       }
     }
   };

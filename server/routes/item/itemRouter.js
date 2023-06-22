@@ -7,7 +7,7 @@ const router = Router();
 
 router.get("/", ItemController.getItems);
 
-router.post(`/`, authMiddleware, validateBlocked, ItemController.createItem);
+router.post(`/`, authMiddleware, ItemController.createItem);
 
 router.get("/:id", ItemController.getItemById);
 
@@ -18,14 +18,12 @@ router.get("/user/:id", ItemController.getItemsByUser);
 router.delete(
   `/:id`,
   authMiddleware,
-  validateBlocked,
   ItemController.removeItem
 );
 
 router.put(
   `/:id`,
   authMiddleware,
-  validateBlocked,
   ItemController.updateItem
 );
 

@@ -5,9 +5,23 @@ import User from "../../models/User.js";
 class CollectionService {
   async getAllCollections(query) {
     const { limit, sort_by, sort_order } = query;
-    return await Collection.find({})
-      .limit(limit)
-      .sort({ [sort_by]: sort_order });
+    const order = sort_order==="desc"?-1:1
+    const sortCollection = await Collection.aggregate([
+      {
+        $addFields: {
+          itemLength: { $size: `$${sort_by}` },
+        },
+      },
+      {
+        $sort: {
+          itemLength: order,
+        },
+      },
+      {
+        $limit: +limit,
+      },
+    ]);
+    return sortCollection;
   }
   async createCollection(collection) {
     const newCollection = new Collection(collection);
