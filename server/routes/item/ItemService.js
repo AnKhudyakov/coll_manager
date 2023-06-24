@@ -23,10 +23,12 @@ class ItemService {
     return resultItems;
   }
   async createItem(item) {
-    item.tags.forEach(async (tag) => {
-      await TagService.createTag({ content: tag });
-    });
-    const idsTag = await TagService.getTagId(item.tags);
+    const idsTag = await Promise.all(
+      item.tags.map(async (tag) => {
+        const newTag = await TagService.createTag({ content: tag });
+        return newTag._id;
+      })
+    );
     const newItem = new Item({ ...item, tags: idsTag });
     await Collection.findOneAndUpdate(
       { _id: item.collectionId },

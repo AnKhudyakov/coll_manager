@@ -1,5 +1,6 @@
 import { useFormik } from "formik";
 import { schemaItem } from "@/helpers/validationForm";
+import { getInitValuesItem } from "@/helpers/getInitValuesForms";
 import { INIT_VALUES_ITEM as initialValues } from "@/constants/fields";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -10,12 +11,16 @@ import {
   useUpdateItemMutation,
 } from "@/app/services/item";
 import { useGetTagsQuery } from "@/app/services/tag";
+import { useGetCollectionByIdQuery } from "@/app/services/collection";
+import { getIn } from "formik";
+import { FieldArray, FormikProvider } from "formik";
 
 const ItemForm = ({ setOpenForm, collectionId, variant, item }) => {
   const [postItem, { isLoading }] = usePostItemMutation();
   const [updateItem, { isLoading: isUpdating }] = useUpdateItemMutation();
   const { data: initTags, isLoading: isLoadingTags } = useGetTagsQuery();
-  //const { _id, name, tags } = item;
+  const { data: collection, isLoading: isLoadingCollection } =
+    useGetCollectionByIdQuery(collectionId);
   const handleFormSubmit = async (values, actions) => {
     try {
       if (variant === "edit") {
@@ -26,7 +31,6 @@ const ItemForm = ({ setOpenForm, collectionId, variant, item }) => {
           author: getUserId(),
           collectionId,
           likes: [],
-          customFields: [],
         };
         await postItem(newItem).unwrap();
       }
@@ -39,7 +43,9 @@ const ItemForm = ({ setOpenForm, collectionId, variant, item }) => {
   };
   //TODO: add custom hook getExistValues
   const currentValues =
-    variant === "edit" ? { name: item.name, tags: item.tags } : initialValues;
+    variant === "edit"
+      ? { name: item.name, tags: item.tags, customFields: item.customFields }
+      : getInitValuesItem(collection.customFields);
   const formik = useFormik({
     initialValues: currentValues,
     onSubmit: handleFormSubmit,
@@ -77,7 +83,7 @@ const ItemForm = ({ setOpenForm, collectionId, variant, item }) => {
             <Chip
               label={option}
               {...getTagProps({ index })}
-              disabled={initTags.indexOf(option) !== -1}
+              disabled={initTags?.indexOf(option) !== -1}
             />
           ))
         }
@@ -85,6 +91,54 @@ const ItemForm = ({ setOpenForm, collectionId, variant, item }) => {
           <TextField {...params} label="Tags" placeholder="Add tag..." />
         )}
       />
+      <FormikProvider value={formik}>
+        <FieldArray
+          name="customFields"
+          render={({ insert, remove }) => {
+            return (
+              <>
+                {collection?.customFields.map((customField, index) => {
+                  return (
+                    <Box
+                      key={index}
+                      display="flex"
+                      gap={1}
+                      alignItems={"center"}
+                      sx={{ mt: 2 }}
+                    >
+                      <TextField
+                        sx={{ mt: 2 }}
+                        multiline={customField.type === "textarea"}
+                        fullWidth
+                        type={
+                          customField.type === "textarea"
+                            ? "text"
+                            : customField.type
+                        }
+                        label={customField.name}
+                        onBlur={formik.handleBlur}
+                        onChange={formik.handleChange}
+                        value={
+                          formik.values.customFields[index][customField.name]
+                        }
+                        name={`customFields.${index}.${customField.name}`}
+                        error={Boolean(
+                          getIn(formik.touched, customField.name) &&
+                            getIn(formik.errors, customField.name)
+                        )}
+                        helperText={
+                          getIn(formik.touched, customField.name) &&
+                          getIn(formik.errors, customField.name)
+                        }
+                      />
+                    </Box>
+                  );
+                })}
+              </>
+            );
+          }}
+        />
+      </FormikProvider>
       <Box display="flex" justifyContent="space-around">
         <Button
           type="button"
@@ -98,7 +152,6 @@ const ItemForm = ({ setOpenForm, collectionId, variant, item }) => {
         >
           Cancel
         </Button>
-
         <Button
           type="submit"
           sx={{
@@ -111,7 +164,6 @@ const ItemForm = ({ setOpenForm, collectionId, variant, item }) => {
           {variant === "edit" ? "Update" : "Create"}
         </Button>
       </Box>
-
       <ToastContainer
         position="bottom-center"
         autoClose={5000}

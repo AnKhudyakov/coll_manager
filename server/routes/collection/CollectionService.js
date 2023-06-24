@@ -5,7 +5,7 @@ import User from "../../models/User.js";
 class CollectionService {
   async getAllCollections(query) {
     const { limit, sort_by, sort_order } = query;
-    const order = sort_order==="desc"?-1:1
+    const order = sort_order === "desc" ? -1 : 1;
     const sortCollection = await Collection.aggregate([
       {
         $addFields: {

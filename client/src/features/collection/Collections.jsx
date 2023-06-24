@@ -9,30 +9,8 @@ import { getUserId } from "@/helpers/auth";
 import CircularProgress from "@mui/material/CircularProgress";
 
 const Collections = ({ variant, collections }) => {
-  // const { data: userCollections, isLoading } =
-  //   variant === "largest"
-  //     ? useGetCollectionsQuery({
-  //         limit: 5,
-  //         sort_by: "items",
-  //         sort_order: "desc",
-  //       })
-  //     : getUserId()
-  //     ? useGetCollectionsByUserQuery(getUserId())
-  //     : "";
-
   return (
     <Box display="flex" flexWrap="wrap" gap={2} mt={1}>
-      {/* {isLoading ? (
-        <Box
-          display="flex"
-          justifyContent="center"
-          height="100vh"
-          width="100%"
-          alignItems="center"
-        >
-          <CircularProgress />
-        </Box>
-      ) : ( */}
         <>
           {!collections?.length && variant === "profile" && (
             <Typography>You don't have any collections yet.</Typography>

@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import { schemaCollection } from "@/helpers/validationForm";
-import { INIT_VALUES_COLLECTION as initialValues } from "@/constants/fields";
+import { INIT_VALUES_COLLECTION } from "@/constants/fields";
 import { useRef } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -14,10 +14,9 @@ import {
   ListItemAvatar,
   ListItemText,
   TextField,
+  Typography,
 } from "@mui/material";
-import ImageIcon from "@mui/icons-material/Image";
-import UploadFileIcon from "@mui/icons-material/UploadFile";
-import DeleteIcon from "@mui/icons-material/Delete";
+
 import { getUserId } from "@/helpers/auth";
 import {
   usePostCollectionMutation,
@@ -25,14 +24,25 @@ import {
 } from "@/app/services/collection";
 import { useState } from "react";
 import { useUploadMutation } from "@/app/services/uplooadImage";
+import PostAddIcon from "@mui/icons-material/PostAdd";
+import CustomFieldsForm from "@/components/CustomFieldsForm";
+import UploadFile from "@/components/UploadFile";
 
 const CollectionForm = ({ setOpenForm, variant, collection }) => {
+  const currentValues =
+    variant === "edit"
+      ? {
+          name: collection.name,
+          description: collection.description,
+          topic: collection.topic,
+          customFields: [...collection.customFields],
+        }
+      : INIT_VALUES_COLLECTION;
   const [image, setImage] = useState("");
   const [postCollection, { isLoading }] = usePostCollectionMutation();
   const [updateCollection, { isLoading: isUpdating }] =
     useUpdateCollectionMutation();
   const [upload, { isLoading: isUploading }] = useUploadMutation();
-  const ref = useRef(null);
   const handleFormSubmit = async (values, actions) => {
     try {
       let responseUpload;
@@ -45,29 +55,32 @@ const CollectionForm = ({ setOpenForm, variant, collection }) => {
           import.meta.env.VITE_CLOUDINARY_CLOUD_NAME
         );
         responseUpload = await upload(formData).unwrap();
-        if (variant === "edit") {
-          const newCollection = {
-            ...values,
-            image: responseUpload ? responseUpload.secure_url : "",
-          };
-          await updateCollection({
-            id: collection._id,
-            ...newCollection,
-          }).unwrap();
-        }
-      } else {
-        if (variant === "edit") {
-          await updateCollection({ id: collection._id, ...values }).unwrap();
-        } else {
+      }
+      switch (variant) {
+        case "edit":
+          if (responseUpload) {
+            const updatedCollection = {
+              ...values,
+              image: responseUpload.secure_url,
+            };
+            await updateCollection({
+              id: collection._id,
+              ...updatedCollection,
+            }).unwrap();
+          } else {
+            await updateCollection({ id: collection._id, ...values }).unwrap();
+          }
+          break;
+        case "new":
           const newCollection = {
             ...values,
             author: getUserId(),
             image: responseUpload ? responseUpload.secure_url : "",
-            customFields: [],
           };
           await postCollection(newCollection).unwrap();
-        }
+          break;
       }
+
       actions.resetForm();
       toast.success("Successful create new collection");
       setOpenForm(false);
@@ -75,20 +88,13 @@ const CollectionForm = ({ setOpenForm, variant, collection }) => {
       toast.error(err.data.message);
     }
   };
-  const currentValues =
-    variant === "edit"
-      ? {
-          name: collection.name,
-          description: collection.description,
-          topic: collection.topic,
-        }
-      : initialValues;
+
   const formik = useFormik({
     initialValues: currentValues,
     onSubmit: handleFormSubmit,
     validationSchema: schemaCollection,
   });
-
+  console.log(formik.values);
   return (
     <form onSubmit={formik.handleSubmit}>
       <TextField
@@ -129,50 +135,10 @@ const CollectionForm = ({ setOpenForm, variant, collection }) => {
         error={Boolean(formik.touched.topic && formik.errors.topic)}
         helperText={formik.touched.topic && formik.errors.topic}
       />
-
-      <Button
-        component="label"
-        variant="outlined"
-        startIcon={<UploadFileIcon />}
-        sx={{ marginRight: "1rem", mt: 2 }}
-      >
-        Upload Image
-        <input
-          type="file"
-          accept="image/*"
-          name="image"
-          ref={ref}
-          hidden
-          onChange={(e) => setImage(e.target.files[0])}
-        />
-      </Button>
-
-      {image && (
-        <List
-          sx={{ width: "100%", maxWidth: 300, bgcolor: "background.paper" }}
-        >
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar>
-                <ImageIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              primary={image.name}
-              secondary={`size:${(image.size / 1024).toFixed(2)} Кб`}
-            />
-            <IconButton
-              aria-label="delete"
-              onClick={() => {
-                setImage("");
-                ref.current.value = null;
-              }}
-            >
-              <DeleteIcon />
-            </IconButton>
-          </ListItem>
-        </List>
-      )}
+      <UploadFile image={image} setImage={setImage} />
+      <Box>
+        <CustomFieldsForm formik={formik} />
+      </Box>
       <Box display="flex" justifyContent="space-around">
         <Button
           type="button"
@@ -186,7 +152,6 @@ const CollectionForm = ({ setOpenForm, variant, collection }) => {
         >
           Cancel
         </Button>
-
         <Button
           type="submit"
           sx={{

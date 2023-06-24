@@ -47,7 +47,7 @@ const ProfilePage = () => {
           <Collections variant="profile" collections={collections} />
           <Box mt={2}>
             {openForm ? (
-              <CollectionForm setOpenForm={setOpenForm} />
+              <CollectionForm setOpenForm={setOpenForm} variant="new"/>
             ) : (
               <Button onClick={() => setOpenForm(true)}>Add new</Button>
             )}
