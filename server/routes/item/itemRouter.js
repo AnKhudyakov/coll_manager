@@ -26,5 +26,10 @@ router.put(
   authMiddleware,
   ItemController.updateItem
 );
+router.put(
+  `/:id/like`,
+  authMiddleware,
+  ItemController.addLike
+);
 
 export default router;

@@ -1,4 +1,4 @@
-import ItemService from "../itemService.js";
+import ItemService from "../ItemService.js";
 import TagService from "../../tag/tagService.js";
 
 class ItemController {
@@ -88,6 +88,15 @@ class ItemController {
   async updateItem(req, res) {
     try {
       await ItemService.updateItem(req);
+      return res.status(200).json({ message: "Item has been updated" });
+    } catch (e) {
+      console.log(e);
+      return res.status(500).json({ message: "Server error" });
+    }
+  }
+  async addLike(req, res) {
+    try {
+      await ItemService.addLike(req);
       return res.status(200).json({ message: "Item has been updated" });
     } catch (e) {
       console.log(e);

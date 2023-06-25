@@ -10,11 +10,23 @@ class TagService {
     const newTag = new Tag(tag);
     return await newTag.save();
   }
+  async createTags(tags) {
+    return await Promise.all(
+      tags.map(async (tag) => {
+        await this.createTag({ content: tag });
+        const newTag = await this.getTagIdByContent(tag);
+        return newTag._id;
+      })
+    );
+  }
   async getTagById(id) {
     return await Tag.findOne({ _id: id });
   }
   async getTagId(tags) {
     return await Tag.find({ content: { $in: tags } });
+  }
+  async getTagIdByContent(tag) {
+    return await Tag.findOne({ content: tag });
   }
   async getTagContent(tags) {
     return await Tag.find({ _id: { $in: tags } }).select({

@@ -3,7 +3,7 @@ import {
   useGetCollectionsQuery,
   useGetCollectionsByUserQuery,
 } from "@/app/services/collection";
-import CollectionCard from "@/components/CollectionCard";
+import CollectionCard from "@/features/collection/CollectionCard";
 import { useEffect, useState } from "react";
 import { getUserId } from "@/helpers/auth";
 import CircularProgress from "@mui/material/CircularProgress";

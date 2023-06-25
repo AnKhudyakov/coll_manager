@@ -1,4 +1,4 @@
-import { useRemoveItemMutation } from "@/app/services/item";
+import { useRemoveItemMutation, useUpdateItemMutation } from "@/app/services/item";
 import { selectCurrentUser } from "@/features/auth/authSlice";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -14,6 +14,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ItemForm from "./ItemForm";
+import Likes from "@/features/likes/Likes";
 
 const Item = ({ item }) => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const Item = ({ item }) => {
     removeItem(item._id);
     navigate("/profile");
   };
-
+console.log(item);
   return (
     <>
       <Card>
@@ -39,9 +40,7 @@ const Item = ({ item }) => {
             <Typography gutterBottom variant="h3" component="div">
               {item?.name}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Likes:{item?.likes.length}
-            </Typography>
+            <Likes item={item} user={user} />
             <Box>
               <Typography gutterBottom variant="h5" component="div">
                 Tags:

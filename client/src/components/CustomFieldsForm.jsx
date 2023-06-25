@@ -48,8 +48,6 @@ const CustomFieldsForm = ({ formik }) => {
                     <FormControl fullWidth>
                       <InputLabel>Field Type</InputLabel>
                       <Select
-                        // labelId="demo-simple-select-label"
-                        //id="demo-simple-select"
                         name={`customFields.${index}.type`}
                         value={formik.values.customFields[index].type}
                         label="Field Type"

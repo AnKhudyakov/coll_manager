@@ -1,7 +1,7 @@
 import Item from "../../models/Item.js";
-import Collection from "../../models/Collection.js";
 import TagService from "../tag/tagService.js";
-import User from "../../models/User.js";
+import CollectionService from "../collection/CollectionService.js";
+import UserService from "../user/UserService.js";
 
 class ItemService {
   async getAllItems(query) {
@@ -11,8 +11,10 @@ class ItemService {
       .sort({ [sort_by]: sort_order });
     const resultItems = await Promise.all(
       items.map(async (item) => {
-        const collection = await Collection.findOne({ _id: item.collectionId });
-        const user = await User.findOne({ _id: item.author });
+        const collection = await CollectionService.getCollectionById(
+          item.collectionId
+        );
+        const user = await UserService.getUserById(item.author);
         return {
           ...item._doc,
           collectionId: collection.name,
@@ -23,19 +25,12 @@ class ItemService {
     return resultItems;
   }
   async createItem(item) {
-    const idsTag = await Promise.all(
-      item.tags.map(async (tag) => {
-        const newTag = await TagService.createTag({ content: tag });
-        return newTag._id;
-      })
-    );
+    const idsTag = await TagService.createTags(item.tags);
     const newItem = new Item({ ...item, tags: idsTag });
-    await Collection.findOneAndUpdate(
-      { _id: item.collectionId },
-      { $push: { items: newItem._id } }
-    );
+    await CollectionService.addItemInCollection(item);
     await newItem.save();
   }
+
   async getItemsByUser(id) {
     return await Item.find({ author: id });
   }
@@ -47,33 +42,30 @@ class ItemService {
   }
   async removeItem(id) {
     const item = await Item.findOneAndDelete({ _id: id });
-    await Collection.findOneAndUpdate(
-      { _id: item.collectionId },
-      { $pull: { items: id } }
-    );
+    await CollectionService.removeItemFromCollection(item);
     return item;
   }
   async updateItem(req) {
     const { id } = req.params;
-    if (req.body.tags) {
-      req.body.tags.forEach(async (tag) => {
-        await TagService.createTag({ content: tag });
-      });
-    }
-    const idsTag = await TagService.getTagId(req.body.tags);
-    if (req.body.like) {
-      await Item.findOneAndUpdate(
-        { _id: id },
-        { ...req.body, tags: idsTag, $addToSet: { likes: req.body.like } },
-        { new: true }
-      );
-    } else {
-      await Item.findOneAndUpdate(
-        { _id: id },
-        { ...req.body, tags: idsTag },
-        { new: true }
-      );
-    }
+    const idsTag = req.body.tags
+      ? await TagService.createTags(req.body.tags)
+      : null;
+    const update= idsTag?{
+      ...req.body,
+      tags: idsTag,
+    }:{ ...req.body }
+    console.log("UPDATE", update);
+    await Item.findOneAndUpdate({ _id: id }, update, { new: true });
+  }
+  async addLike(req) {
+    const { id } = req.params;
+    await Item.findOneAndUpdate(
+      { _id: id },
+      {
+        $addToSet: { likes: req.body.like },
+      },
+      { new: true }
+    );
   }
 }
 export default new ItemService();

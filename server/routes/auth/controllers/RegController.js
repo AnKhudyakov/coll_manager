@@ -14,7 +14,7 @@ class RegController {
             .json({ message: `User with this email already exists` });
         }
         const hashPassword = AuthService.hashPassword(req.body.password)
-        await AuthService.createUser(req.body, hashPassword);
+        await UserService.createUser(req.body, hashPassword);
         return res.status(200).json({ message: "User was created" });
       }
       return res

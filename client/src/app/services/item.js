@@ -62,6 +62,14 @@ export const itemApi = createApi({
       }),
       invalidatesTags: ["Items"],
     }),
+    addLike: builder.mutation({
+      query: ({id, ...patch}) => ({
+        url: `/items/${id}/like`,
+        method: "PUT",
+        body: patch,
+      }),
+      invalidatesTags: ["Items"],
+    }),
   }),
 });
 
@@ -73,4 +81,5 @@ export const {
   usePostItemMutation,
   useRemoveItemMutation,
   useUpdateItemMutation,
+  useAddLikeMutation
 } = itemApi;

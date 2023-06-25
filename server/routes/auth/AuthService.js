@@ -1,4 +1,3 @@
-import User from "../../models/User.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -7,16 +6,6 @@ class AuthService {
     const salt = bcrypt.genSaltSync(10);
     const hashPassword = bcrypt.hashSync(password, salt);
     return hashPassword;
-  }
-  async createUser(user, password) {
-    const newUser = new User({
-      username: user.username,
-      email: user.email,
-      password,
-      admin: false,
-      blocked: false,
-    });
-    await newUser.save();
   }
   async validateUser(passwordBD, password) {
     return bcrypt.compareSync(password, passwordBD);

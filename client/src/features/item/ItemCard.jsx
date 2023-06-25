@@ -13,6 +13,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { selectCurrentUser, setCredentials } from "@/features/auth/authSlice";
 import { useSelector } from "react-redux";
 import { useUpdateItemMutation } from "@/app/services/item";
+import Likes from "@/features/likes/Likes";
 
 const ItemCard = ({ item, variant }) => {
   const user = useSelector(selectCurrentUser);
@@ -44,21 +45,7 @@ const ItemCard = ({ item, variant }) => {
             )}
           </CardContent>
         </CardActionArea>
-        {user && (
-          <Box>
-            <IconButton
-              aria-label="edit"
-              onClick={() =>
-                updateItem({ id: item._id, like: user._id }).unwrap()
-              }
-            >
-              <FavoriteIcon />
-            </IconButton>
-            <Typography gutterBottom variant="body2" color="text.secondary" textAlign="center">
-              {item?.likes.length}
-            </Typography>
-          </Box>
-        )}
+        {user && <Likes item={item} user={user} />}
       </Box>
     </Card>
   );

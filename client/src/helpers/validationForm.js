@@ -34,6 +34,7 @@ export const schemaLogin = yup.object().shape({
   password: yup
     .string()
     .required("No password provided.")
+    .min(5, "Password must be longer then 5 chars")
     .max(10, "Password is too long - should be 10 chars maximum."),
 });
 

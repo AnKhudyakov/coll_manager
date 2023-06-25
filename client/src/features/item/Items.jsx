@@ -2,7 +2,7 @@ import {
   useGetItemsByCollectionQuery,
   useGetItemsQuery,
 } from "@/app/services/item";
-import ItemCard from "@/components/ItemCard";
+import ItemCard from "@/features/item/ItemCard";
 import { Box, Typography } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 

@@ -55,7 +55,7 @@ const FormLogin = () => {
       <TextField
         sx={{ mt: 2 }}
         fullWidth
-        type="text"
+        type="password"
         label={"Password"}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
