@@ -50,13 +50,13 @@ class CollectionService {
       { new: true }
     );
   }
-  async addItemInCollection(item) {
+  async addItemInCollection(item, newItem) {
     await Collection.findOneAndUpdate(
       { _id: item.collectionId },
       { $push: { items: newItem._id } }
     );
   }
-  async removeItemFromCollection(item) {
+  async removeItemFromCollection(item, id) {
     await Collection.findOneAndUpdate(
       { _id: item.collectionId },
       { $pull: { items: id } }

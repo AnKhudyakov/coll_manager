@@ -5,6 +5,7 @@ import {
   CardActionArea,
   CardContent,
   CardMedia,
+  Divider,
   IconButton,
   Typography,
 } from "@mui/material";
@@ -19,7 +20,6 @@ const ItemCard = ({ item, variant }) => {
   const user = useSelector(selectCurrentUser);
   const navigate = useNavigate();
   const [updateItem, { isLoading: isUpdating }] = useUpdateItemMutation();
-
   return (
     <Card>
       <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -28,6 +28,15 @@ const ItemCard = ({ item, variant }) => {
             <Typography gutterBottom variant="h4" component="div">
               {item?.name}
             </Typography>
+            {item?.customFields.map((field, index) => (
+              <Box key={index}>
+                {(field.fieldType === "text" || field.fieldType === "data") && (
+                  <Typography gutterBottom variant="h5" component="div">
+                    {...Object.keys(field)[0]}: {...Object.values(field)[0]}
+                  </Typography>
+                )}
+              </Box>
+            ))}
             {variant === "last" && (
               <Box>
                 <Typography
@@ -38,13 +47,11 @@ const ItemCard = ({ item, variant }) => {
                 >
                   {item?.collectionId}
                 </Typography>
-                <Typography gutterBottom variant="h5" component="div">
-                  {item?.author}
-                </Typography>
               </Box>
             )}
           </CardContent>
         </CardActionArea>
+        <Divider orientation="vertical" variant="middle" flexItem />
         {user && <Likes item={item} user={user} />}
       </Box>
     </Card>

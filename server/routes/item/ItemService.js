@@ -27,7 +27,7 @@ class ItemService {
   async createItem(item) {
     const idsTag = await TagService.createTags(item.tags);
     const newItem = new Item({ ...item, tags: idsTag });
-    await CollectionService.addItemInCollection(item);
+    await CollectionService.addItemInCollection(item,newItem);
     await newItem.save();
   }
 
@@ -42,7 +42,7 @@ class ItemService {
   }
   async removeItem(id) {
     const item = await Item.findOneAndDelete({ _id: id });
-    await CollectionService.removeItemFromCollection(item);
+    await CollectionService.removeItemFromCollection(item,id);
     return item;
   }
   async updateItem(req) {
