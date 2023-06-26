@@ -29,14 +29,13 @@ const Item = ({ item }) => {
     removeItem(item._id);
     navigate("/profile");
   };
-  //console.log("ITEM",item);
   return (
     <>
       <Card>
         <Box
           sx={{
             display: "flex",
-            alignItems: "center",
+            alignItems: "stretch",
             justifyContent: "space-between",
           }}
         >
@@ -44,13 +43,17 @@ const Item = ({ item }) => {
             <Typography gutterBottom variant="h3" component="div">
               {item?.name}
             </Typography>
-            {item?.customFields.map((field, index) => (
-              <Box key={index}>
-                <Typography gutterBottom variant="h5" component="div">
-                  {...Object.keys(field)[0]}: {...Object.values(field)[0]}
-                </Typography>
-              </Box>
-            ))}
+            {item?.customFields.length ? (
+              item?.customFields.map((field, index) => (
+                <Box key={index}>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {Object.keys(field)[0]}: {Object.values(field)[0]}
+                  </Typography>
+                </Box>
+              ))
+            ) : (
+              <></>
+            )}
             <Box>
               <Typography gutterBottom variant="h5" component="div">
                 Tags:
@@ -66,29 +69,28 @@ const Item = ({ item }) => {
               ))}
             </Box>
           </CardContent>
-           <Box >
-           <Divider orientation="vertical" variant="middle" flexItem />
-           <Box height={"100%"}>
-           <Likes item={item} user={user} />
-           {(item?.author === user?._id || user?.admin) && (
-              <Box display={"flex"}>
-                <Box>
-                  <IconButton
-                    aria-label="edit"
-                    onClick={() => setOpenForm(true)}
-                  >
-                    <EditIcon />
-                  </IconButton>
+          <Box display={"flex"}>
+            <Divider orientation="vertical" variant="middle" flexItem />
+            <Box justifySelf={"center"}>
+              <Likes item={item} user={user} />
+              {(item?.author === user?._id || user?.admin) && (
+                <Box display={"flex"} >
+                  <Box>
+                    <IconButton
+                      aria-label="edit"
+                      onClick={() => setOpenForm(true)}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                  </Box>
+                  <Box>
+                    <IconButton aria-label="delete" onClick={handleDeleteItem}>
+                      <DeleteIcon />
+                    </IconButton>
+                  </Box>
                 </Box>
-                <Box>
-                  <IconButton aria-label="delete" onClick={handleDeleteItem}>
-                    <DeleteIcon />
-                  </IconButton>
-                </Box>
-              </Box>
-            )}
-           </Box>
-            
+              )}
+            </Box>
           </Box>
         </Box>
       </Card>
@@ -100,9 +102,6 @@ const Item = ({ item }) => {
           item={item}
         />
       )}
-      <Box p={2}>
-        <Typography>Comments</Typography>
-      </Box>
     </>
   );
 };

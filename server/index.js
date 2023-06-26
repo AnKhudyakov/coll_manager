@@ -7,12 +7,16 @@ import userRouter from "./routes/user/userRouter.js";
 import collectionRouter from "./routes/collection/collectionRouter.js"
 import itemRouter from "./routes/item/itemRouter.js"
 import tagRouter from "./routes/tag/tagRouter.js"
+import commentWS from "./routes/comment/commentWS.js";
+import expressWs from "express-ws";
 
 dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 
 const app = express();
+const WSServer = expressWs(app);
+export const aWss = WSServer.getWss();
 
 app.use(
   cors({
@@ -25,6 +29,7 @@ app.use("/users", userRouter);
 app.use("/collections", collectionRouter);
 app.use("/items", itemRouter);
 app.use("/tags", tagRouter);
+app.ws("/", commentWS);
 
 async function start() {
   try {

@@ -94,7 +94,6 @@ const CollectionForm = ({ setOpenForm, variant, collection }) => {
     onSubmit: handleFormSubmit,
     validationSchema: schemaCollection,
   });
-  console.log(formik.values);
   return (
     <form onSubmit={formik.handleSubmit}>
       <TextField

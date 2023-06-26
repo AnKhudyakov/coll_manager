@@ -119,7 +119,11 @@ const ItemForm = ({ setOpenForm, collectionId, variant, item }) => {
                         onBlur={formik.handleBlur}
                         onChange={formik.handleChange}
                         value={
-                          formik.values.customFields[index][customField.name]
+                          formik.values.customFields.length
+                            ? formik.values.customFields[index][
+                                customField.name
+                              ]
+                            : ""
                         }
                         name={`customFields.${index}.${customField.name}`}
                         error={Boolean(

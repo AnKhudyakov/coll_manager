@@ -63,3 +63,10 @@ export const schemaItem = yup.object().shape({
     .required("No tags provided.")
     .max(10, "Should be 5 tags maximum."),
 });
+
+export const schemaComment = yup.object().shape({
+  comment: yup
+    .string()
+    .max(300, "Comment is too long - should be 300 chars maximum.")
+    .required("No comment provided."),
+});

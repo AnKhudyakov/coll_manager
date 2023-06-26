@@ -53,7 +53,7 @@ const HomePage = () => {
           <>
             {tags?.map((tag) => (
               <Button
-                sx={{ mx: 1 }}
+                sx={{ m: 1 }}
                 key={tag._id}
                 onClick={() => navigate(`/search?text=${tag}`)}
               >

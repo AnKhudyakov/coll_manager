@@ -7,6 +7,7 @@ import { itemApi } from "./services/item";
 import { userApi } from "./services/user";
 import { tagApi } from "./services/tag";
 import { uploadImageApi } from "./services/uplooadImage";
+import { commentApi } from "./services/comment";
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   [userApi.reducerPath]: userApi.reducer,
   [tagApi.reducerPath]: tagApi.reducer,
   [uploadImageApi.reducerPath]: uploadImageApi.reducer,
+  [commentApi.reducerPath]: commentApi.reducer,
 });
 
 export const store = configureStore({
@@ -28,5 +30,6 @@ export const store = configureStore({
       .concat(itemApi.middleware)
       .concat(userApi.middleware)
       .concat(tagApi.middleware)
-      .concat(uploadImageApi.middleware),
+      .concat(uploadImageApi.middleware)
+      .concat(commentApi.middleware)
 });
