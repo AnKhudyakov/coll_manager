@@ -1,6 +1,4 @@
 import { Schema, model } from "mongoose";
-//import mongoosastic from "mongoosastic";
-//import elasticsearch from "elasticsearch";
 
 const Item = new Schema(
   {
@@ -28,20 +26,5 @@ const Item = new Schema(
   },
   { timestamps: true }
 );
-
-// Item.plugin(
-//   mongoosastic,
-//   // {
-//   //   host: process.env.ES_URL || "localhost:9200",
-//   //   port: 9200,
-//   // }
-
-//   //,
-//     {
-//     esClient: elasticsearch.Client({
-//       host: process.env.ES_URL || "localhost:9200",
-//     }),
-//   }
-// );
 
 export default model("Item", Item);
