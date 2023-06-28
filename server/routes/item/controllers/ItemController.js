@@ -14,6 +14,7 @@ class ItemController {
       return res.status(500).json({ message: "Server error" });
     }
   }
+  
   async getItemById(req, res) {
     try {
       const item = await ItemService.getItemById(req.params.id);

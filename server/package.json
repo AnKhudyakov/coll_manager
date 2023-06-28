@@ -15,11 +15,14 @@
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.1.4",
+    "elasticsearch": "^16.7.3",
     "express": "^4.18.2",
     "express-validator": "^7.0.1",
     "express-ws": "^5.0.2",
     "jsonwebtoken": "^9.0.0",
-    "mongoose": "^7.2.4"
+    "mongoosastic": "^5.0.0",
+    "mongoose": "^7.2.4",
+    "tslib": "^2.6.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
