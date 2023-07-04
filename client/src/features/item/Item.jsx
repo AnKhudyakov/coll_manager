@@ -27,7 +27,7 @@ const Item = ({ item }) => {
   const [removeItem, { isLoading }] = useRemoveItemMutation();
   const handleDeleteItem = () => {
     removeItem(item._id);
-    navigate("/profile");
+    navigate(`/profile/${user._id}`);
   };
   return (
     <>

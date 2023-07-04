@@ -9,10 +9,10 @@ class UserService {
       username: user.username,
       email: user.email,
       password,
-      admin: false,
+      admin: user.admin?user.admin:false,
       blocked: false,
     });
-    await newUser.save();
+    return await newUser.save();
   }
   async getUserById(id) {
     return await User.findOne({ _id: id }).select({ password: 0 });

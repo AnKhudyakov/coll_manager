@@ -29,7 +29,7 @@ class CollectionService {
       { _id: collection.author },
       { $push: { collections: newCollection } }
     );
-    await newCollection.save();
+    return await newCollection.save();
   }
   async getCollectionsByUser(id) {
     return await Collection.find({ author: id });

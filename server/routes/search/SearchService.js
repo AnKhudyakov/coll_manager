@@ -1,13 +1,15 @@
 import Item from "../../models/Item.js";
-
+import Tag from "../../models/Tag.js";
 class SearchService {
   async getItems(search) {
-    return await Item.aggregate([
+    const tag = await Tag.findOne({ content: search });
+    const itemsWithTag = await Item.find({ tags: tag._id });
+    const items = await Item.aggregate([
       {
         $search: {
           index: "items",
           text: {
-            query: search,
+            query: [search, tag._id.toString()],
             path: {
               wildcard: "*",
             },
@@ -27,6 +29,9 @@ class SearchService {
         $limit: 10,
       },
     ]);
+    return [...new Set(items.concat(itemsWithTag).map(JSON.stringify))].map(
+      JSON.parse
+    );
   }
 }
 

@@ -83,7 +83,7 @@ const Navbar = () => {
                   </Link>
                 )}
 
-                <Link to="/profile">
+                <Link to={`/profile/${user._id}`}>
                   <IconButton sx={{ color: "rgba(255, 255, 255, .8)" }}>
                     <PersonOutline />
                   </IconButton>

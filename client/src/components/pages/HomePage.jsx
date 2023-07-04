@@ -3,9 +3,9 @@ import Collections from "@/features/collection/Collections";
 import { Box, Button, Typography } from "@mui/material";
 import { useGetTagsQuery } from "@/app/services/tag";
 import { useNavigate } from "react-router-dom";
-import Items from "@/features/item/Items";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useGetCollectionsQuery } from "@/app/services/collection";
+import ItemsList from "@/features/item/ItemsList";
 
 const HomePage = () => {
   const { data: tags, isLoading: isLoadingTags } = useGetTagsQuery();
@@ -20,7 +20,7 @@ const HomePage = () => {
       <Box p={3} pt="70px" maxWidth="1250px" mx="auto">
         <Box>
           <Typography variant="h3">Last items</Typography>
-          <Items variant="last" />
+          <ItemsList variant="last" />
         </Box>
         <Box mt={3}>
           <Typography variant="h3">Largest collections</Typography>
@@ -55,7 +55,7 @@ const HomePage = () => {
               <Button
                 sx={{ m: 1 }}
                 key={tag._id}
-                onClick={() => navigate(`/search?text=${tag}`)}
+                onClick={() => navigate(`/search?text=${tag.content}`)}
               >
                 #{tag.content}
               </Button>

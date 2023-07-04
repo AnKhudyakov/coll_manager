@@ -28,7 +28,7 @@ import PostAddIcon from "@mui/icons-material/PostAdd";
 import CustomFieldsForm from "@/components/CustomFieldsForm";
 import UploadFile from "@/components/UploadFile";
 
-const CollectionForm = ({ setOpenForm, variant, collection }) => {
+const CollectionForm = ({ setOpenForm, variant, collection, author }) => {
   const currentValues =
     variant === "edit"
       ? {
@@ -74,7 +74,7 @@ const CollectionForm = ({ setOpenForm, variant, collection }) => {
         case "new":
           const newCollection = {
             ...values,
-            author: getUserId(),
+            author,
             image: responseUpload ? responseUpload.secure_url : "",
           };
           await postCollection(newCollection).unwrap();
