@@ -10,6 +10,7 @@ import tagRouter from "./routes/tag/tagRouter.js"
 import searchRouter from "./routes/search/searchRouter.js"
 import commentWS from "./routes/comment/commentWS.js";
 import expressWs from "express-ws";
+import initRouter from "./routes/initDB/initRouter.js";
 
 dotenv.config();
 
@@ -31,6 +32,7 @@ app.use("/collections", collectionRouter);
 app.use("/items", itemRouter);
 app.use("/tags", tagRouter);
 app.use("/search", searchRouter);
+app.use("/initDB", initRouter);
 app.ws("/", commentWS);
 
 async function start() {

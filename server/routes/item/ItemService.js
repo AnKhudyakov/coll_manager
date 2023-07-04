@@ -27,7 +27,7 @@ class ItemService {
   async createItem(item) {
     const idsTag = await TagService.createTags(item.tags);
     const newItem = new Item({ ...item, tags: idsTag });
-    await CollectionService.addItemInCollection(item,newItem);
+    await CollectionService.addItemInCollection(item, newItem);
     await newItem.save();
   }
 
@@ -40,9 +40,12 @@ class ItemService {
   async getItemById(id) {
     return await Item.findOne({ _id: id });
   }
+  async getItemByTag(id) {
+    return await Item.findOne({ tags: id });
+  }
   async removeItem(id) {
     const item = await Item.findOneAndDelete({ _id: id });
-    await CollectionService.removeItemFromCollection(item,id);
+    await CollectionService.removeItemFromCollection(item, id);
     return item;
   }
   async updateItem(req) {
@@ -50,10 +53,12 @@ class ItemService {
     const idsTag = req.body.tags
       ? await TagService.createTags(req.body.tags)
       : null;
-    const update= idsTag?{
-      ...req.body,
-      tags: idsTag,
-    }:{ ...req.body }
+    const update = idsTag
+      ? {
+          ...req.body,
+          tags: idsTag,
+        }
+      : { ...req.body };
     console.log("UPDATE", update);
     await Item.findOneAndUpdate({ _id: id }, update, { new: true });
   }

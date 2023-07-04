@@ -27,7 +27,7 @@ const Collection = ({ collection, variant }) => {
   const [removeCollection, { isLoading }] = useRemoveCollectionMutation();
   const handleDeleteItem = () => {
     removeCollection(collection._id);
-    navigate("/profile");
+    navigate(`/profile/${user._id}`);
   };
 
   return (

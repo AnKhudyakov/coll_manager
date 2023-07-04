@@ -6,7 +6,8 @@ import ItemCard from "@/features/item/ItemCard";
 const SearchPage = () => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("text");
-  const { data: results, isLoading } = useSearchQuery(query);
+  const { data: results, isLoading } =query?useSearchQuery(query):{data:[]};
+  
   return (
     <Box
       pt="60px"
@@ -16,7 +17,7 @@ const SearchPage = () => {
     >
       <Typography>Search Results</Typography>
       <Typography>Results for:{query}</Typography>
-{results?.map((item)=><ItemCard item={item} key={item._id} />)}
+{results?.map((item)=><Box m={2}><ItemCard item={item} key={item._id} /></Box>)}
     </Box>
   );
 };

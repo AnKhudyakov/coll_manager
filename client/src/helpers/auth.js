@@ -11,8 +11,9 @@ export const setToken = (data, navigate) => {
   });
   Cookies.set("jwt", data.token, { sameSite: "strict", secure: true });
   if (Cookies.get("username")) {
+    console.log("HERE");
     setTimeout(() => {
-      navigate("/profile");
+      navigate(`/profile/${data.user._id}`);
     }, 1500);
   }
 };

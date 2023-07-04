@@ -7,6 +7,7 @@ import { selectCurrentUser } from "@/features/auth/authSlice";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {
   Box,
+  CircularProgress,
   IconButton,
   Paper,
   Switch,
@@ -19,7 +20,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const AdminPage = () => {
   const { data: users, isLoading } = useGetUsersQuery();
@@ -33,11 +34,10 @@ const AdminPage = () => {
   //     navigate("/login");
   //   }
   // }, [user]);
-  const handleUpdate = (e) => {
-    console.log(e.currentTarget.checked);
-    updateUser();
-  };
-
+  // const handleUpdate = (e) => {
+  //   console.log(e.currentTarget.checked);
+  //   updateUser();
+  // };
   return (
     <Box
       pt="60px"
@@ -46,6 +46,16 @@ const AdminPage = () => {
       height="100%"
       backgroundColor="rgba(255, 255, 255, 1)"
     >
+      {isLoading ? (
+        <Box
+          display="flex"
+          justifyContent="center"
+          height="100vh"
+          alignItems="center"
+        >
+          <CircularProgress />
+        </Box>
+      ) : (
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -59,7 +69,7 @@ const AdminPage = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users?.map((user, index) => (
+            {users.map((user, index) => (
               <TableRow
                 key={user._id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -68,7 +78,7 @@ const AdminPage = () => {
                   {index + 1}
                 </TableCell>
                 <TableCell component="th" scope="row">
-                  {user.username}
+                  <Link to={`/profile/${user._id}`}>{user.username}</Link>
                 </TableCell>
                 <TableCell>{user.email}</TableCell>
                 <TableCell align="center">
@@ -99,7 +109,7 @@ const AdminPage = () => {
             ))}
           </TableBody>
         </Table>
-      </TableContainer>
+      </TableContainer>)}
     </Box>
   );
 };

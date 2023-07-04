@@ -30,7 +30,6 @@ const ItemForm = ({ setOpenForm, collectionId, variant, item }) => {
           ...values,
           author: getUserId(),
           collectionId,
-          likes: [],
         };
         await postItem(newItem).unwrap();
       }

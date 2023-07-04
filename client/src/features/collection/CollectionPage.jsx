@@ -35,10 +35,10 @@ const CollectionPage = () => {
       ) : (
         <>
           <Collection collection={collection} variant="page" />
-          <Typography variant="h3" mt={2}>
+          <Typography variant="h3" mt={2} px={5}>
             Items:
           </Typography>
-          <Items collectionId={collection?._id} />
+          <Items collectionId={id} customFields={collection.customFields} />
           {(collection.author === user?._id || user?.admin) && (
             <Box mt={2}>
               {openForm ? (

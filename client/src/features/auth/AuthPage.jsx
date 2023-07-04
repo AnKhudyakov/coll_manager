@@ -12,7 +12,7 @@ const AuthPage = ({ variant }) => {
   const navigate = useNavigate();
   useEffect(() => {
     if (user) {
-      navigate("/profile");
+      navigate(`/profile/${user._id}`);
     }
   }, [user]);
   return (
