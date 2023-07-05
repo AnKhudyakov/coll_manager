@@ -17,39 +17,45 @@ const CollectionPage = () => {
   const user = useSelector(selectCurrentUser);
 
   return (
-    <Box
-      pt="60px"
-      width="100%"
-      height="100%"
-      backgroundColor="rgba(255, 255, 255, 1)"
-    >
-      {isLoading ? (
-        <Box
-          display="flex"
-          justifyContent="center"
-          height="100vh"
-          alignItems="center"
-        >
-          <CircularProgress />
-        </Box>
-      ) : (
-        <>
-          <Collection collection={collection} variant="page" />
-          <Typography variant="h3" mt={2} px={5}>
-            Items:
-          </Typography>
-          <Items collectionId={id} customFields={collection.customFields} />
-          {(collection.author === user?._id || user?.admin) && (
-            <Box mt={2}>
-              {openForm ? (
-                <ItemForm setOpenForm={setOpenForm} collectionId={id} />
-              ) : (
-                <Button onClick={() => setOpenForm(true)}>Add new</Button>
-              )}
-            </Box>
-          )}
-        </>
-      )}
+    <Box pt="60px" width="100%" bgcolor="background.light" minHeight="100vh">
+      <Box maxWidth="1250px" mx="auto">
+        {isLoading ? (
+          <Box
+            display="flex"
+            justifyContent="center"
+            height="100vh"
+            alignItems="center"
+          >
+            <CircularProgress />
+          </Box>
+        ) : (
+          <Box>
+            <Collection collection={collection} variant="page" />
+            <Typography variant="h3" mt={2} px={5} color="text.secondary">
+              Items:
+            </Typography>
+            <Items collectionId={id} customFields={collection.customFields} />
+            {(collection.author === user?._id || user?.admin) && (
+              <Box mt={2} px={5}>
+                {openForm ? (
+                  <ItemForm setOpenForm={setOpenForm} collectionId={id} />
+                ) : (
+                  <Button
+                    sx={{
+                      p: 1,
+                      bgcolor: "background.main",
+                      color: "text.secondary",
+                    }}
+                    onClick={() => setOpenForm(true)}
+                  >
+                    Add new
+                  </Button>
+                )}
+              </Box>
+            )}
+          </Box>
+        )}
+      </Box>
     </Box>
   );
 };

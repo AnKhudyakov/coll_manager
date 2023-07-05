@@ -6,9 +6,9 @@ import { useNavigate } from "react-router-dom";
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  backgroundColor: alpha(theme.palette.background.light, 0.55),
   "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
+    backgroundColor: alpha(theme.palette.background.main, 0.55),
   },
   marginLeft: 0,
   width: "100%",
@@ -20,7 +20,7 @@ const Search = styled("div")(({ theme }) => ({
 }));
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
-  color: "rgba(255, 255, 255, .8)",
+  color: theme.palette.text.secondary,
   padding: theme.spacing(0, 2),
   height: "100%",
   position: "absolute",
@@ -31,7 +31,7 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "rgba(255, 255, 255, .8)",
+  color: theme.palette.text.secondary,
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
@@ -52,7 +52,7 @@ const SearchMenu = () => {
   const navigate = useNavigate();
   const handleSearch = (e) => {
     if (e.keyCode === 13) {
-      navigate(`/search?text=${e.target.value}`)
+      navigate(`/search?text=${e.target.value}`);
     }
   };
 

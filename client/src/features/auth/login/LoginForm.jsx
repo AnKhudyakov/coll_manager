@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { setToken } from "@/helpers/auth";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../authSlice";
@@ -71,11 +71,13 @@ const FormLogin = () => {
           minWidth: "100%",
           padding: "20px 40px",
           m: "20px 0",
+          bgcolor: "background.main",
+          color: "text.secondary",
         }}
       >
         SIGN IN
       </Button>
-      <Box>
+      <Typography color="text.secondary">
         Do you have an account?{" "}
         <Link
           to="/register"
@@ -86,7 +88,7 @@ const FormLogin = () => {
         >
           Sign up
         </Link>
-      </Box>
+      </Typography>
       <ToastContainer
         position="bottom-center"
         autoClose={5000}

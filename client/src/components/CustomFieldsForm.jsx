@@ -73,7 +73,7 @@ const CustomFieldsForm = ({ formik }) => {
                 );
               })}
               <Box display="flex" alignItems="center" my={1}>
-                <Typography variant="h4">Add Custom Field</Typography>
+                <Typography variant="h4" color="text.secondary">Add Custom Field</Typography>
                 <IconButton
                   aria-label="add custom field"
                   onClick={() =>

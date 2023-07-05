@@ -12,6 +12,7 @@ import SearchMenu from "@/components/SearchMenu";
 import { unsetToken } from "@/helpers/auth";
 import { selectCurrentUser, setCredentials } from "@/features/auth/authSlice";
 import { useSelector, useDispatch } from "react-redux";
+import Switcher from "./Switcher";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -30,16 +31,15 @@ const Navbar = () => {
         alignItems="center"
         width="100%"
         height="60px"
-        backgroundColor="rgba(22, 22, 23, .7)"
-        color="black"
+        bgcolor="background.dark"
         position="fixed"
         top="0"
         left="0"
-        zIndex="1"
+        zIndex="2"
         justifyContent="space-between"
       >
         <Box
-        px={2}
+          px={2}
           width={isNonTablet ? "1250px" : "100%"}
           mx="auto"
           display="flex"
@@ -53,7 +53,7 @@ const Navbar = () => {
                   color: `${shades.primary[200]}`,
                 },
               }}
-              color={shades.primary[100]}
+              color="text.secondary"
             >
               COLLECTION MANAGER
             </Box>
@@ -62,14 +62,14 @@ const Navbar = () => {
           <SearchMenu />
 
           <Box
-          px={1}
+            px={1}
             display="flex"
             justifyContent="space-between"
             columnGap={isNonTablet ? "60px" : "15px"}
             zIndex="2"
           >
             <Link to="/">
-              <IconButton sx={{ color: "rgba(255, 255, 255, .8)" }}>
+              <IconButton color="text.secondary">
                 <HomeOutlined />
               </IconButton>
             </Link>
@@ -77,33 +77,31 @@ const Navbar = () => {
               <>
                 {user.admin && (
                   <Link to="/admin">
-                    <IconButton sx={{ color: "rgba(255, 255, 255, .8)" }}>
+                    <IconButton color="text.secondary">
                       <SupervisorAccount />
                     </IconButton>
                   </Link>
                 )}
 
                 <Link to={`/profile/${user._id}`}>
-                  <IconButton sx={{ color: "rgba(255, 255, 255, .8)" }}>
+                  <IconButton color="text.secondary">
                     <PersonOutline />
                   </IconButton>
                 </Link>
-                <IconButton
-                  onClick={handleLogout}
-                  sx={{ color: "rgba(255, 255, 255, .8)" }}
-                >
+                <Switcher />
+                <IconButton onClick={handleLogout} color="text.secondary">
                   <LogoutOutlined />
                 </IconButton>
               </>
             ) : (
-              <Link to="/login">
-                <IconButton
-                  onClick={(e) => {}}
-                  sx={{ color: "rgba(255, 255, 255, .8)" }}
-                >
-                  <LoginOutlined />
-                </IconButton>
-              </Link>
+              <>
+                <Switcher />
+                <Link to="/login">
+                  <IconButton onClick={(e) => {}} color="text.secondary">
+                    <LoginOutlined />
+                  </IconButton>
+                </Link>
+              </>
             )}
           </Box>
         </Box>

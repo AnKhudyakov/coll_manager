@@ -4,7 +4,15 @@ import { getInitValuesItem } from "@/helpers/getInitValuesForms";
 import { INIT_VALUES_ITEM as initialValues } from "@/constants/fields";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Autocomplete, Box, Button, Chip, TextField } from "@mui/material";
+import {
+  Autocomplete,
+  Box,
+  Button,
+  Checkbox,
+  Chip,
+  FormControlLabel,
+  TextField,
+} from "@mui/material";
 import { getUserId } from "@/helpers/auth";
 import {
   usePostItemMutation,
@@ -105,35 +113,52 @@ const ItemForm = ({ setOpenForm, collectionId, variant, item }) => {
                       alignItems={"center"}
                       sx={{ mt: 2 }}
                     >
-                      <TextField
-                        sx={{ mt: 2 }}
-                        multiline={customField.type === "textarea"}
-                        fullWidth
-                        type={
-                          customField.type === "textarea"
-                            ? "text"
-                            : customField.type
-                        }
-                        label={customField.name}
-                        onBlur={formik.handleBlur}
-                        onChange={formik.handleChange}
-                        value={
-                          formik.values.customFields.length
-                            ? formik.values.customFields[index][
-                                customField.name
-                              ]
-                            : ""
-                        }
-                        name={`customFields.${index}.${customField.name}`}
-                        error={Boolean(
-                          getIn(formik.touched, customField.name) &&
+                      {customField.type === "checkbox" ? (
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={
+                                formik.values.customFields[index][
+                                  customField.name
+                                ]
+                              }
+                              onChange={formik.handleChange}
+                              name={`customFields.${index}.${customField.name}`}
+                            />
+                          }
+                          label={`${customField.name}`}
+                        />
+                      ) : (
+                        <TextField
+                          sx={{ mt: 2 }}
+                          multiline={customField.type === "textarea"}
+                          fullWidth
+                          type={
+                            customField.type === "textarea"
+                              ? "text"
+                              : customField.type
+                          }
+                          label={customField.name}
+                          onBlur={formik.handleBlur}
+                          onChange={formik.handleChange}
+                          value={
+                            formik.values.customFields.length
+                              ? formik.values.customFields[index][
+                                  customField.name
+                                ]
+                              : ""
+                          }
+                          name={`customFields.${index}.${customField.name}`}
+                          error={Boolean(
+                            getIn(formik.touched, customField.name) &&
+                              getIn(formik.errors, customField.name)
+                          )}
+                          helperText={
+                            getIn(formik.touched, customField.name) &&
                             getIn(formik.errors, customField.name)
-                        )}
-                        helperText={
-                          getIn(formik.touched, customField.name) &&
-                          getIn(formik.errors, customField.name)
-                        }
-                      />
+                          }
+                        />
+                      )}
                     </Box>
                   );
                 })}
@@ -150,6 +175,8 @@ const ItemForm = ({ setOpenForm, collectionId, variant, item }) => {
             minWidth: "30%",
             padding: "20px 40px",
             m: "20px 0",
+            bgcolor: "background.main",
+            color: "text.secondary",
           }}
           onClick={() => setOpenForm(false)}
         >

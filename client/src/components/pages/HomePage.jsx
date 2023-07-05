@@ -17,51 +17,61 @@ const HomePage = () => {
   const navigate = useNavigate();
   return (
     <section>
-      <Box p={3} pt="70px" maxWidth="1250px" mx="auto">
-        <Box>
-          <Typography variant="h3">Last items</Typography>
-          <ItemsList variant="last" />
-        </Box>
-        <Box mt={3}>
-          <Typography variant="h3">Largest collections</Typography>
-          {isLoading ? (
+      <Box p={3} pt="70px" bgcolor="background.light" minHeight="100vh">
+        <Box maxWidth="1250px" mx="auto">
+          <Box>
+            <Typography variant="h3" color="text.secondary">
+              Last items
+            </Typography>
+            <ItemsList variant="last" />
+          </Box>
+          <Box mt={3}>
+            <Typography variant="h3" color="text.secondary">
+              Largest collections
+            </Typography>
+            {isLoading ? (
+              <Box
+                display="flex"
+                justifyContent="center"
+                height="100vh"
+                width="100%"
+                alignItems="center"
+              >
+                <CircularProgress />
+              </Box>
+            ) : (
+              <Box m="20px 0">
+                <Collections collections={collections} />
+              </Box>
+            )}
+          </Box>
+          {isLoadingTags ? (
             <Box
               display="flex"
               justifyContent="center"
               height="100vh"
-              width="100%"
               alignItems="center"
             >
               <CircularProgress />
             </Box>
           ) : (
-            <Box m="20px 0">
-              <Collections collections={collections} />
-            </Box>
+            <>
+              {tags?.map((tag) => (
+                <Button
+                  sx={{
+                    m: 1,
+                    bgcolor: "background.main",
+                    color: "text.secondary",
+                  }}
+                  key={tag._id}
+                  onClick={() => navigate(`/search?text=${tag.content}`)}
+                >
+                  #{tag.content}
+                </Button>
+              ))}
+            </>
           )}
         </Box>
-        {isLoadingTags ? (
-          <Box
-            display="flex"
-            justifyContent="center"
-            height="100vh"
-            alignItems="center"
-          >
-            <CircularProgress />
-          </Box>
-        ) : (
-          <>
-            {tags?.map((tag) => (
-              <Button
-                sx={{ m: 1 }}
-                key={tag._id}
-                onClick={() => navigate(`/search?text=${tag.content}`)}
-              >
-                #{tag.content}
-              </Button>
-            ))}
-          </>
-        )}
       </Box>
     </section>
   );

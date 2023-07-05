@@ -3,8 +3,8 @@ import { Typography } from "@mui/material";
 const Profile = ({user}) => {
   return (
     <>
-      <Typography gutterBottom variant="h2">Profile</Typography>
-      <Typography gutterBottom variant="h3">Username: {user?.username}</Typography>
+      <Typography gutterBottom variant="h2" color="text.secondary">Profile</Typography>
+      <Typography gutterBottom variant="h3" color="text.secondary">Username: {user?.username}</Typography>
     </>
   );
 };

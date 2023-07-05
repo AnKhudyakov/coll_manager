@@ -5,15 +5,16 @@ import {
 import { Box, Button, Typography } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import CommentCard from "./CommentCard";
 import CommentForm from "./CommentForm";
 import { getUserId } from "@/helpers/auth";
+import { selectCurrentUser } from "@/features/auth/authSlice";
 
 const Comments = ({ item }) => {
   const [socket, setSocket] = useState(null);
   const [comments, setComments] = useState([]);
-
+  const user = useSelector(selectCurrentUser);
   const [connected, setConnected] = useState(false);
   useEffect(() => {
     if (item) {
@@ -65,7 +66,7 @@ const Comments = ({ item }) => {
       ) : (
         <> */}
       {!comments?.length ? (
-        <Typography variant="h4">Comments not found.</Typography>
+        <Typography variant="h4" color="text.secondary">Comments not found.</Typography>
       ) : (
         <></>
       )}
@@ -76,7 +77,7 @@ const Comments = ({ item }) => {
       ))}
       {/* </>
       )} */}
-      <CommentForm socket={socket} itemId={item?._id} />
+      {user&&<CommentForm socket={socket} itemId={item?._id} />}
     </Box>
   );
 };

@@ -17,9 +17,11 @@ const AuthPage = ({ variant }) => {
   }, [user]);
   return (
     <section>
+      <Box bgcolor="background.light" minHeight="100vh">
       <Box p={3} pt="70px" maxWidth="500px" m="0 auto">
-        <Typography variant="h3">{title}</Typography>
+        <Typography variant="h3" color="text.secondary">{title}</Typography>
         {variant === "login" ? <LoginForm /> : <RegForm />}
+      </Box>
       </Box>
     </section>
   );

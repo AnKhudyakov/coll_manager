@@ -29,62 +29,91 @@ export const shades = {
     300: "#e2e1e1",
     400: "#d9d7d7",
     500: "#cfcdcd",
-    600: "#a6a4a4",
-    700: "#7c7b7b",
-    800: "#535252",
-    900: "#292929",
+    600: "#444444",
+    700: "#333333",
+    800: "rgba(12,12,12,0.8)",
+    900: "#000000",
   },
 };
 
-export const theme = createTheme({
-  palette: {
-    primary: {
-      main: shades.primary[500],
+export const themeOptions = (mode) => {
+  return {
+    palette: {
+      mode,
+      ...(mode === "dark"
+        ? {
+            primary: {
+              main: shades.primary[400],
+            },
+            secondary: {
+              main: shades.secondary[500],
+            },
+            neutral: {
+              dark: shades.neutral[700],
+              main: shades.neutral[500],
+              light: shades.neutral[200],
+            },
+            background: {
+              dark: shades.neutral[800],
+              main: shades.neutral[700],
+              light: shades.neutral[600],
+            },
+          }
+        : {
+            primary: {
+              main: shades.primary[500],
+            },
+            secondary: {
+              main: shades.secondary[500],
+            },
+            neutral: {
+              dark: shades.neutral[700],
+              main: shades.neutral[500],
+              light: shades.neutral[200],
+            },
+            background: {
+              dark: shades.neutral[500],
+              main: shades.neutral[300],
+              light: shades.neutral[100],
+            },
+          }),
     },
-    secondary: {
-      main: shades.secondary[500],
-    },
-    neutral: {
-      dark: shades.neutral[700],
-      main: shades.neutral[500],
-      light: shades.neutral[200],
-    },
-  },
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          color: "black",
-          backgroundColor: shades.neutral[200],
-          "&:hover": {
-            backgroundColor: shades.neutral[300],
+    components: {
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            color: "black",
+            backgroundColor: shades.neutral[400],
+            "&:hover": {
+              backgroundColor: shades.neutral[500],
+            },
           },
         },
       },
     },
-  },
-  typography: {
-    fontFamily: ["Fauna One", "sans-serif"].join(","),
-    fontSize: 11,
-    h1: {
-      fontFamily: ["Cinzel", "sans-serif"].join(","),
-      fontSize: 48,
+    typography: {
+      fontFamily: ["Fauna One", "sans-serif"].join(","),
+      fontSize: 11,
+      h1: {
+        fontFamily: ["Cinzel", "sans-serif"].join(","),
+        fontSize: 48,
+      },
+      h2: {
+        fontFamily: ["Cinzel", "sans-serif"].join(","),
+        fontSize: 36,
+      },
+      h3: {
+        fontFamily: ["Cinzel", "sans-serif"].join(","),
+        fontSize: 20,
+      },
+      h4: {
+        fontFamily: ["Cinzel", "sans-serif"].join(","),
+        fontSize: 14,
+      },
+      h5: {
+        fontFamily: ["Cinzel", "sans-serif"].join(","),
+        fontSize: 12,
+      },
     },
-    h2: {
-      fontFamily: ["Cinzel", "sans-serif"].join(","),
-      fontSize: 36,
-    },
-    h3: {
-      fontFamily: ["Cinzel", "sans-serif"].join(","),
-      fontSize: 20,
-    },
-    h4: {
-      fontFamily: ["Cinzel", "sans-serif"].join(","),
-      fontSize: 14,
-    },
-    h5: {
-      fontFamily: ["Cinzel", "sans-serif"].join(","),
-      fontSize: 12,
-    },
-  },
-});
+  };
+};

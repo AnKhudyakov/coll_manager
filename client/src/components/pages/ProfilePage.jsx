@@ -33,17 +33,19 @@ const ProfilePage = () => {
   }, [user]);
 
   return (
-    <Box
-      pt="60px"
-      maxWidth="1250px"
-      mx="auto"
-      height="100%"
-      backgroundColor="rgba(255, 255, 255, 1)"
-    >
-      <Box padding="30px" overflow="auto" height="100%">
+    <Box pt="60px" height="100%" bgcolor="background.light">
+      <Box
+        padding="30px"
+        overflow="auto"
+        minHeight="100vh"
+        maxWidth="1250px"
+        mx="auto"
+      >
         <Box m="20px 0">
           <Profile user={user} />
-          <Typography variant="h3">Collections:</Typography>
+          <Typography variant="h3" color="text.secondary">
+            Collections:
+          </Typography>
           <Collections variant="profile" collections={collections} />
           <Box mt={2}>
             {openForm ? (
@@ -53,7 +55,16 @@ const ProfilePage = () => {
                 author={id}
               />
             ) : (
-              <Button onClick={() => setOpenForm(true)}>Add new</Button>
+              <Button
+                sx={{
+                  p: 1,
+                  bgcolor: "background.main",
+                  color: "text.secondary",
+                }}
+                onClick={() => setOpenForm(true)}
+              >
+                Add new
+              </Button>
             )}
           </Box>
         </Box>

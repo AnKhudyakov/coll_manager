@@ -15,8 +15,10 @@ const ItemPage = () => {
       pt="60px"
       width="100%"
       height="100%"
-      backgroundColor="rgba(255, 255, 255, 1)"
+      bgcolor="background.light"
     >
+      <Box  minHeight="100vh"
+        maxWidth="1250px">
       {isLoading ? (
         <Box
           display="flex"
@@ -30,11 +32,12 @@ const ItemPage = () => {
         <>
           <Item item={item} />
           <Box p={2}>
-            <Typography>Comments: </Typography>
+            <Typography color="text.secondary">Comments: </Typography>
             <Comments item={item} />
           </Box>
         </>
       )}
+      </Box>
     </Box>
   );
 };

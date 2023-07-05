@@ -1,5 +1,5 @@
 import { schemaComment } from "@/helpers/validationForm";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import { ToastContainer, toast } from "react-toastify";
 import { getUserId } from "@/helpers/auth";
@@ -50,8 +50,10 @@ const CommentForm = ({ socket, itemId }) => {
           sx={{
             borderRadius: 0,
             minWidth: "30%",
-            padding: "20px 40px",
+            padding: "10px 30px",
             m: "20px 0",
+            bgcolor: "background.main",
+            color: "text.secondary",
           }}
         >
           Add comment

@@ -4,7 +4,7 @@ import { INIT_VALUES_REG as initialValues } from "@/constants/fields";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router";
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, Typography } from "@mui/material";
 import { useRegMutation } from "@/app/services/auth";
 
 const FormReg = () => {
@@ -79,9 +79,11 @@ const FormReg = () => {
           minWidth: "100%",
           padding: "20px 40px",
           m: "20px 0",
+          bgcolor: "background.main",
+          color: "text.secondary",
         }}
       >
-        SIGN IN
+        Register
       </Button>
 
       <ToastContainer

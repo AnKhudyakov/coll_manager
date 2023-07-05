@@ -29,6 +29,7 @@ const Item = ({ item }) => {
     removeItem(item._id);
     navigate(`/profile/${user._id}`);
   };
+  console.log(item.customFields);
   return (
     <>
       <Card>
@@ -41,14 +42,16 @@ const Item = ({ item }) => {
         >
           <CardContent>
             <Typography gutterBottom variant="h3" component="div">
-              {item?.name}
+              {item.name}
             </Typography>
-            {item?.customFields.length ? (
-              item?.customFields.map((field, index) => (
+            {item.customFields.length ? (
+              item.customFields.map((field, index) => (
                 <Box key={index}>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {Object.keys(field)[0]}: {Object.values(field)[0]}
-                  </Typography>
+                  {field.fieldType !== "checkbox" && (
+                    <Typography gutterBottom variant="h5">
+                      {Object.keys(field)[0]}: {Object.values(field)[0]}
+                    </Typography>
+                  )}
                 </Box>
               ))
             ) : (
@@ -60,7 +63,12 @@ const Item = ({ item }) => {
               </Typography>
               {item?.tags?.map((tag) => (
                 <Button
-                  sx={{ mx: 1 }}
+                  sx={{
+                    mx: 1,
+                    p: 1,
+                    bgcolor: "background.main",
+                    color: "text.secondary",
+                  }}
                   key={tag}
                   onClick={() => navigate(`/search?text=${tag}`)}
                 >
@@ -74,7 +82,7 @@ const Item = ({ item }) => {
             <Box justifySelf={"center"}>
               <Likes item={item} user={user} />
               {(item?.author === user?._id || user?.admin) && (
-                <Box display={"flex"} >
+                <Box display={"flex"}>
                   <Box>
                     <IconButton
                       aria-label="edit"

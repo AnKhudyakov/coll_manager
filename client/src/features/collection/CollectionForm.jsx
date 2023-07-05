@@ -146,6 +146,8 @@ const CollectionForm = ({ setOpenForm, variant, collection, author }) => {
             minWidth: "30%",
             padding: "20px 40px",
             m: "20px 0",
+            bgcolor: "background.main",
+            color: "text.secondary",
           }}
           onClick={() => setOpenForm(false)}
         >
