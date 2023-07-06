@@ -9,14 +9,16 @@ import {
   Box,
   Button,
   IconButton,
+  InputLabel,
   List,
   ListItem,
   ListItemAvatar,
   ListItemText,
   TextField,
   Typography,
+  styled,
 } from "@mui/material";
-
+import MDEditor from "@uiw/react-md-editor";
 import { getUserId } from "@/helpers/auth";
 import {
   usePostCollectionMutation,
@@ -28,6 +30,37 @@ import PostAddIcon from "@mui/icons-material/PostAdd";
 import CustomFieldsForm from "@/components/CustomFieldsForm";
 import UploadFile from "@/components/UploadFile";
 import { useTranslation } from "react-i18next";
+
+const DarkEditorWrapper = styled("div")`
+  .w-md-editor {
+    box-shadow: 0 0 0 1px ${({ theme }) => theme.palette.text.secondary};
+    background-color: ${({ theme }) => theme.palette.background.main};
+    color: ${({ theme }) => theme.palette.text.primary};
+  }
+  .w-md-editor-toolbar {
+    border-bottom: 1px solid ${({ theme }) => theme.palette.text.secondary};
+    background-color: ${({ theme }) => theme.palette.background.main};
+    color: ${({ theme }) => theme.palette.text.primary};
+    li {
+      button {
+        color: ${({ theme }) => theme.palette.text.primary};
+      }
+    }
+  }
+  .w-md-editor-header {
+    background-color: ${({ theme }) => theme.palette.background.main};
+    color: ${({ theme }) => theme.palette.text.primary};
+  }
+  .w-md-editor-preview {
+    box-shadow: 0 0 0 1px ${({ theme }) => theme.palette.text.secondary};
+    background-color: ${({ theme }) => theme.palette.background.main};
+    color: ${({ theme }) => theme.palette.text.primary};
+  }
+  .wmde-markdown {
+    background-color: ${({ theme }) => theme.palette.background.light};
+    color: ${({ theme }) => theme.palette.text.primary};
+  }
+`;
 
 const CollectionForm = ({ setOpenForm, variant, collection, author }) => {
   const { t } = useTranslation("translation", { keyPrefix: "profile" });
@@ -82,7 +115,6 @@ const CollectionForm = ({ setOpenForm, variant, collection, author }) => {
           await postCollection(newCollection).unwrap();
           break;
       }
-
       actions.resetForm();
       toast.success("Successful create new collection");
       setOpenForm(false);
@@ -90,7 +122,6 @@ const CollectionForm = ({ setOpenForm, variant, collection, author }) => {
       toast.error(err.data.message);
     }
   };
-
   const formik = useFormik({
     initialValues: currentValues,
     onSubmit: handleFormSubmit,
@@ -110,20 +141,25 @@ const CollectionForm = ({ setOpenForm, variant, collection, author }) => {
         error={Boolean(formik.touched.name && formik.errors.name)}
         helperText={formik.touched.name && formik.errors.name}
       />
-      <TextField
-        sx={{ mt: 2 }}
-        fullWidth
-        multiline
-        minRows={3}
-        type="text-aria"
-        label={t("descCollection")}
-        onBlur={formik.handleBlur}
-        onChange={formik.handleChange}
-        value={formik.values.description}
-        name="description"
-        error={Boolean(formik.touched.description && formik.errors.description)}
-        helperText={formik.touched.description && formik.errors.description}
-      />
+      <Box mt={2}>
+        <InputLabel sx={{ mb: 1 }}>{t("descCollection")}</InputLabel>
+        <DarkEditorWrapper>
+          <MDEditor
+            aria-required
+            value={formik.values.description}
+            onChange={(value) => formik.handleChange("description")(value)}
+            name="description"
+            onBlurCapture={() =>
+              formik.setTouched({ ...formik.touched, description: true })
+            }
+          />
+        </DarkEditorWrapper>
+        {formik.touched.description && formik.errors.description && (
+          <Typography mt={1} variant="h5" color="secondary.main">
+            {formik.errors.description}
+          </Typography>
+        )}
+      </Box>
       <TextField
         sx={{ mt: 2 }}
         fullWidth
@@ -162,6 +198,8 @@ const CollectionForm = ({ setOpenForm, variant, collection, author }) => {
             minWidth: "30%",
             padding: "20px 40px",
             m: "20px 0",
+            bgcolor: "background.main",
+            color: "text.secondary",
           }}
         >
           {variant === "edit" ? t("updateBtn") : t("createBtn")}

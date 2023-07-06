@@ -1,5 +1,3 @@
-import { createTheme } from "@mui/material/styles";
-
 export const shades = {
   primary: {
     100: "#cccccc",
@@ -46,7 +44,7 @@ export const themeOptions = (mode) => {
               main: shades.primary[400],
             },
             secondary: {
-              main: shades.secondary[500],
+              main: shades.secondary[400],
             },
             neutral: {
               dark: shades.neutral[700],
@@ -57,7 +55,12 @@ export const themeOptions = (mode) => {
               dark: shades.neutral[800],
               main: shades.neutral[700],
               light: shades.neutral[600],
+              default: '#292929',
             },
+            text: {
+              primary: shades.primary[100],
+              secondary: shades.primary[200],
+            }
           }
         : {
             primary: {
@@ -75,7 +78,11 @@ export const themeOptions = (mode) => {
               dark: shades.neutral[500],
               main: shades.neutral[300],
               light: shades.neutral[100],
+              default: shades.neutral[500],
             },
+            text: {
+              primary: shades.primary[400],
+            }
           }),
     },
     components: {

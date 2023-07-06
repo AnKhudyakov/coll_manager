@@ -9,7 +9,7 @@ class SearchService {
         $search: {
           index: "items",
           text: {
-            query: [search, tag._id.toString()],
+            query: [`*${search}*`, tag._id.toString()],
             path: {
               wildcard: "*",
             },
