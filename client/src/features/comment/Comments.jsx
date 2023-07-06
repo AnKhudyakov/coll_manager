@@ -10,8 +10,10 @@ import CommentCard from "./CommentCard";
 import CommentForm from "./CommentForm";
 import { getUserId } from "@/helpers/auth";
 import { selectCurrentUser } from "@/features/auth/authSlice";
+import { useTranslation } from "react-i18next";
 
 const Comments = ({ item }) => {
+  const { t } = useTranslation("translation", { keyPrefix: "item" });
   const [socket, setSocket] = useState(null);
   const [comments, setComments] = useState([]);
   const user = useSelector(selectCurrentUser);
@@ -41,43 +43,27 @@ const Comments = ({ item }) => {
         }
       };
       socket.onclose = () => {
-        alert("Connection closed");
+        // alert("Connection closed");
         setConnected(false);
       };
       socket.onerror = () => {
-        alert("Connection died");
+        // alert("Connection died");
       };
-      // return () => {
-      //   socket.close()
-      // };
     }
   }, []);
   return (
     <Box display="flex" flexDirection="column" gap={2} mt={1}>
-      {/* {isLoading ? (
-        <Box
-          display="flex"
-          justifyContent="center"
-          height="100vh"
-          alignItems="center"
-        >
-          <CircularProgress />
-        </Box>
-      ) : (
-        <> */}
-      {!comments?.length ? (
-        <Typography variant="h4" color="text.secondary">Comments not found.</Typography>
-      ) : (
-        <></>
+      {!comments?.length && (
+        <Typography variant="h4" color="text.secondary">
+          {t("notFound")}
+        </Typography>
       )}
       {comments?.map((comment) => (
         <Box key={comment._id}>
           <CommentCard comment={comment} />
         </Box>
       ))}
-      {/* </>
-      )} */}
-      {user&&<CommentForm socket={socket} itemId={item?._id} />}
+      {user && <CommentForm socket={socket} itemId={item?._id} />}
     </Box>
   );
 };

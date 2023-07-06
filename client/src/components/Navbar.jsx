@@ -12,7 +12,8 @@ import SearchMenu from "@/components/SearchMenu";
 import { unsetToken } from "@/helpers/auth";
 import { selectCurrentUser, setCredentials } from "@/features/auth/authSlice";
 import { useSelector, useDispatch } from "react-redux";
-import Switcher from "./Switcher";
+import SwitcherTheme from "./SwitcherTheme";
+import SwitcherLang from "./SwitcherLang";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -88,14 +89,16 @@ const Navbar = () => {
                     <PersonOutline />
                   </IconButton>
                 </Link>
-                <Switcher />
+                <SwitcherTheme />
+                <SwitcherLang />
                 <IconButton onClick={handleLogout} color="text.secondary">
                   <LogoutOutlined />
                 </IconButton>
               </>
             ) : (
               <>
-                <Switcher />
+                <SwitcherTheme />
+                <SwitcherLang />
                 <Link to="/login">
                   <IconButton onClick={(e) => {}} color="text.secondary">
                     <LoginOutlined />

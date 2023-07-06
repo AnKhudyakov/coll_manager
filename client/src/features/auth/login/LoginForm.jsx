@@ -2,7 +2,6 @@ import { useFormik } from "formik";
 import { schemaLogin } from "@/helpers/validationForm";
 import { INIT_VALUES_LOGIN as initialValues } from "@/constants/fields";
 import { Link, useNavigate } from "react-router-dom";
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Box, Button, TextField, Typography } from "@mui/material";
@@ -10,8 +9,10 @@ import { setToken } from "@/helpers/auth";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../authSlice";
 import { useLoginMutation } from "@/app/services/auth";
+import { useTranslation } from "react-i18next";
 
 const FormLogin = () => {
+  const { t } = useTranslation("translation", { keyPrefix: "auth" });
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [login, { isLoading }] = useLoginMutation();
@@ -21,11 +22,14 @@ const FormLogin = () => {
       dispatch(setCredentials(data));
       setToken(data, navigate);
       actions.resetForm();
-      toast.success("Successful Login");
+      toast.success(t("successSignIn"));
     } catch (err) {
       switch (err.status) {
         case 400:
-          toast.error("Invalid email or password");
+          toast.error(t("error400"));
+          break;
+        case 404:
+          toast.error(t("error404"));
           break;
         default:
           toast.error(err.data.message);
@@ -44,7 +48,7 @@ const FormLogin = () => {
         sx={{ mt: 2 }}
         fullWidth
         type="text"
-        label={"Email"}
+        label={t("email")}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         value={formik.values.email}
@@ -56,7 +60,7 @@ const FormLogin = () => {
         sx={{ mt: 2 }}
         fullWidth
         type="password"
-        label={"Password"}
+        label={t("password")}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         value={formik.values.password}
@@ -75,10 +79,10 @@ const FormLogin = () => {
           color: "text.secondary",
         }}
       >
-        SIGN IN
+        {t("signIn")}
       </Button>
       <Typography color="text.secondary">
-        Do you have an account?{" "}
+        {t("accountDontHave")}{" "}
         <Link
           to="/register"
           style={{
@@ -86,7 +90,7 @@ const FormLogin = () => {
             textDecoration: "underline",
           }}
         >
-          Sign up
+          {t("signUp")}
         </Link>
       </Typography>
       <ToastContainer

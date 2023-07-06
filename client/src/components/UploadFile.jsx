@@ -11,6 +11,7 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
+  Typography,
 } from "@mui/material";
 import { useRef } from "react";
 import { FileUploader } from "react-drag-drop-files";
@@ -19,30 +20,6 @@ const UploadFile = ({ image, setImage }) => {
   const ref = useRef(null);
   return (
     <Box mt={2} width="100%">
-      {/* <Button
-        component="label"
-        variant="outlined"
-        startIcon={<UploadFileIcon />}
-        p={"20px"}
-        sx={{
-          width: "100%",
-          p: "20px",
-          marginRight: "1rem",
-          mt: 2,
-          bgcolor: "transparent",
-          border: "1px dashed grey",
-        }}
-      >
-        Upload or drop image file
-        <input
-          type="file"
-          accept="image/*"
-          name="image"
-          ref={ref}
-          hidden
-          onChange={(e) => setImage(e.target.files[0])}
-        />
-      </Button> */}
       <FileUploader
         handleChange={(file) => setImage(file)}
         name="image"

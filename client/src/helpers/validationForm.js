@@ -4,11 +4,11 @@ export const schemaReg = yup.object().shape({
   username: yup
     .string()
     .required("No Name provided.")
-    .max(15, "Name is too long - should be 15 chars maximum."),
+    .max(50, "Name is too long - should be 50 chars maximum."),
   email: yup
     .string()
     .email("Please enter correct email.")
-    .max(80, "Email is too long - should be 80 chars maximum.")
+    .max(50, "Email is too long - should be 50 chars maximum.")
     .matches(
       /^([a-z0-9_\.-]+)@([a-z0-9_\.-]+)\.([a-z]{2,6})$/i,
       "Please enter correct email."
@@ -17,15 +17,15 @@ export const schemaReg = yup.object().shape({
   password: yup
     .string()
     .required("No password provided.")
-    .min(5, "Password must be longer then 5 chars")
-    .max(10, "Password is too long - should be 10 chars maximum."),
+    .min(5, "Password must be longer then 4 chars")
+    .max(50, "Password is too long - should be 50 chars maximum."),
 });
 
 export const schemaLogin = yup.object().shape({
   email: yup
     .string()
     .email("Please enter correct email.")
-    .max(20, "Email is too long - should be 20 chars maximum.")
+    .max(50, "Email is too long - should be 50 chars maximum.")
     .matches(
       /^([a-z0-9_\.-]+)@([a-z0-9_\.-]+)\.([a-z]{2,6})$/i,
       "Please enter correct email."
@@ -35,7 +35,7 @@ export const schemaLogin = yup.object().shape({
     .string()
     .required("No password provided.")
     .min(5, "Password must be longer then 5 chars")
-    .max(10, "Password is too long - should be 10 chars maximum."),
+    .max(50, "Password is too long - should be 50 chars maximum."),
 });
 
 export const schemaCollection = yup.object().shape({

@@ -6,8 +6,10 @@ import { useNavigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useGetCollectionsQuery } from "@/app/services/collection";
 import ItemsList from "@/features/item/ItemsList";
+import { useTranslation } from "react-i18next";
 
 const HomePage = () => {
+  const { t } = useTranslation("translation", { keyPrefix: "home" });
   const { data: tags, isLoading: isLoadingTags } = useGetTagsQuery();
   const { data: collections, isLoading } = useGetCollectionsQuery({
     limit: 5,
@@ -21,13 +23,13 @@ const HomePage = () => {
         <Box maxWidth="1250px" mx="auto">
           <Box>
             <Typography variant="h3" color="text.secondary">
-              Last items
+              {t("lastItems")}
             </Typography>
             <ItemsList variant="last" />
           </Box>
           <Box mt={3}>
             <Typography variant="h3" color="text.secondary">
-              Largest collections
+              {t("LargestCollections")}
             </Typography>
             {isLoading ? (
               <Box
@@ -56,6 +58,9 @@ const HomePage = () => {
             </Box>
           ) : (
             <>
+              <Typography variant="h3" color="text.secondary">
+                {t("popularTags")}
+              </Typography>
               {tags?.map((tag) => (
                 <Button
                   sx={{

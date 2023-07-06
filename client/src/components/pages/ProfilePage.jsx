@@ -12,13 +12,14 @@ import {
 } from "@/app/services/collection";
 import { getUserId } from "@/helpers/auth";
 import { useGetUserByIdQuery } from "@/app/services/user";
+import { useTranslation } from "react-i18next";
 
 const ProfilePage = () => {
+  const { t } = useTranslation("translation", { keyPrefix: "profile" });
   const { id } = useParams();
   const navigate = useNavigate();
   const [openForm, setOpenForm] = useState(false);
   const { data: user, isLoading: isLoadingUser } = useGetUserByIdQuery(id);
-  //const user = useSelector(selectCurrentUser);
   const { data: collections, isLoading } = user?.admin
     ? useGetCollectionsQuery({
         limit: 10,
@@ -44,9 +45,16 @@ const ProfilePage = () => {
         <Box m="20px 0">
           <Profile user={user} />
           <Typography variant="h3" color="text.secondary">
-            Collections:
+            {t("collections")}:
           </Typography>
-          <Collections variant="profile" collections={collections} />
+
+          {collections ? (
+            <Collections variant="profile" collections={collections} />
+          ) : (
+            <Typography variant="h4" align="center" color="text.secondary">
+              {t("notFound")}
+            </Typography>
+          )}
           <Box mt={2}>
             {openForm ? (
               <CollectionForm
@@ -63,7 +71,7 @@ const ProfilePage = () => {
                 }}
                 onClick={() => setOpenForm(true)}
               >
-                Add new
+                {t("addButton")}
               </Button>
             )}
           </Box>

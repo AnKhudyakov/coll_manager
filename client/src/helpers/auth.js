@@ -11,7 +11,6 @@ export const setToken = (data, navigate) => {
   });
   Cookies.set("jwt", data.token, { sameSite: "strict", secure: true });
   if (Cookies.get("username")) {
-    console.log("HERE");
     setTimeout(() => {
       navigate(`/profile/${data.user._id}`);
     }, 1500);
@@ -29,9 +28,9 @@ export const unsetToken = (navigate) => {
 };
 
 export const getUserId = () => {
- return Cookies.get("id")
-}
+  return Cookies.get("id");
+};
 
 export const getToken = () => {
-  return Cookies.get("jwt")
- }
+  return Cookies.get("jwt");
+};

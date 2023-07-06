@@ -2,24 +2,24 @@ import Navbar from "@/components/Navbar";
 import { useTheme } from "@/hooks/useTheme";
 import { ThemeProvider } from "@mui/material/styles";
 import { useMemo } from "react";
-import { ColorModeContext } from "@/hooks/useTheme";
+import { ThemeContext } from "@/hooks/useTheme";
 
 const Layout = ({ children }) => {
-  const [theme, colorMode, mode] = useTheme();
+  const [theme, themeMode, mode] = useTheme();
   const memoizedColor = useMemo(
     () => ({
-      toggleColorMode: colorMode.toggleColorMode,
+      toggleTheme: themeMode.toggleTheme,
       mode,
     }),
-    [colorMode.toggleColorMode, mode]
+    [themeMode.toggleTheme, mode]
   );
   return (
-    <ColorModeContext.Provider value={memoizedColor}>
+    <ThemeContext.Provider value={memoizedColor}>
       <ThemeProvider theme={theme}>
         <Navbar />
         <main>{children}</main>
       </ThemeProvider>
-    </ColorModeContext.Provider>
+    </ThemeContext.Provider>
   );
 };
 

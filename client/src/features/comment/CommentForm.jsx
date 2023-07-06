@@ -4,8 +4,10 @@ import { useFormik } from "formik";
 import { ToastContainer, toast } from "react-toastify";
 import { getUserId } from "@/helpers/auth";
 import "react-toastify/dist/ReactToastify.css";
+import { useTranslation } from "react-i18next";
 
 const CommentForm = ({ socket, itemId }) => {
+  const { t } = useTranslation("translation", { keyPrefix: "item" });
   const handleFormSubmit = async (values, actions) => {
     try {
       const comment = {
@@ -36,7 +38,7 @@ const CommentForm = ({ socket, itemId }) => {
         multiline
         minRows={3}
         type="text-aria"
-        label={"Add your comment here..."}
+        label={t("commentInput")}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         value={formik.values.comment}
@@ -56,7 +58,7 @@ const CommentForm = ({ socket, itemId }) => {
             color: "text.secondary",
           }}
         >
-          Add comment
+          {t("commentBtn")}
         </Button>
       </Box>
       <ToastContainer

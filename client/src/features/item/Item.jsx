@@ -19,8 +19,10 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ItemForm from "./ItemForm";
 import Likes from "@/features/likes/Likes";
+import { useTranslation } from "react-i18next";
 
 const Item = ({ item }) => {
+  const { t } = useTranslation("translation", { keyPrefix: "item" });
   const navigate = useNavigate();
   const [openForm, setOpenForm] = useState(false);
   const user = useSelector(selectCurrentUser);
@@ -29,7 +31,6 @@ const Item = ({ item }) => {
     removeItem(item._id);
     navigate(`/profile/${user._id}`);
   };
-  console.log(item.customFields);
   return (
     <>
       <Card>
@@ -59,7 +60,7 @@ const Item = ({ item }) => {
             )}
             <Box>
               <Typography gutterBottom variant="h5" component="div">
-                Tags:
+                {t("tags")}:
               </Typography>
               {item?.tags?.map((tag) => (
                 <Button

@@ -21,8 +21,10 @@ import { Link } from "react-router-dom";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { useItems } from "@/hooks/useItems";
+import { useTranslation } from "react-i18next";
 
 const Items = ({ collectionId, variant, customFields }) => {
+  const { t } = useTranslation("translation", { keyPrefix: "collection" });
   const [items, setItems] = useState([]);
   const { data: currentItems, isLoading } =
     variant === "last"
@@ -66,7 +68,7 @@ const Items = ({ collectionId, variant, customFields }) => {
               <TableHead>
                 <TableRow>
                   <TableCell>№</TableCell>
-                  <TableCell>Name</TableCell>
+                  <TableCell>{t("itemName")}</TableCell>
                   {customFields?.map((field) => (
                     <TableCell
                       align={field.type !== "checkbox" ? "left" : "center"}
@@ -129,7 +131,7 @@ const Items = ({ collectionId, variant, customFields }) => {
                   <TableRow
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
-                    <TableCell>Items not found.</TableCell>
+                    <TableCell>{t("notFound")}</TableCell>
                   </TableRow>
                 )}
               </TableBody>

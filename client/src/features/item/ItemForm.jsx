@@ -22,8 +22,10 @@ import { useGetTagsQuery } from "@/app/services/tag";
 import { useGetCollectionByIdQuery } from "@/app/services/collection";
 import { getIn } from "formik";
 import { FieldArray, FormikProvider } from "formik";
+import { useTranslation } from "react-i18next";
 
 const ItemForm = ({ setOpenForm, collectionId, variant, item }) => {
+  const { t } = useTranslation("translation", { keyPrefix: "collection" });
   const [postItem, { isLoading }] = usePostItemMutation();
   const [updateItem, { isLoading: isUpdating }] = useUpdateItemMutation();
   const { data: initTags, isLoading: isLoadingTags } = useGetTagsQuery();
@@ -42,7 +44,7 @@ const ItemForm = ({ setOpenForm, collectionId, variant, item }) => {
         await postItem(newItem).unwrap();
       }
       actions.resetForm();
-      toast.success("Successful");
+      toast.success(t("success"));
       setOpenForm(false);
     } catch (err) {
       toast.error(err.data.message);
@@ -64,7 +66,7 @@ const ItemForm = ({ setOpenForm, collectionId, variant, item }) => {
         sx={{ mt: 2 }}
         fullWidth
         type="text"
-        label={"Name"}
+        label={t("itemName")}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         value={formik.values.name}
@@ -95,7 +97,7 @@ const ItemForm = ({ setOpenForm, collectionId, variant, item }) => {
           ))
         }
         renderInput={(params) => (
-          <TextField {...params} label="Tags" placeholder="Add tag..." />
+          <TextField {...params} label={t("tags")} placeholder="Add tag..." />
         )}
       />
       <FormikProvider value={formik}>
@@ -180,7 +182,7 @@ const ItemForm = ({ setOpenForm, collectionId, variant, item }) => {
           }}
           onClick={() => setOpenForm(false)}
         >
-          Cancel
+          {t("cancelBtn")}
         </Button>
         <Button
           type="submit"
@@ -191,7 +193,7 @@ const ItemForm = ({ setOpenForm, collectionId, variant, item }) => {
             m: "20px 0",
           }}
         >
-          {variant === "edit" ? "Update" : "Create"}
+          {variant === "edit" ? t("updateBtn") : t("createBtn")}
         </Button>
       </Box>
       <ToastContainer

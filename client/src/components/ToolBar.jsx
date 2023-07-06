@@ -6,22 +6,24 @@ import {
   Select,
   TextField,
 } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 const ToolBar = ({ filter, setFilter, customFields }) => {
+  const { t } = useTranslation("translation", { keyPrefix: "collection" });
   return (
     <Box display="flex" gap={3}>
       <FormControl fullWidth>
         <TextField
           value={filter.query}
-          label="Filter by name"
+          label={t("filter")}
           onChange={(e) => setFilter({ ...filter, query: e.target.value })}
         ></TextField>
       </FormControl>
       <FormControl fullWidth sx={{ maxWidth: "200px" }}>
-        <InputLabel>Sort by</InputLabel>
+        <InputLabel>{t("sort")}</InputLabel>
         <Select
           value={filter.sort}
-          label="Sort by"
+          label={t("sort")}
           onChange={(selectedSort) =>
             setFilter({ ...filter, sort: selectedSort.target.value })
           }
@@ -36,10 +38,10 @@ const ToolBar = ({ filter, setFilter, customFields }) => {
         </Select>
       </FormControl>
       <FormControl fullWidth sx={{ maxWidth: "200px" }}>
-        <InputLabel>Sort order</InputLabel>
+        <InputLabel>{t("order")}</InputLabel>
         <Select
           value={filter.order}
-          label="Sort order"
+          label={t("order")}
           onChange={(selectedSort) =>
             setFilter({ ...filter, order: selectedSort.target.value })
           }

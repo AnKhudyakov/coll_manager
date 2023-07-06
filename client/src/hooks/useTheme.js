@@ -1,23 +1,22 @@
 import { createTheme } from "@mui/material";
-import { useEffect, useMemo, useState,createContext } from "react";
+import { useEffect, useMemo, useState, createContext } from "react";
 import { useDispatch } from "react-redux";
 import { themeOptions } from "@/styles/theme";
 import { setThemeColor } from "@/features/theme/themeSlice";
 
-export const ColorModeContext = createContext({
-  toggleColorMode: () => {},
+export const ThemeContext = createContext({
+  toggleTheme: () => {},
   mode: "dark",
 });
-
 
 export const useTheme = () => {
   const dispatch = useDispatch();
   const [mode, setMode] = useState(
-    localStorage.getItem("colorMode") || "light"
+    localStorage.getItem("themeMode") || "light"
   );
-  const colorMode = useMemo(
+  const themeMode = useMemo(
     () => ({
-      toggleColorMode: () =>
+      toggleTheme: () =>
         setMode((prev) => (prev === "light" ? "dark" : "light")),
       mode,
     }),
@@ -25,8 +24,8 @@ export const useTheme = () => {
   );
   const theme = useMemo(() => createTheme(themeOptions(mode)), [mode]);
   useEffect(() => {
-    localStorage.setItem("colorMode", mode);
+    localStorage.setItem("themeMode", mode);
     dispatch(setThemeColor(mode));
   }, [mode]);
-  return [theme, colorMode, mode];
+  return [theme, themeMode, mode];
 };

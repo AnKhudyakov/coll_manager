@@ -25,7 +25,9 @@ const ItemsList = ({ collectionId, variant }) => {
       ) : (
         <>
           {!items?.length ? (
-            <Typography variant="h4">Items not found.</Typography>
+            <Typography variant="h4" color="text.secondary">
+              Items not found.
+            </Typography>
           ) : (
             <></>
           )}

@@ -2,19 +2,19 @@ import React, { useContext } from "react";
 import { FormGroup, IconButton } from "@mui/material";
 import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
 import ModeNightOutlinedIcon from "@mui/icons-material/ModeNightOutlined";
-import { ColorModeContext } from "@/hooks/useTheme";
+import { ThemeContext } from "@/hooks/useTheme";
 
-const Switcher = () => {
-  const { toggleColorMode, mode } = useContext(ColorModeContext);
+const SwitcherTheme = () => {
+  const { toggleTheme, mode } = useContext(ThemeContext);
 
   return (
-    <FormGroup sx={{ flexGrow: 1, display: "flex", mr: 1 }}>
+    <FormGroup>
       {mode === "dark" ? (
-        <IconButton color="text.secondary" onClick={toggleColorMode}>
+        <IconButton color="text.secondary" onClick={toggleTheme}>
           <WbSunnyOutlinedIcon />
         </IconButton>
       ) : (
-        <IconButton color="inherit" onClick={toggleColorMode}>
+        <IconButton color="text.secondary" onClick={toggleTheme}>
           <ModeNightOutlinedIcon />
         </IconButton>
       )}
@@ -22,4 +22,4 @@ const Switcher = () => {
   );
 };
 
-export default Switcher;
+export default SwitcherTheme;

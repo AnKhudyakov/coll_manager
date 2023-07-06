@@ -32,40 +32,48 @@ const Collection = ({ collection, variant }) => {
 
   return (
     <>
-    <Card sx={{width: `${cardWidth}`, display: "flex", alignItems:"center", justifyContent:"space-between", pr:3 }}>
-      <CardMedia
-        component="img"
-        image={collection?.image}
-        alt="Collection image"
-        sx={{ width: `${imageWidth}`, height: "200px" }}
-      />
-      <CardContent sx={{ width: "100%", height: "100%" }}>
-        <Typography gutterBottom variant="h3" component="div">
-          {collection?.name}
-        </Typography>
-        <Typography gutterBottom variant="h5" component="div">
-          {collection?.topic}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {collection?.description}
-        </Typography>
-      </CardContent>
-      {(collection?.author === user?._id || user?.admin) && (
-        <Box>
+      <Card
+        sx={{
+          width: `${cardWidth}`,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          pr: 3,
+        }}
+      >
+        <CardMedia
+          component="img"
+          image={collection?.image}
+          alt="Collection image"
+          sx={{ width: `${imageWidth}`, height: "200px" }}
+        />
+        <CardContent sx={{ width: "100%", height: "100%" }}>
+          <Typography gutterBottom variant="h3" component="div">
+            {collection?.name}
+          </Typography>
+          <Typography gutterBottom variant="h5" component="div">
+            {collection?.topic}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {collection?.description}
+          </Typography>
+        </CardContent>
+        {(collection?.author === user?._id || user?.admin) && (
           <Box>
-            <IconButton aria-label="edit" onClick={() => setOpenForm(true)}>
-              <EditIcon />
-            </IconButton>
+            <Box>
+              <IconButton aria-label="edit" onClick={() => setOpenForm(true)}>
+                <EditIcon />
+              </IconButton>
+            </Box>
+            <Box>
+              <IconButton aria-label="delete" onClick={handleDeleteItem}>
+                <DeleteIcon />
+              </IconButton>
+            </Box>
           </Box>
-          <Box>
-            <IconButton aria-label="delete" onClick={handleDeleteItem}>
-              <DeleteIcon />
-            </IconButton>
-          </Box>
-        </Box>
-      )}
-    </Card>
-    {openForm && (
+        )}
+      </Card>
+      {openForm && (
         <CollectionForm
           variant="edit"
           setOpenForm={setOpenForm}

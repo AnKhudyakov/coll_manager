@@ -6,25 +6,28 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router";
 import { Button, TextField, Typography } from "@mui/material";
 import { useRegMutation } from "@/app/services/auth";
+import { useTranslation } from "react-i18next";
 
 const FormReg = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation("translation", { keyPrefix: "auth" });
   const [reg, { isLoading }] = useRegMutation();
   const handleFormSubmit = async (values, actions) => {
     try {
       await reg(values).unwrap();
       actions.resetForm();
-      toast.success("Successful registration");
+      toast.success(t("successReg"));
       setTimeout(() => {
         navigate("/login");
       }, 1500);
     } catch (err) {
       switch (err.status) {
         case 401:
-          toast.error("Email and Password already exist");
+          toast.error(t("error401"));
           break;
         default:
           toast.error(err.data.message);
+          break;
       }
     }
   };
@@ -40,7 +43,7 @@ const FormReg = () => {
         sx={{ mt: 2 }}
         fullWidth
         type="text"
-        label={"Name"}
+        label={t("name")}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         value={formik.values.username}
@@ -52,7 +55,7 @@ const FormReg = () => {
         sx={{ mt: 2 }}
         fullWidth
         type="text"
-        label={"Email"}
+        label={t("email")}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         value={formik.values.email}
@@ -64,7 +67,7 @@ const FormReg = () => {
         sx={{ mt: 2 }}
         fullWidth
         type="password"
-        label={"Password"}
+        label={t("password")}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         value={formik.values.password}
@@ -83,7 +86,7 @@ const FormReg = () => {
           color: "text.secondary",
         }}
       >
-        Register
+        {t("signUp")}
       </Button>
 
       <ToastContainer

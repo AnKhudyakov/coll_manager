@@ -1,0 +1,180 @@
+{
+  "en": {
+    "translation": {
+      "header": {
+        "search": "Search...",
+        "confirmLogout": "Are you sure want to logout?"
+      },
+      "home": {
+        "LargestCollections": "The Largest Collections",
+        "lastItems": "Last items",
+        "popularTags": "Popular tags"
+      },
+      "auth": {
+        "signIn": "Sign In",
+        "signUp": "Sign Up",
+        "accountDontHave": "Do you have an account?",
+        "name": "Name",
+        "email": "E-mail",
+        "password": "Password",
+        "register": "Register",
+        "required": "No {{value}} provided.",
+        "minLength": "{{value}} must be longer then 4 chars",
+        "maxLength": "{{value}} is too long - should be 50 chars maximum.",
+        "emailInvalid": "Please enter correct email.",
+        "signUpError": "Unexpected registration error",
+        "signUpError403": "User already exists",
+        "signInError": "Unexpected authorization error",
+        "successSignIn": "Successful SignIn!",
+        "successReg": "Successful registration!",
+        "error": "Error!",
+        "error400": "Invalid email or password",
+        "error401": "Email and Password already exist",
+        "error403": "User is blocked!",
+        "error404": "User doesn't exist"
+      },
+      "profile": {
+        "profile": "Profile",
+        "username": "Username",
+        "collections": "Collections",
+        "addButton": "Add new",
+        "notFound": "Collections not found",
+        "nameCollection": "Name",
+        "descCollection": "Description",
+        "topic": "Topic",
+        "size": "Size",
+        "addCustomField": "Add Custom Field",
+        "fieldName": "Field Name",
+        "fieldType": "Field Type",
+        "cancelBtn": "Cancel",
+        "createBtn": "Create",
+        "updateBtn": "Update"
+      },
+      "admin": {
+        "users": "Users",
+        "notFound": "Users not found",
+        "username": "Username",
+        "email": "E-mail",
+        "admin": "Admin",
+        "blocked": "Blocked",
+        "delete": "Delete"
+      },
+      "collection": {
+        "items": "Items",
+        "filter": "Filter by name",
+        "sort": "Sort by",
+        "order": "Sort order",
+        "notFound": "Items not found.",
+        "itemName": "Item name",
+        "addButton": "Add new",
+        "tags": "Tags",
+        "cancelBtn": "Cancel",
+        "createBtn": "Create",
+        "updateBtn": "Update",
+        "success": "Successful!",
+        "error": "Unexpected error! Please try again later"
+      },
+      "item": {
+        "tags": "Tags",
+        "comments": "Comments",
+        "notFound": "Comments not found.",
+        "commentInput": "Add your comment here...",
+        "commentBtn": "Add comment"
+      },
+      "search": {
+        "results": "Results for",
+        "found": "Found",
+        "items": "item(s)"
+      }
+    }
+  },
+  "cz": {
+    "translation": {
+      "header": {
+        "search": "Vyhledávání",
+        "confirmLogOut": "Opravdu se chcete odhlásit?"
+      },
+      "home": {
+        "LargestCollections": "Největší sbírky",
+        "lastItems": "Poslední položky",
+        "popularTags": "Populární tagy"
+      },
+      "auth": {
+        "signIn": "Přihlásit se",
+        "signUp": "Registrace",
+        "accountDontHave": "Máte účet?",
+        "name": "Název",
+        "email": "E-mail",
+        "password": "Heslo",
+        "register": "Registrovat",
+        "required": "{{value}} neposkytováno.",
+        "minLength": "{{value}} musí být delší než 4 znaky",
+        "maxLength": "{{value}} je příliš dlouhý – měl by mít maximálně 50 znaků.",
+        "emailInvalid": "Zadejte prosím správný email.",
+        "signUpError": "Neočekávaná chyba registrace",
+        "signUpError403": "Uživatel již existuje",
+        "signInError": "Neočekávaná chyba autorizace",
+        "successSignIn": "Úspěšné přihlášení!",
+        "successReg": "Úspěšná registrace!",
+        "error": "Chyba!",
+        "error400": "špatný email nebo heslo",
+        "error401": "E-mail a heslo již existují",
+        "error403": "Uživatel je zablokován!",
+        "error404": "Uživatel neexistuje"
+      },
+      "profile": {
+        "profile": "Profil",
+        "username": "Uživatelské jméno",
+        "collections": "Sbírky",
+        "addButton": "Přidat nový",
+        "notFound": "Sbírky nebyli nalezeni",
+        "nameCollection": "Název",
+        "descCollection": "Popis",
+        "topic": "Téma",
+        "size": "Velikost",
+        "addCustomField": "Přidat vlastní pole",
+        "fieldName": "Název pole",
+        "fieldType": "Typ pole",
+        "cancelBtn": "Zrušení",
+        "createBtn": "Vytvořit",
+        "updateBtn": "Aktualizace"
+      },
+      "admin": {
+        "users": "Uživatelé",
+        "notFound": "Uživatelé nebyli nalezeni",
+        "username": "Uživatelské jméno",
+        "email": "E-mail",
+        "admin": "Správa",
+        "blocked": "Blokováno",
+        "delete": "Vymazat"
+      },
+      "collection": {
+        "items": "Položky",
+        "filter": "Filtrujte podle názvu",
+        "sort": "Seřazeno podle",
+        "order": "Řadit pořadí",
+        "notFound": "Položky nenalezeny.",
+        "itemName": "Název položky",
+        "addButton": "Přidat nový",
+        "tags": "Tagy",
+        "cancelBtn": "Zrušení",
+        "createBtn": "Vytvořit",
+        "updateBtn": "Aktualizace",
+        "success": "Úspěšné!",
+        "error": "Neočekávaná chyba! Prosím zkuste to znovu později"
+      },
+      "item": {
+        "tags": "Tagy",
+        "comments": "Komentáře",
+        "notFound": "Komentáře nebyly nalezeny.",
+        "commentInput": "Zde přidejte svůj komentář...",
+        "commentBtn": "Přidat komentář"
+      },
+      "search": {
+        "results": "Výsledky pro",
+        "found": "Nalezeno",
+        "items": "položka(y)"
+      }
+    }
+  }
+}

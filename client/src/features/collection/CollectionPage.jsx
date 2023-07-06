@@ -9,8 +9,10 @@ import { getUserId } from "@/helpers/auth";
 import { useSelector, useDispatch } from "react-redux";
 import { selectCurrentUser, setCredentials } from "@/features/auth/authSlice";
 import CircularProgress from "@mui/material/CircularProgress";
+import { useTranslation } from "react-i18next";
 
 const CollectionPage = () => {
+  const { t } = useTranslation("translation", { keyPrefix: "collection" });
   const [openForm, setOpenForm] = useState(false);
   const { id } = useParams();
   const { data: collection, isLoading } = useGetCollectionByIdQuery(id);
@@ -32,7 +34,7 @@ const CollectionPage = () => {
           <Box>
             <Collection collection={collection} variant="page" />
             <Typography variant="h3" mt={2} px={5} color="text.secondary">
-              Items:
+              {t("items")}:
             </Typography>
             <Items collectionId={id} customFields={collection.customFields} />
             {(collection.author === user?._id || user?.admin) && (
@@ -48,7 +50,7 @@ const CollectionPage = () => {
                     }}
                     onClick={() => setOpenForm(true)}
                   >
-                    Add new
+                    {t("addButton")}
                   </Button>
                 )}
               </Box>

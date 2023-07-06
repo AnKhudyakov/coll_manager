@@ -12,8 +12,10 @@ import PostAddIcon from "@mui/icons-material/PostAdd";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { CUSTOM_FIELD, TYPE_CUSTOM_FIELD as options } from "@/constants/fields";
 import { FieldArray, FormikProvider } from "formik";
+import { useTranslation } from "react-i18next";
 
 const CustomFieldsForm = ({ formik }) => {
+  const { t } = useTranslation("translation", { keyPrefix: "profile" });
   return (
     <FormikProvider value={formik}>
       <FieldArray
@@ -33,7 +35,7 @@ const CustomFieldsForm = ({ formik }) => {
                     <TextField
                       fullWidth
                       type="text"
-                      label={"Field Name"}
+                      label={t("fieldName")}
                       onBlur={formik.handleBlur}
                       onChange={formik.handleChange}
                       name={`customFields.${index}.name`}
@@ -46,11 +48,11 @@ const CustomFieldsForm = ({ formik }) => {
                       //   }
                     />
                     <FormControl fullWidth>
-                      <InputLabel>Field Type</InputLabel>
+                      <InputLabel>{t("fieldType")}</InputLabel>
                       <Select
                         name={`customFields.${index}.type`}
                         value={formik.values.customFields[index].type}
-                        label="Field Type"
+                        label={t("fieldType")}
                         onBlur={formik.handleBlur}
                         onChange={formik.handleChange}
                       >
@@ -73,7 +75,9 @@ const CustomFieldsForm = ({ formik }) => {
                 );
               })}
               <Box display="flex" alignItems="center" my={1}>
-                <Typography variant="h4" color="text.secondary">Add Custom Field</Typography>
+                <Typography variant="h4" color="text.secondary">
+                  {t("addCustomField")}
+                </Typography>
                 <IconButton
                   aria-label="add custom field"
                   onClick={() =>

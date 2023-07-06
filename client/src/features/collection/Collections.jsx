@@ -11,15 +11,14 @@ import CircularProgress from "@mui/material/CircularProgress";
 const Collections = ({ variant, collections }) => {
   return (
     <Box display="flex" flexWrap="wrap" gap={2} mt={1}>
-        <>
-          {!collections?.length && variant === "profile" && (
-            <Typography>You don't have any collections yet.</Typography>
-          )}
-          {collections?.map((collection) => (
-            <CollectionCard collection={collection} key={collection?._id} />
-          ))}
-        </>
-      
+      <>
+        {!collections?.length && variant === "profile" && (
+          <Typography>You don't have any collections yet.</Typography>
+        )}
+        {collections?.map((collection) => (
+          <CollectionCard collection={collection} key={collection?._id} />
+        ))}
+      </>
     </Box>
   );
 };

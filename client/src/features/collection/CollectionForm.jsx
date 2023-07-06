@@ -27,8 +27,10 @@ import { useUploadMutation } from "@/app/services/uplooadImage";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import CustomFieldsForm from "@/components/CustomFieldsForm";
 import UploadFile from "@/components/UploadFile";
+import { useTranslation } from "react-i18next";
 
 const CollectionForm = ({ setOpenForm, variant, collection, author }) => {
+  const { t } = useTranslation("translation", { keyPrefix: "profile" });
   const currentValues =
     variant === "edit"
       ? {
@@ -100,7 +102,7 @@ const CollectionForm = ({ setOpenForm, variant, collection, author }) => {
         sx={{ mt: 2 }}
         fullWidth
         type="text"
-        label={"Name"}
+        label={t("nameCollection")}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         value={formik.values.name}
@@ -114,7 +116,7 @@ const CollectionForm = ({ setOpenForm, variant, collection, author }) => {
         multiline
         minRows={3}
         type="text-aria"
-        label={"Description"}
+        label={t("descCollection")}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         value={formik.values.description}
@@ -126,7 +128,7 @@ const CollectionForm = ({ setOpenForm, variant, collection, author }) => {
         sx={{ mt: 2 }}
         fullWidth
         type="text"
-        label={"Topic"}
+        label={t("topic")}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         value={formik.values.topic}
@@ -151,7 +153,7 @@ const CollectionForm = ({ setOpenForm, variant, collection, author }) => {
           }}
           onClick={() => setOpenForm(false)}
         >
-          Cancel
+          {t("cancelBtn")}
         </Button>
         <Button
           type="submit"
@@ -162,7 +164,7 @@ const CollectionForm = ({ setOpenForm, variant, collection, author }) => {
             m: "20px 0",
           }}
         >
-          {variant === "edit" ? "Update" : "Create"}
+          {variant === "edit" ? t("updateBtn") : t("createBtn")}
         </Button>
       </Box>
       <ToastContainer

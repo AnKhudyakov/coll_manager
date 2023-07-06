@@ -2,6 +2,8 @@ import { styled, alpha } from "@mui/material/styles";
 import { Box, InputBase } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useState } from "react";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -49,11 +51,19 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const SearchMenu = () => {
+  const { t } = useTranslation("translation", { keyPrefix: "header" });
   const navigate = useNavigate();
+  const [value, setValue] = useState("");
+
   const handleSearch = (e) => {
     if (e.keyCode === 13) {
       navigate(`/search?text=${e.target.value}`);
+      setValue("");
     }
+  };
+
+  const handleChange = (e) => {
+    setValue(e.currentTarget.value);
   };
 
   return (
@@ -69,8 +79,10 @@ const SearchMenu = () => {
           <SearchIcon />
         </SearchIconWrapper>
         <StyledInputBase
-          placeholder="Search…"
+          placeholder={t("search")}
           inputProps={{ "aria-label": "search" }}
+          value={value}
+          onChange={handleChange}
         />
       </Search>
     </Box>
