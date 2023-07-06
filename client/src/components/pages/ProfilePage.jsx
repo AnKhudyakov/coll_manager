@@ -48,12 +48,8 @@ const ProfilePage = () => {
             {t("collections")}:
           </Typography>
 
-          {collections ? (
+          {collections && (
             <Collections variant="profile" collections={collections} />
-          ) : (
-            <Typography variant="h4" align="center" color="text.secondary">
-              {t("notFound")}
-            </Typography>
           )}
           <Box mt={2}>
             {openForm ? (

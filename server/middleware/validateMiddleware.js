@@ -7,17 +7,17 @@ export const validateMiddlewareReg = [
     max: 15,
   }),
   body("email", "Incorrect email").isEmail(),
-  body("password", "Password must be from 5 to 10 chars").isLength({
+  body("password", "Password must be from 5 to 20 chars").isLength({
     min: 5,
-    max: 10,
+    max: 20,
   }),
 ];
 
 export const validateMiddlewareLogin = [
   body("email", "Incorrect email").isEmail(),
-  body("password", "Password must be from 5 to 10 chars").isLength({
+  body("password", "Password must be from 5 to 20 chars").isLength({
     min: 5,
-    max: 10,
+    max: 20,
   }),
 ];
 

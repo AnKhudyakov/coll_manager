@@ -38,7 +38,7 @@
         "username": "Username",
         "collections": "Collections",
         "addButton": "Add new",
-        "notFound": "Collections not found",
+        "notFound": "You don't have any collections yet.",
         "nameCollection": "Name",
         "descCollection": "Description",
         "topic": "Topic",
