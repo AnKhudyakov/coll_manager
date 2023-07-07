@@ -36,3 +36,14 @@ export const TYPE_CUSTOM_FIELD = [
 ];
 
 export const FILE_TYPES = ["JPG", "JPEG", "PNG", "GIF"];
+
+export const TOPIC_VALUES = [
+  "Bikes",
+  "Cars",
+  "Guitars",
+  "Investment strategy",
+  "Movies",
+  "Motorbikes",
+  "Watch",
+  "Snowboards",
+];

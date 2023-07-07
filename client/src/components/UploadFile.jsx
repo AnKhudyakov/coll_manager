@@ -1,17 +1,14 @@
+import { FILE_TYPES } from "@/constants/fields";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ImageIcon from "@mui/icons-material/Image";
-import UploadFileIcon from "@mui/icons-material/UploadFile";
-import { FILE_TYPES } from "@/constants/fields";
 import {
   Avatar,
   Box,
-  Button,
   IconButton,
   List,
   ListItem,
   ListItemAvatar,
-  ListItemText,
-  Typography,
+  ListItemText
 } from "@mui/material";
 import { useRef } from "react";
 import { FileUploader } from "react-drag-drop-files";

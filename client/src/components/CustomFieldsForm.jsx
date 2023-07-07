@@ -1,16 +1,16 @@
+import { CUSTOM_FIELD, TYPE_CUSTOM_FIELD as options } from "@/constants/fields";
+import DeleteIcon from "@mui/icons-material/Delete";
+import PostAddIcon from "@mui/icons-material/PostAdd";
 import {
   Box,
+  FormControl,
   IconButton,
+  InputLabel,
+  MenuItem,
+  Select,
   TextField,
   Typography,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
 } from "@mui/material";
-import PostAddIcon from "@mui/icons-material/PostAdd";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { CUSTOM_FIELD, TYPE_CUSTOM_FIELD as options } from "@/constants/fields";
 import { FieldArray, FormikProvider } from "formik";
 import { useTranslation } from "react-i18next";
 

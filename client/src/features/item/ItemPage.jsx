@@ -1,11 +1,10 @@
 import { useGetItemByIdQuery } from "@/app/services/item";
-import { useParams } from "react-router";
-import { Box, Button, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
-import Item from "./Item";
 import Comments from "@/features/comment/Comments";
+import { Box, Typography } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
+import Item from "./Item";
 
 const ItemPage = () => {
   const { t } = useTranslation("translation", { keyPrefix: "item" });

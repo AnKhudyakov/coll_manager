@@ -1,19 +1,19 @@
-import { Link, useNavigate } from "react-router-dom";
-import { Box, IconButton, useMediaQuery } from "@mui/material";
+import SearchMenu from "@/components/SearchMenu";
+import { selectCurrentUser, setCredentials } from "@/features/auth/authSlice";
+import { unsetToken } from "@/helpers/auth";
 import { shades } from "@/styles/theme";
 import {
   HomeOutlined,
-  PersonOutline,
   LoginOutlined,
   LogoutOutlined,
+  PersonOutline,
   SupervisorAccount,
 } from "@mui/icons-material";
-import SearchMenu from "@/components/SearchMenu";
-import { unsetToken } from "@/helpers/auth";
-import { selectCurrentUser, setCredentials } from "@/features/auth/authSlice";
-import { useSelector, useDispatch } from "react-redux";
-import SwitcherTheme from "./SwitcherTheme";
+import { Box, IconButton, useMediaQuery } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import SwitcherLang from "./SwitcherLang";
+import SwitcherTheme from "./SwitcherTheme";
 
 const Navbar = () => {
   const navigate = useNavigate();

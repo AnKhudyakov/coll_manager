@@ -1,5 +1,3 @@
-import { Route, Routes } from "react-router";
-import { BrowserRouter } from "react-router-dom";
 import { useGetUserByIdQuery } from "@/app/services/user";
 import Layout from "@/components/Layout";
 import AdminPage from "@/components/pages/AdminPage";
@@ -14,6 +12,8 @@ import { getToken, getUserId } from "@/helpers/auth";
 import { Box, CircularProgress } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { Route, Routes } from "react-router";
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
   const dispatch = useDispatch();

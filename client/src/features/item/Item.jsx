@@ -1,8 +1,8 @@
 import {
-  useRemoveItemMutation,
-  useUpdateItemMutation,
+  useRemoveItemMutation
 } from "@/app/services/item";
 import { selectCurrentUser } from "@/features/auth/authSlice";
+import Likes from "@/features/likes/Likes";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import {
@@ -15,11 +15,10 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ItemForm from "./ItemForm";
-import Likes from "@/features/likes/Likes";
-import { useTranslation } from "react-i18next";
 
 const Item = ({ item }) => {
   const { t } = useTranslation("translation", { keyPrefix: "item" });

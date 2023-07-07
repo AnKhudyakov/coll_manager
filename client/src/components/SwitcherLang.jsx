@@ -1,6 +1,6 @@
+import { FormControlLabel, FormGroup, Switch } from "@mui/material";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { FormControlLabel, FormGroup, Switch } from "@mui/material";
 
 const SwitcherLang = () => {
   const { i18n } = useTranslation();

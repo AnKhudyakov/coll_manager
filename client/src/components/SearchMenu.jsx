@@ -1,9 +1,9 @@
-import { styled, alpha } from "@mui/material/styles";
-import { Box, InputBase } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import { Box, InputBase } from "@mui/material";
+import { alpha, styled } from "@mui/material/styles";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",

@@ -1,35 +1,30 @@
-import { useFormik } from "formik";
-import { schemaCollection } from "@/helpers/validationForm";
-import { INIT_VALUES_COLLECTION } from "@/constants/fields";
-import { useRef } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import {
-  Avatar,
-  Box,
-  Button,
-  IconButton,
-  InputLabel,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  TextField,
-  Typography,
-  styled,
-} from "@mui/material";
-import MDEditor from "@uiw/react-md-editor";
-import { getUserId } from "@/helpers/auth";
 import {
   usePostCollectionMutation,
   useUpdateCollectionMutation,
 } from "@/app/services/collection";
-import { useState } from "react";
 import { useUploadMutation } from "@/app/services/uplooadImage";
-import PostAddIcon from "@mui/icons-material/PostAdd";
 import CustomFieldsForm from "@/components/CustomFieldsForm";
 import UploadFile from "@/components/UploadFile";
+import { INIT_VALUES_COLLECTION, TOPIC_VALUES as options } from "@/constants/fields";
+import { DEFAULT_IMAGE_URL } from "@/constants/imageUrl";
+import { schemaCollection } from "@/helpers/validationForm";
+import {
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+  styled
+} from "@mui/material";
+import MDEditor from "@uiw/react-md-editor";
+import { useFormik } from "formik";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const DarkEditorWrapper = styled("div")`
   .w-md-editor {
@@ -110,7 +105,7 @@ const CollectionForm = ({ setOpenForm, variant, collection, author }) => {
           const newCollection = {
             ...values,
             author,
-            image: responseUpload ? responseUpload.secure_url : "",
+            image: responseUpload ? responseUpload.secure_url : DEFAULT_IMAGE_URL,
           };
           await postCollection(newCollection).unwrap();
           break;
@@ -160,18 +155,23 @@ const CollectionForm = ({ setOpenForm, variant, collection, author }) => {
           </Typography>
         )}
       </Box>
-      <TextField
-        sx={{ mt: 2 }}
-        fullWidth
-        type="text"
-        label={t("topic")}
-        onBlur={formik.handleBlur}
-        onChange={formik.handleChange}
-        value={formik.values.topic}
-        name="topic"
-        error={Boolean(formik.touched.topic && formik.errors.topic)}
-        helperText={formik.touched.topic && formik.errors.topic}
-      />
+      <FormControl fullWidth sx={{ mt: 2 }}>
+        <InputLabel>{t("topic")}</InputLabel>
+        <Select
+          name={`topic`}
+          value={formik.values.topic}
+          label={t("fieldType")}
+          onBlur={formik.handleBlur}
+          onChange={formik.handleChange}
+          error={Boolean(formik.touched.topic && formik.errors.topic)}
+        >
+          {options.map((option) => (
+            <MenuItem key={option} value={option}>
+              {option}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
       <UploadFile image={image} setImage={setImage} />
       <Box>
         <CustomFieldsForm formik={formik} />

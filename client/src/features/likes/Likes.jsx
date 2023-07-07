@@ -1,6 +1,6 @@
-import { Box, IconButton, Typography } from "@mui/material";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useAddLikeMutation } from "@/app/services/item";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { Box, IconButton, Typography } from "@mui/material";
 
 const Likes = ({ user, item }) => {
   const [addLike, { isLoading: isUpdating }] = useAddLikeMutation();

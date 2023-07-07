@@ -1,8 +1,7 @@
 import Navbar from "@/components/Navbar";
-import { useTheme } from "@/hooks/useTheme";
+import { ThemeContext, useTheme } from "@/hooks/useTheme";
 import { ThemeProvider } from "@mui/material/styles";
 import { useMemo } from "react";
-import { ThemeContext } from "@/hooks/useTheme";
 
 const Layout = ({ children }) => {
   const [theme, themeMode, mode] = useTheme();

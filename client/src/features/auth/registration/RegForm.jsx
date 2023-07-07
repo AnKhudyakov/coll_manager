@@ -1,12 +1,12 @@
-import { schemaReg } from "@/helpers/validationForm";
-import { useFormik } from "formik";
+import { useRegMutation } from "@/app/services/auth";
 import { INIT_VALUES_REG as initialValues } from "@/constants/fields";
+import { schemaReg } from "@/helpers/validationForm";
+import { Button, TextField } from "@mui/material";
+import { useFormik } from "formik";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router";
-import { Button, TextField, Typography } from "@mui/material";
-import { useRegMutation } from "@/app/services/auth";
-import { useTranslation } from "react-i18next";
 
 const FormReg = () => {
   const navigate = useNavigate();

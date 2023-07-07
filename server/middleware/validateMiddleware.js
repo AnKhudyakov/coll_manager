@@ -2,9 +2,9 @@ import { body } from "express-validator";
 import UserService from "../routes/user/UserService.js";
 
 export const validateMiddlewareReg = [
-  body("username", "Name must be from 2 to 10 chars").isLength({
+  body("username", "Name must be from 2 to 20 chars").isLength({
     min: 1,
-    max: 15,
+    max: 20,
   }),
   body("email", "Incorrect email").isEmail(),
   body("password", "Password must be from 5 to 20 chars").isLength({

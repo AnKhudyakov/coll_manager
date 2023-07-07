@@ -1,15 +1,14 @@
 import { useGetCollectionByIdQuery } from "@/app/services/collection";
-import { useParams } from "react-router";
-import Collection from "./Collection";
+import { selectCurrentUser } from "@/features/auth/authSlice";
 import { Box, Button, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
-import Items from "../item/Items";
-import ItemForm from "../item/ItemForm";
-import { getUserId } from "@/helpers/auth";
-import { useSelector, useDispatch } from "react-redux";
-import { selectCurrentUser, setCredentials } from "@/features/auth/authSlice";
 import CircularProgress from "@mui/material/CircularProgress";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router";
+import ItemForm from "../item/ItemForm";
+import Items from "../item/Items";
+import Collection from "./Collection";
 
 const CollectionPage = () => {
   const { t } = useTranslation("translation", { keyPrefix: "collection" });

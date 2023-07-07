@@ -1,9 +1,9 @@
-import { Box, CircularProgress, Typography } from "@mui/material";
-import { useSearchParams } from "react-router-dom";
 import { useSearchQuery } from "@/app/services/search";
 import ItemCard from "@/features/item/ItemCard";
-import { useTranslation } from "react-i18next";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useSearchParams } from "react-router-dom";
 
 const SearchPage = () => {
   const { t } = useTranslation("translation", { keyPrefix: "search" });

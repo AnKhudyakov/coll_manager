@@ -1,11 +1,11 @@
-import LoginForm from "./login/LoginForm";
-import RegForm from "./registration/RegForm";
+import { selectCurrentUser } from "@/features/auth/authSlice";
 import { Box, Typography } from "@mui/material";
-import { selectCurrentUser, setCredentials } from "@/features/auth/authSlice";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import LoginForm from "./login/LoginForm";
+import RegForm from "./registration/RegForm";
 
 const AuthPage = ({ variant }) => {
   const { t } = useTranslation("translation", { keyPrefix: "auth" });

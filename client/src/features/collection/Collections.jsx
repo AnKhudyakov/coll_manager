@@ -1,12 +1,5 @@
-import { Box, Typography } from "@mui/material";
-import {
-  useGetCollectionsQuery,
-  useGetCollectionsByUserQuery,
-} from "@/app/services/collection";
 import CollectionCard from "@/features/collection/CollectionCard";
-import { useEffect, useState } from "react";
-import { getUserId } from "@/helpers/auth";
-import CircularProgress from "@mui/material/CircularProgress";
+import { Box, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
 const Collections = ({ variant, collections }) => {

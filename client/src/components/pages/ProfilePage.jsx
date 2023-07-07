@@ -1,18 +1,15 @@
-import { Box, Button, Typography } from "@mui/material";
-import Profile from "@/components/Profile";
-import Collections from "@/features/collection/Collections";
-import { useEffect, useState } from "react";
-import CollectionForm from "@/features/collection/CollectionForm";
-import { selectCurrentUser, setCredentials } from "@/features/auth/authSlice";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
 import {
-  useGetCollectionsQuery,
   useGetCollectionsByUserQuery,
+  useGetCollectionsQuery,
 } from "@/app/services/collection";
-import { getUserId } from "@/helpers/auth";
 import { useGetUserByIdQuery } from "@/app/services/user";
+import Profile from "@/components/Profile";
+import CollectionForm from "@/features/collection/CollectionForm";
+import Collections from "@/features/collection/Collections";
+import { Box, Button, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ProfilePage = () => {
   const { t } = useTranslation("translation", { keyPrefix: "profile" });
@@ -42,7 +39,7 @@ const ProfilePage = () => {
         maxWidth="1250px"
         mx="auto"
       >
-        <Box m="20px 0">
+        <Box>
           <Profile user={user} />
           <Typography variant="h3" color="text.secondary">
             {t("collections")}:

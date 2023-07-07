@@ -1,16 +1,11 @@
-import {
-  useGetItemsByCollectionQuery,
-  useGetItemsQuery,
-} from "@/app/services/item";
-import { Box, Button, Typography } from "@mui/material";
-import CircularProgress from "@mui/material/CircularProgress";
+import { selectCurrentUser } from "@/features/auth/authSlice";
+import { getUserId } from "@/helpers/auth";
+import { Box, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import CommentCard from "./CommentCard";
 import CommentForm from "./CommentForm";
-import { getUserId } from "@/helpers/auth";
-import { selectCurrentUser } from "@/features/auth/authSlice";
-import { useTranslation } from "react-i18next";
 
 const Comments = ({ item }) => {
   const { t } = useTranslation("translation", { keyPrefix: "item" });

@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
-import { FormGroup, IconButton } from "@mui/material";
-import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
-import ModeNightOutlinedIcon from "@mui/icons-material/ModeNightOutlined";
 import { ThemeContext } from "@/hooks/useTheme";
+import ModeNightOutlinedIcon from "@mui/icons-material/ModeNightOutlined";
+import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
+import { FormGroup, IconButton } from "@mui/material";
+import React, { useContext } from "react";
 
 const SwitcherTheme = () => {
   const { toggleTheme, mode } = useContext(ThemeContext);

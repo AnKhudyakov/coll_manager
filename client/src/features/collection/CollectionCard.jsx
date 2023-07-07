@@ -1,13 +1,13 @@
 import {
-  Box,
   Card,
   CardActionArea,
   CardContent,
   CardMedia,
   Typography,
-  useMediaQuery,
+  useMediaQuery
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import MDEditor from '@uiw/react-md-editor';
 
 const CollectionCard = ({ collection, variant }) => {
   const navigate = useNavigate();
@@ -38,9 +38,7 @@ const CollectionCard = ({ collection, variant }) => {
           <Typography gutterBottom variant="h5" component="div">
             {collection?.topic}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {collection?.description}
-          </Typography>
+          <MDEditor.Markdown source={collection?.description} />
         </CardContent>
       </CardActionArea>
     </Card>

@@ -1,9 +1,12 @@
-import { useFormik } from "formik";
-import { schemaItem } from "@/helpers/validationForm";
+import { useGetCollectionByIdQuery } from "@/app/services/collection";
+import {
+  usePostItemMutation,
+  useUpdateItemMutation,
+} from "@/app/services/item";
+import { useGetTagsQuery } from "@/app/services/tag";
+import { getUserId } from "@/helpers/auth";
 import { getInitValuesItem } from "@/helpers/getInitValuesForms";
-import { INIT_VALUES_ITEM as initialValues } from "@/constants/fields";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { schemaItem } from "@/helpers/validationForm";
 import {
   Autocomplete,
   Box,
@@ -13,16 +16,10 @@ import {
   FormControlLabel,
   TextField,
 } from "@mui/material";
-import { getUserId } from "@/helpers/auth";
-import {
-  usePostItemMutation,
-  useUpdateItemMutation,
-} from "@/app/services/item";
-import { useGetTagsQuery } from "@/app/services/tag";
-import { useGetCollectionByIdQuery } from "@/app/services/collection";
-import { getIn } from "formik";
-import { FieldArray, FormikProvider } from "formik";
+import { FieldArray, FormikProvider, getIn, useFormik } from "formik";
 import { useTranslation } from "react-i18next";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ItemForm = ({ setOpenForm, collectionId, variant, item }) => {
   const { t } = useTranslation("translation", { keyPrefix: "collection" });

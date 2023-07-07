@@ -1,7 +1,7 @@
 import {
   useGetUsersQuery,
-  useUpdateUserMutation,
   useRemoveUserMutation,
+  useUpdateUserMutation,
 } from "@/app/services/user";
 import { selectCurrentUser } from "@/features/auth/authSlice";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -20,9 +20,9 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 
 const AdminPage = () => {
   const { t } = useTranslation("translation", { keyPrefix: "admin" });

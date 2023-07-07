@@ -1,20 +1,16 @@
+import { useUpdateItemMutation } from "@/app/services/item";
+import { selectCurrentUser } from "@/features/auth/authSlice";
+import Likes from "@/features/likes/Likes";
 import {
   Box,
-  Button,
   Card,
   CardActionArea,
   CardContent,
-  CardMedia,
   Divider,
-  IconButton,
-  Typography,
+  Typography
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import { selectCurrentUser, setCredentials } from "@/features/auth/authSlice";
 import { useSelector } from "react-redux";
-import { useUpdateItemMutation } from "@/app/services/item";
-import Likes from "@/features/likes/Likes";
+import { useNavigate } from "react-router-dom";
 
 const ItemCard = ({ item, variant }) => {
   const user = useSelector(selectCurrentUser);

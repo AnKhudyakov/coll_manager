@@ -1,10 +1,10 @@
-import { schemaComment } from "@/helpers/validationForm";
-import { Box, Button, TextField, Typography } from "@mui/material";
-import { useFormik } from "formik";
-import { ToastContainer, toast } from "react-toastify";
 import { getUserId } from "@/helpers/auth";
-import "react-toastify/dist/ReactToastify.css";
+import { schemaComment } from "@/helpers/validationForm";
+import { Box, Button, TextField } from "@mui/material";
+import { useFormik } from "formik";
 import { useTranslation } from "react-i18next";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CommentForm = ({ socket, itemId }) => {
   const { t } = useTranslation("translation", { keyPrefix: "item" });

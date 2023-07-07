@@ -1,3 +1,7 @@
+import { useRemoveCollectionMutation } from "@/app/services/collection";
+import { selectCurrentUser } from "@/features/auth/authSlice";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import {
   Box,
   Card,
@@ -7,14 +11,11 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import { useRemoveCollectionMutation } from "@/app/services/collection";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { selectCurrentUser } from "@/features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 import CollectionForm from "./CollectionForm";
+import MDEditor from "@uiw/react-md-editor";
 
 const Collection = ({ collection, variant }) => {
   const navigate = useNavigate();
@@ -54,9 +55,7 @@ const Collection = ({ collection, variant }) => {
           <Typography gutterBottom variant="h5" component="div">
             {collection?.topic}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {collection?.description}
-          </Typography>
+          <MDEditor.Markdown source={collection?.description} />
         </CardContent>
         {(collection?.author === user?._id || user?.admin) && (
           <Box>

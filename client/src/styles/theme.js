@@ -55,12 +55,12 @@ export const themeOptions = (mode) => {
               dark: shades.neutral[800],
               main: shades.neutral[700],
               light: shades.neutral[600],
-              default: '#292929',
+              default: "#292929",
             },
             text: {
               primary: shades.primary[100],
               secondary: shades.primary[200],
-            }
+            },
           }
         : {
             primary: {
@@ -82,7 +82,7 @@ export const themeOptions = (mode) => {
             },
             text: {
               primary: shades.primary[400],
-            }
+            },
           }),
     },
     components: {

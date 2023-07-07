@@ -2,7 +2,10 @@ import {
   useGetItemsByCollectionQuery,
   useGetItemsQuery,
 } from "@/app/services/item";
-import ItemCard from "@/features/item/ItemCard";
+import ToolBar from "@/components/ToolBar";
+import { useItems } from "@/hooks/useItems";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import {
   Box,
   Paper,
@@ -15,13 +18,9 @@ import {
   Typography,
 } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
-import ToolBar from "@/components/ToolBar";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-import { useItems } from "@/hooks/useItems";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 const Items = ({ collectionId, variant, customFields }) => {
   const { t } = useTranslation("translation", { keyPrefix: "collection" });
