@@ -1,7 +1,6 @@
 import SearchMenu from "@/components/SearchMenu";
 import { selectCurrentUser, setCredentials } from "@/features/auth/authSlice";
 import { unsetToken } from "@/helpers/auth";
-import { shades } from "@/styles/theme";
 import {
   HomeOutlined,
   LoginOutlined,
@@ -9,7 +8,7 @@ import {
   PersonOutline,
   SupervisorAccount,
 } from "@mui/icons-material";
-import { Box, IconButton, useMediaQuery } from "@mui/material";
+import { Box, IconButton, Typography, useMediaQuery } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import SwitcherLang from "./SwitcherLang";
@@ -47,17 +46,17 @@ const Navbar = () => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Link to="/">
-            <Box
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <Typography
               sx={{
+                color: "text.main",
                 "&:hover": {
-                  color: `${shades.primary[200]}`,
+                  color: "text.hover",
                 },
               }}
-              color="text.secondary"
             >
               COLLECTION MANAGER
-            </Box>
+            </Typography>
           </Link>
 
           <SearchMenu />

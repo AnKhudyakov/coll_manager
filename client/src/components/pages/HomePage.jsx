@@ -10,13 +10,14 @@ import "react-toastify/dist/ReactToastify.css";
 
 const HomePage = () => {
   const { t } = useTranslation("translation", { keyPrefix: "home" });
-  const { data: tags, isLoading: isLoadingTags } = useGetTagsQuery();
-  const { data: collections, isLoading } = useGetCollectionsQuery({
+  const { data: tags, isLoading: isLoadingTags, error: getTagError } = useGetTagsQuery();
+  const { data: collections, isLoading, error } = useGetCollectionsQuery({
     limit: 5,
     sort_by: "items",
     sort_order: "desc",
   });
   const navigate = useNavigate();
+  console.log("Home",getTagError,error);
   return (
     <section>
       <Box p={3} pt="70px" bgcolor="background.light" minHeight="100vh">

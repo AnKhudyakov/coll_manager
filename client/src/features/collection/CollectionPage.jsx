@@ -6,8 +6,8 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
-import ItemForm from "../item/ItemForm";
-import Items from "../item/Items";
+import ItemForm from "@/features/item/ItemForm";
+import Items from "@/features/item/Items";
 import Collection from "./Collection";
 
 const CollectionPage = () => {

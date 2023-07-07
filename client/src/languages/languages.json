@@ -13,7 +13,12 @@
       "auth": {
         "signIn": "Sign In",
         "signUp": "Sign Up",
-        "accountDontHave": "Do you have an account?",
+        "accountDontHave": "Don't have an account?",
+        "forgotPassword": "Forgot password?",
+        "recoverTitle": "Recover password",
+        "successRecover": "Please check you E-mail",
+        "recoverBtn": "Recover",
+        "cancelBtn": "Cancel",
         "name": "Name",
         "email": "E-mail",
         "password": "Password",
@@ -31,7 +36,8 @@
         "error400": "Invalid email or password",
         "error401": "Email and Password already exist",
         "error403": "User is blocked!",
-        "error404": "User doesn't exist"
+        "error404": "User doesn't exist",
+        "copyright": "Copyright"
       },
       "profile": {
         "profile": "Profile",
@@ -103,6 +109,11 @@
         "signIn": "Přihlásit se",
         "signUp": "Registrace",
         "accountDontHave": "Máte účet?",
+        "forgotPassword": "Zapomenuté heslo?",
+        "recoverTitle": "Obnovit heslo",
+        "successRecover": "Zkontrolovat svůj E-mail",
+        "recoverBtn": "Obnovit",
+        "cancelBtn": "Zrušení",
         "name": "Název",
         "email": "E-mail",
         "password": "Heslo",
@@ -120,7 +131,8 @@
         "error400": "špatný email nebo heslo",
         "error401": "E-mail a heslo již existují",
         "error403": "Uživatel je zablokován!",
-        "error404": "Uživatel neexistuje"
+        "error404": "Uživatel neexistuje",
+        "copyright": "Autorská práva"
       },
       "profile": {
         "profile": "Profil",

@@ -26,7 +26,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const AdminPage = () => {
   const { t } = useTranslation("translation", { keyPrefix: "admin" });
-  const { data: users, isLoading } = useGetUsersQuery();
+  const { data: users, isLoading, error: getUserError } = useGetUsersQuery();
   const [updateUser, { isLoading: isUpdating }] = useUpdateUserMutation();
   const [removeUser, { isLoading: isRemoving }] = useRemoveUserMutation();
   const navigate = useNavigate();
@@ -37,6 +37,7 @@ const AdminPage = () => {
   //     navigate("/login");
   //   }
   // }, [user]);
+  console.log("Admin",getUserError);
   return (
     <Box pt="60px" mx="auto" height="100vh" bgcolor="background.light">
       {isLoading ? (

@@ -38,7 +38,7 @@ const CollectionCard = ({ collection, variant }) => {
           <Typography gutterBottom variant="h5" component="div">
             {collection?.topic}
           </Typography>
-          <MDEditor.Markdown source={collection?.description} />
+          <MDEditor.Markdown source={collection?.description} style={{ backgroundColor: 'inherit', color:"inherit" }} />
         </CardContent>
       </CardActionArea>
     </Card>

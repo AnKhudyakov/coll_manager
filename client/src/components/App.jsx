@@ -17,7 +17,7 @@ import { BrowserRouter } from "react-router-dom";
 
 function App() {
   const dispatch = useDispatch();
-  const { data: user, isLoading } = getUserId()
+  const { data: user, isLoading, error } = getUserId()
     ? useGetUserByIdQuery(getUserId())
     : "";
   useEffect(() => {
@@ -25,6 +25,7 @@ function App() {
       dispatch(setCredentials({ user, token: getToken() }));
     }
   }, [user]);
+  console.log("App",error);
   if (isLoading) {
     return (
       <Box
@@ -44,6 +45,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<AuthPage variant="login" />} />
           <Route path="/register" element={<AuthPage variant="register" />} />
+          <Route path="/forgot" element={<AuthPage variant="forgot" />} />
           <Route path="/profile/:id" element={<ProfilePage />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/collections/:id" element={<CollectionPage />} />

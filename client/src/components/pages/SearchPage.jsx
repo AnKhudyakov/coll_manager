@@ -10,12 +10,12 @@ const SearchPage = () => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get("text");
   const [results, setResults] = useState([]);
-  const { data: currentResults, isLoading } = useSearchQuery(query)
+  const { data: currentResults, isLoading, error } = useSearchQuery(query);
 
   useEffect(() => {
     currentResults ? setResults(currentResults) : null;
   }, [currentResults]);
-
+  console.log("Search", error);
   return (
     <Box
       p={3}

@@ -37,6 +37,17 @@ export const schemaLogin = yup.object().shape({
     .min(5, "Password must be longer then 5 chars")
     .max(20, "Password is too long - should be 20 chars maximum."),
 });
+export const schemaRecover = yup.object().shape({
+  email: yup
+    .string()
+    .email("Please enter correct email.")
+    .max(50, "Email is too long - should be 50 chars maximum.")
+    .matches(
+      /^([a-z0-9_\.-]+)@([a-z0-9_\.-]+)\.([a-z]{2,6})$/i,
+      "Please enter correct email."
+    )
+    .required("No email provided."),
+});
 
 export const schemaCollection = yup.object().shape({
   name: yup

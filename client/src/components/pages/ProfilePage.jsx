@@ -16,8 +16,8 @@ const ProfilePage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [openForm, setOpenForm] = useState(false);
-  const { data: user, isLoading: isLoadingUser } = useGetUserByIdQuery(id);
-  const { data: collections, isLoading } = user?.admin
+  const { data: user, isLoading: isLoadingUser, error : getUserError } = useGetUserByIdQuery(id);
+  const { data: collections, isLoading, error } = user?.admin
     ? useGetCollectionsQuery({
         limit: 10,
         sort_by: "items",
@@ -29,7 +29,7 @@ const ProfilePage = () => {
       navigate("/login");
     }
   }, [user]);
-
+  console.log("Profile",getUserError,error);
   return (
     <Box pt="60px" height="100%" bgcolor="background.light">
       <Box

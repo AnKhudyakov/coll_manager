@@ -2,7 +2,7 @@ import { useLoginMutation } from "@/app/services/auth";
 import { INIT_VALUES_LOGIN as initialValues } from "@/constants/fields";
 import { setToken } from "@/helpers/auth";
 import { schemaLogin } from "@/helpers/validationForm";
-import { Button, TextField, Typography } from "@mui/material";
+import { Button, Grid, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
@@ -81,18 +81,24 @@ const FormLogin = () => {
       >
         {t("signIn")}
       </Button>
-      <Typography color="text.secondary">
-        {t("accountDontHave")}{" "}
-        <Link
-          to="/register"
-          style={{
-            color: "#4285f4",
-            textDecoration: "underline",
-          }}
-        >
-          {t("signUp")}
-        </Link>
-      </Typography>
+      <Grid container>
+        <Grid item xs>
+          <Link to="/forgot" variant="body2">
+            {t("forgotPassword")}
+          </Link>
+        </Grid>
+        <Grid item>
+          <Typography color="text.secondary">
+            {t("accountDontHave")}{" "}
+            <Link
+              to="/register"
+              variant="body2"
+            >
+              {t("signUp")}
+            </Link>
+          </Typography>
+        </Grid>
+      </Grid>
       <ToastContainer
         position="bottom-center"
         autoClose={5000}
