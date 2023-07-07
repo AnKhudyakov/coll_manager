@@ -59,7 +59,6 @@ class ItemService {
           tags: idsTag,
         }
       : { ...req.body };
-    console.log("UPDATE", update);
     await Item.findOneAndUpdate({ _id: id }, update, { new: true });
   }
   async addLike(req) {
@@ -70,6 +69,12 @@ class ItemService {
         $addToSet: { likes: req.body.like },
       },
       { new: true }
+    );
+  }
+  async addCommentInItem(comment, newComment) {
+    await Item.findOneAndUpdate(
+      { _id: comment.itemId },
+      { $push: { comments: newComment._id } }
     );
   }
 }

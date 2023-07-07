@@ -55,15 +55,9 @@ const SearchMenu = () => {
   const navigate = useNavigate();
   const [value, setValue] = useState("");
 
-  const handleSearch = (e) => {
-    if (e.keyCode === 13) {
-      navigate(`/search?text=${e.target.value}`);
-      setValue("");
-    }
-  };
-
   const handleChange = (e) => {
     setValue(e.currentTarget.value);
+    navigate(`/search?text=${e.target.value}`);
   };
 
   return (
@@ -74,7 +68,7 @@ const SearchMenu = () => {
       height="36px"
       borderRadius=" 0px 0 0 5px"
     >
-      <Search onKeyDown={handleSearch}>
+      <Search>
         <SearchIconWrapper>
           <SearchIcon />
         </SearchIconWrapper>
