@@ -1,6 +1,7 @@
 import Comment from "../../models/Comment.js";
 import { aWss } from "../../index.js";
 import UserService from "../user/UserService.js";
+import ItemService from "../item/ItemService.js";
 
 const commentWS = async (ws, req) => {
   ws.on("message", (msg) => {
@@ -30,6 +31,7 @@ const broadcastMessage = async (ws, msg) => {
 };
 const createNewComment = async (comment) => {
   const newComment = new Comment(comment);
+  await ItemService.addCommentInItem(comment, newComment);
   return await newComment.save();
 };
 

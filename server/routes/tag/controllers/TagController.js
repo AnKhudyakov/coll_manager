@@ -21,7 +21,7 @@ class TagController {
       if (!tag) {
         return res
           .status(404)
-          .json({ message: "Item doesn't exist" });
+          .json({ message: "Tag doesn't exist" });
       }
       return res.status(200).json(tag);
     } catch (e) {
@@ -32,7 +32,7 @@ class TagController {
   async createTag(req, res) {
     try {
       await TagService.createTag(req.body);
-      return res.status(200).json({ message: "Item was created" });
+      return res.status(200).json({ message: "Tag was created" });
     } catch (e) {
       console.log(e);
       return res.status(500).json({ message: "Server error" });
@@ -52,7 +52,7 @@ class TagController {
   async updateTag(req, res) {
     try {
       await TagService.updateTag(req);
-      return res.status(200).json({ message: "Item has been updated" });
+      return res.status(200).json({ message: "Tag has been updated" });
     } catch (e) {
       console.log(e);
       return res.status(500).json({ message: "Server error" });
