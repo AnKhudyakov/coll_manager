@@ -38,7 +38,7 @@ const AuthPage = ({ variant }) => {
       component="main"
       bgcolor="background.light"
       minHeight="100vh"
-      mt={"40px"}
+      mt={"60px"}
     >
       <CssBaseline />
       <Grid
