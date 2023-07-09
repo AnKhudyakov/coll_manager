@@ -31,6 +31,9 @@ const FormLogin = () => {
         case 404:
           toast.error(t("error404"));
           break;
+        case 405:
+          toast.error(t("error405"));
+          break;
         default:
           toast.error(err.data.message);
           break;
@@ -90,10 +93,7 @@ const FormLogin = () => {
         <Grid item>
           <Typography color="text.secondary">
             {t("accountDontHave")}{" "}
-            <Link
-              to="/register"
-              variant="body2"
-            >
+            <Link to="/register" variant="body2">
               {t("signUp")}
             </Link>
           </Typography>

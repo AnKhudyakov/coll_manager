@@ -38,7 +38,7 @@
         "info": "Please login to use all the functions of the app",
         "error400": "Invalid email or password",
         "error401": "Email and Password already exist",
-        "error403": "User is blocked!",
+        "error405": "User is blocked!",
         "error404": "User doesn't exist",
         "copyright": "Copyright"
       },
@@ -105,6 +105,11 @@
         "results": "Results for",
         "found": "Found",
         "items": "item(s)"
+      },
+      "error": {
+        "notFoundTitle": "Page not found",
+        "notFoundText": "The page you’re looking for doesn’t exist.",
+        "backHome": "Back Home"
       }
     }
   },
@@ -147,7 +152,7 @@
         "info": "Chcete-li používat všechny funkce aplikace, přihlaste se",
         "error400": "špatný email nebo heslo",
         "error401": "E-mail a heslo již existují",
-        "error403": "Uživatel je zablokován!",
+        "error405": "Uživatel je zablokován!",
         "error404": "Uživatel neexistuje",
         "copyright": "Autorská práva"
       },
@@ -214,6 +219,11 @@
         "results": "Výsledky pro",
         "found": "Nalezeno",
         "items": "položka(y)"
+      },
+      "error": {
+        "notFoundTitle": "Stránka nenalezena",
+        "notFoundText": "Stránka, kterou hledáte, neexistuje.",
+        "backHome": "Zpět doma"
       }
     }
   }

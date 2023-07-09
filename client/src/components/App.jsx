@@ -1,8 +1,8 @@
 import { useGetUserByIdQuery } from "@/app/services/user";
 import Layout from "@/components/Layout";
-import AdminPage from "@/components/pages/AdminPage";
+import AdminPageWithAuth from "@/components/pages/AdminPage";
 import HomePage from "@/components/pages/HomePage";
-import ProfilePage from "@/components/pages/ProfilePage";
+import ProfilePageWithAuth from "@/components/pages/ProfilePage";
 import SearchPage from "@/components/pages/SearchPage";
 import AuthPage from "@/features/auth/AuthPage";
 import { setCredentials } from "@/features/auth/authSlice";
@@ -47,8 +47,8 @@ function App() {
           <Route path="/login" element={<AuthPage variant="login" />} />
           <Route path="/register" element={<AuthPage variant="register" />} />
           <Route path="/forgot" element={<AuthPage variant="forgot" />} />
-          <Route path="/profile/:id" element={<ProfilePage />} />
-          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/profile/:id" element={<ProfilePageWithAuth />} />
+          <Route path="/admin" element={<AdminPageWithAuth />} />
           <Route path="/collections/:id" element={<CollectionPage />} />
           <Route path="/items/:id" element={<ItemPage />} />
           <Route path="/search" element={<SearchPage />} />

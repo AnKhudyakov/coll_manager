@@ -11,8 +11,8 @@ const ItemPage = () => {
   const { id } = useParams();
   const { data: item, isLoading } = useGetItemByIdQuery(id);
   return (
-    <Box p={3} pt="60px" width="100%" height="100%" bgcolor="background.light">
-      <Box minHeight="100vh" maxWidth="1250px">
+    <Box p={3} pt="60px" width="100%" minHeight="100vh" bgcolor="background.light">
+      <Box maxWidth="1250px">
         {isLoading ? (
           <Box
             display="flex"

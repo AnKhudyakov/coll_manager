@@ -6,10 +6,11 @@ import { useGetUserByIdQuery } from "@/app/services/user";
 import Profile from "@/features/profile/Profile";
 import CollectionForm from "@/features/collection/CollectionForm";
 import Collections from "@/features/collection/Collections";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
+import withAuthRedirect from "@/hocs/withAuthRedirect";
 
 const ProfilePage = () => {
   const { t } = useTranslation("translation", { keyPrefix: "profile" });
@@ -47,12 +48,33 @@ const ProfilePage = () => {
         mx="auto"
       >
         <Box>
-          <Profile user={user} />
+          {isLoadingUser ? (
+            <Box
+              display="flex"
+              justifyContent="center"
+              minHeight="100vh"
+              alignItems="center"
+              maxWidth="1250px"
+            >
+              <CircularProgress />
+            </Box>
+          ) : (
+            <Profile user={user} />
+          )}
           <Typography variant="h3" color="text.secondary" mt={3}>
             {t("collections")}:
           </Typography>
-
-          {collections && (
+          {isLoading ? (
+            <Box
+              display="flex"
+              justifyContent="center"
+              minHeight="100vh"
+              alignItems="center"
+              maxWidth="1250px"
+            >
+              <CircularProgress />
+            </Box>
+          ) : (
             <Collections variant="profile" collections={collections} />
           )}
           <Box mt={2}>
@@ -82,4 +104,6 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+const ProfilePageWithAuth = withAuthRedirect(ProfilePage);
+
+export default ProfilePageWithAuth;

@@ -4,7 +4,7 @@ import {
   useUpdateUserMutation,
 } from "@/app/services/user";
 import AlertDialog from "@/components/AlertDialog";
-import { selectCurrentUser } from "@/features/auth/authSlice";
+import withAdminRedirect from "@/hocs/withAdminRedirect";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {
   Box,
@@ -22,8 +22,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const AdminPage = () => {
   const { t } = useTranslation("translation", { keyPrefix: "admin" });
@@ -31,14 +30,6 @@ const AdminPage = () => {
   const { data: users, isLoading, error: getUserError } = useGetUsersQuery();
   const [updateUser, { isLoading: isUpdating }] = useUpdateUserMutation();
   const [removeUser, { isLoading: isRemoving }] = useRemoveUserMutation();
-  const navigate = useNavigate();
-  const [openForm, setOpenForm] = useState(false);
-  const currentUser = useSelector(selectCurrentUser);
-  // useEffect(() => {
-  //   if (!user) {
-  //     navigate("/login");
-  //   }
-  // }, [user]);
   return (
     <Box pt="60px" mx="auto" height="100vh" bgcolor="background.light">
       {isLoading ? (
@@ -152,4 +143,6 @@ const AdminPage = () => {
   );
 };
 
-export default AdminPage;
+const AdminPageWithAuth = withAdminRedirect(AdminPage);
+
+export default AdminPageWithAuth;
