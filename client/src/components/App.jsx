@@ -17,15 +17,16 @@ import { BrowserRouter } from "react-router-dom";
 
 function App() {
   const dispatch = useDispatch();
-  const { data: user, isLoading, error } = getUserId()
-    ? useGetUserByIdQuery(getUserId())
-    : "";
+  const {
+    data: user,
+    isLoading,
+    error,
+  } = getUserId() ? useGetUserByIdQuery(getUserId()) : "";
   useEffect(() => {
     if (user) {
       dispatch(setCredentials({ user, token: getToken() }));
     }
   }, [user]);
-  console.log("App",error);
   if (isLoading) {
     return (
       <Box
@@ -40,7 +41,7 @@ function App() {
   }
   return (
     <BrowserRouter>
-      <Layout>
+      <Layout error={error}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<AuthPage variant="login" />} />

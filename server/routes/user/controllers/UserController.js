@@ -1,4 +1,5 @@
 import UserService from "../UserService.js";
+import CollectionService from "../../collection/CollectionService.js";
 
 class UserController {
   async getUsers(req, res) {
@@ -46,6 +47,13 @@ class UserController {
   async removeUser(req, res) {
     try {
       const user = await UserService.removeUser(req.params.id);
+      if (user.collections.length) {
+        await Promise.all(
+          user.collections.map(async (id) => {
+            await CollectionService.removeCollection(id);
+          })
+        );
+      }
       return res.status(200).json(user);
     } catch (e) {
       console.log(e);

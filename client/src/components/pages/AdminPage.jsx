@@ -3,6 +3,7 @@ import {
   useRemoveUserMutation,
   useUpdateUserMutation,
 } from "@/app/services/user";
+import AlertDialog from "@/components/AlertDialog";
 import { selectCurrentUser } from "@/features/auth/authSlice";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {
@@ -26,6 +27,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const AdminPage = () => {
   const { t } = useTranslation("translation", { keyPrefix: "admin" });
+  const [open, setOpen] = useState(false);
   const { data: users, isLoading, error: getUserError } = useGetUsersQuery();
   const [updateUser, { isLoading: isUpdating }] = useUpdateUserMutation();
   const [removeUser, { isLoading: isRemoving }] = useRemoveUserMutation();
@@ -37,7 +39,6 @@ const AdminPage = () => {
   //     navigate("/login");
   //   }
   // }, [user]);
-  console.log("Admin",getUserError);
   return (
     <Box pt="60px" mx="auto" height="100vh" bgcolor="background.light">
       {isLoading ? (
@@ -111,10 +112,18 @@ const AdminPage = () => {
                         <TableCell align="center">
                           <IconButton
                             aria-label="delete"
-                            onClick={() => removeUser(user._id)}
+                            onClick={() => setOpen(true)}
                           >
                             <DeleteIcon />
                           </IconButton>
+                          <AlertDialog
+                            open={open}
+                            setOpen={setOpen}
+                            confirmBtn={t("delete")}
+                            confirmText={t("confirmText")}
+                            confirmTitle={t("confirmTitle")}
+                            handleConfirm={() => removeUser(user._id)}
+                          />
                         </TableCell>
                       </TableRow>
                     ))}

@@ -77,5 +77,12 @@ class ItemService {
       { $push: { comments: newComment._id } }
     );
   }
+  async addCustomFieldsInItem(comment, newComment) {
+    await Item.findOneAndUpdate(
+      { _id: comment.itemId },
+      { $push: { comments: newComment._id } }
+    );
+  }
+
 }
 export default new ItemService();

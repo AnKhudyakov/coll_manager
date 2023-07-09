@@ -9,18 +9,24 @@ import {
   SupervisorAccount,
 } from "@mui/icons-material";
 import { Box, IconButton, Typography, useMediaQuery } from "@mui/material";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import AlertDialog from "./AlertDialog";
 import SwitcherLang from "./SwitcherLang";
 import SwitcherTheme from "./SwitcherTheme";
 
 const Navbar = () => {
-  const navigate = useNavigate();
+  const { t } = useTranslation("translation", { keyPrefix: "header" });
+  const [open, setOpen] = useState(false);
   const user = useSelector(selectCurrentUser);
-  const dispatch = useDispatch();
   const isNonTablet = useMediaQuery("(min-width:700px)");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(setCredentials({ user: null, token: null }));
+    setOpen(false);
     unsetToken(navigate);
   };
 
@@ -58,9 +64,7 @@ const Navbar = () => {
               COLLECTION MANAGER
             </Typography>
           </Link>
-
           <SearchMenu />
-
           <Box
             px={1}
             display="flex"
@@ -82,7 +86,6 @@ const Navbar = () => {
                     </IconButton>
                   </Link>
                 )}
-
                 <Link to={`/profile/${user._id}`}>
                   <IconButton color="text.secondary">
                     <PersonOutline />
@@ -90,7 +93,10 @@ const Navbar = () => {
                 </Link>
                 <SwitcherTheme />
                 <SwitcherLang />
-                <IconButton onClick={handleLogout} color="text.secondary">
+                <IconButton
+                  onClick={() => setOpen(true)}
+                  color="text.secondary"
+                >
                   <LogoutOutlined />
                 </IconButton>
               </>
@@ -108,6 +114,14 @@ const Navbar = () => {
           </Box>
         </Box>
       </Box>
+      <AlertDialog
+        open={open}
+        setOpen={setOpen}
+        confirmBtn={t("signoutBtn")}
+        confirmText={t("confirmText")}
+        confirmTitle={t("confirmTitle")}
+        handleConfirm={handleLogout}
+      />
     </nav>
   );
 };

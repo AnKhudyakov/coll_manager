@@ -15,7 +15,6 @@ const SearchPage = () => {
   useEffect(() => {
     currentResults ? setResults(currentResults) : null;
   }, [currentResults]);
-  console.log("Search", error);
   return (
     <Box
       p={3}

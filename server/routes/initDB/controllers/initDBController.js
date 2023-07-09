@@ -33,7 +33,6 @@ class initDBController {
         itemsSecond.map(async (item, index) => {
           item.author = newCollection[index].author;
           item.collectionId = newCollection[index]._id;
-          console.log("SECOND", item);
           return await ItemService.createItem(item);
         })
       );

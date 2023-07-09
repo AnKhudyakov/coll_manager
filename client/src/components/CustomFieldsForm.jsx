@@ -14,8 +14,9 @@ import {
 import { FieldArray, FormikProvider } from "formik";
 import { useTranslation } from "react-i18next";
 
-const CustomFieldsForm = ({ formik }) => {
+const CustomFieldsForm = ({ formik, variant }) => {
   const { t } = useTranslation("translation", { keyPrefix: "profile" });
+  console.log(formik.values);
   return (
     <FormikProvider value={formik}>
       <FieldArray
@@ -55,6 +56,11 @@ const CustomFieldsForm = ({ formik }) => {
                         label={t("fieldType")}
                         onBlur={formik.handleBlur}
                         onChange={formik.handleChange}
+                        disabled={
+                          formik.values.customFields[index].isDisabledType
+                            ? !formik.values.customFields[index].isCanUpdateType
+                            : false
+                        }
                       >
                         {options.map((option) => (
                           <MenuItem key={option.name} value={option.value}>

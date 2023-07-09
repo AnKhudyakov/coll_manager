@@ -44,11 +44,48 @@ class CollectionService {
   }
   async updateCollection(req) {
     const { id } = req.params;
-    await Collection.findOneAndUpdate(
+    const collection = await Collection.findOneAndUpdate(
       { _id: id },
       { ...req.body },
       { new: true }
     );
+    if (collection.customFields.length) {
+      const customFields = collection.customFields.map((customField) => {
+        if (customField.type !== "checkbox") {
+          return {
+            [customField.name]: "",
+            fieldType: customField.type,
+          };
+        } else {
+          return {
+            [customField.name]: false,
+            fieldType: customField.type,
+          };
+        }
+      });
+      const keysToKeep = collection.customFields.map((field) => field.name);
+      const types = collection.customFields.map((field) => field.type);
+      await Item.updateMany(
+        { _id: { $in: collection.items } },
+        {
+          $addToSet: {
+            customFields: {
+              $each: customFields,
+            },
+          },
+        }
+      );
+      await Item.updateMany(
+        { _id: { $in: collection.items } },
+        {
+          $pull: {
+            customFields: {
+              $or: keysToKeep.map((key) => ({ [key]: { $in: keysToKeep } })),
+            },
+          },
+        }
+      );
+    }
   }
   async addItemInCollection(item, newItem) {
     await Collection.findOneAndUpdate(

@@ -13,7 +13,9 @@ import {
   Button,
   Checkbox,
   Chip,
+  FormControl,
   FormControlLabel,
+  InputLabel,
   TextField,
 } from "@mui/material";
 import { FieldArray, FormikProvider, getIn, useFormik } from "formik";
@@ -116,7 +118,7 @@ const ItemForm = ({ setOpenForm, collectionId, variant, item }) => {
                         <FormControlLabel
                           control={
                             <Checkbox
-                              checked={
+                              value={
                                 formik.values.customFields[index][
                                   customField.name
                                 ]
@@ -128,16 +130,17 @@ const ItemForm = ({ setOpenForm, collectionId, variant, item }) => {
                           label={`${customField.name}`}
                         />
                       ) : (
+                        <FormControl fullWidth>
+                        {customField.type === "date"&&<InputLabel>{customField.name}</InputLabel>}
                         <TextField
                           sx={{ mt: 2 }}
                           multiline={customField.type === "textarea"}
-                          fullWidth
                           type={
                             customField.type === "textarea"
                               ? "text"
                               : customField.type
                           }
-                          label={customField.name}
+                          label={customField.type !== "date"?customField.name:""}
                           onBlur={formik.handleBlur}
                           onChange={formik.handleChange}
                           value={
@@ -157,6 +160,7 @@ const ItemForm = ({ setOpenForm, collectionId, variant, item }) => {
                             getIn(formik.errors, customField.name)
                           }
                         />
+                        </FormControl>
                       )}
                     </Box>
                   );

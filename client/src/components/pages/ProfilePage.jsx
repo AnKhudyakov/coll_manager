@@ -29,7 +29,6 @@ const ProfilePage = () => {
       navigate("/login");
     }
   }, [user]);
-  console.log("Profile",getUserError,error);
   return (
     <Box pt="60px" height="100%" bgcolor="background.light">
       <Box
@@ -59,6 +58,7 @@ const ProfilePage = () => {
               <Button
                 sx={{
                   p: 1,
+                  px: 3,
                   bgcolor: "background.main",
                   color: "text.secondary",
                 }}

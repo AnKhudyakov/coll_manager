@@ -11,22 +11,26 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
+import MDEditor from "@uiw/react-md-editor";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import AlertDialog from "@/components/AlertDialog";
 import CollectionForm from "./CollectionForm";
-import MDEditor from "@uiw/react-md-editor";
 
 const Collection = ({ collection, variant }) => {
+  const { t } = useTranslation("translation", { keyPrefix: "collection" });
   const navigate = useNavigate();
   const [openForm, setOpenForm] = useState(false);
+  const [open, setOpen] = useState(false);
   const user = useSelector(selectCurrentUser);
   const isNonTablet = useMediaQuery("(min-width:900px)");
   const cardWidth =
     isNonTablet && variant !== "page" ? "calc(50% - 0.5rem)" : "100%";
   const imageWidth = !isNonTablet || variant !== "page" ? "40%" : "20%";
   const [removeCollection, { isLoading }] = useRemoveCollectionMutation();
-  const handleDeleteItem = () => {
+  const handleDeleteCollection = () => {
     removeCollection(collection._id);
     navigate(`/profile/${user._id}`);
   };
@@ -55,7 +59,10 @@ const Collection = ({ collection, variant }) => {
           <Typography gutterBottom variant="h5" component="div">
             {collection?.topic}
           </Typography>
-          <MDEditor.Markdown source={collection?.description} style={{ backgroundColor: 'inherit', color:"inherit" }} />
+          <MDEditor.Markdown
+            source={collection?.description}
+            style={{ backgroundColor: "inherit", color: "inherit" }}
+          />
         </CardContent>
         {(collection?.author === user?._id || user?.admin) && (
           <Box>
@@ -65,7 +72,7 @@ const Collection = ({ collection, variant }) => {
               </IconButton>
             </Box>
             <Box>
-              <IconButton aria-label="delete" onClick={handleDeleteItem}>
+              <IconButton aria-label="delete" onClick={() => setOpen(true)}>
                 <DeleteIcon />
               </IconButton>
             </Box>
@@ -79,6 +86,14 @@ const Collection = ({ collection, variant }) => {
           collection={collection}
         />
       )}
+      <AlertDialog
+        open={open}
+        setOpen={setOpen}
+        confirmBtn={t("deleteBtn")}
+        confirmText={t("confirmText")}
+        confirmTitle={t("confirmTitle")}
+        handleConfirm={handleDeleteCollection}
+      />
     </>
   );
 };

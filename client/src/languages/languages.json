@@ -3,7 +3,10 @@
     "translation": {
       "header": {
         "search": "Search...",
-        "confirmLogout": "Are you sure want to logout?"
+        "confirmTitle": "Are you sure to singout?",
+        "confirmText": "You can always sign back in at any time",
+        "cancelBtn": "Cancel",
+        "signoutBtn": "Signout"
       },
       "home": {
         "LargestCollections": "The Largest Collections",
@@ -32,7 +35,7 @@
         "signInError": "Unexpected authorization error",
         "successSignIn": "Successful SignIn!",
         "successReg": "Successful registration!",
-        "error": "Error!",
+        "info": "Please login to use all the functions of the app",
         "error400": "Invalid email or password",
         "error401": "Email and Password already exist",
         "error403": "User is blocked!",
@@ -54,7 +57,8 @@
         "fieldType": "Field Type",
         "cancelBtn": "Cancel",
         "createBtn": "Create",
-        "updateBtn": "Update"
+        "updateBtn": "Update",
+        "success": "Successful!"
       },
       "admin": {
         "users": "Users",
@@ -63,7 +67,9 @@
         "email": "E-mail",
         "admin": "Admin",
         "blocked": "Blocked",
-        "delete": "Delete"
+        "delete": "Delete",
+        "confirmTitle": "Are you sure?",
+        "confirmText": "Do you really want to delete this user with all his collections?"
       },
       "collection": {
         "items": "Items",
@@ -74,6 +80,9 @@
         "itemName": "Item name",
         "addButton": "Add new",
         "tags": "Tags",
+        "deleteBtn": "Delete",
+        "confirmText": "Do you really want to delete this collection with all the items in it?",
+        "confirmTitle": "Are you sure?",
         "cancelBtn": "Cancel",
         "createBtn": "Create",
         "updateBtn": "Update",
@@ -85,7 +94,10 @@
         "comments": "Comments",
         "notFound": "Comments not found.",
         "commentInput": "Add your comment here...",
-        "commentBtn": "Add comment"
+        "commentBtn": "Add comment",
+        "deleteBtn": "Delete",
+        "confirmText": "Do you really want to delete this item with all the elements in it?",
+        "confirmTitle": "Are you sure?"
       },
       "search": {
         "results": "Results for",
@@ -98,7 +110,10 @@
     "translation": {
       "header": {
         "search": "Vyhledávání",
-        "confirmLogOut": "Opravdu se chcete odhlásit?"
+        "confirmTitle": "Opravdu se chcete odhlásit?",
+        "confirmText": "Vždy se můžete kdykoli znovu přihlásit",
+        "cancelBtn": "Zrušení",
+        "signoutBtn": "Odhlásit se"
       },
       "home": {
         "LargestCollections": "Největší sbírky",
@@ -127,7 +142,7 @@
         "signInError": "Neočekávaná chyba autorizace",
         "successSignIn": "Úspěšné přihlášení!",
         "successReg": "Úspěšná registrace!",
-        "error": "Chyba!",
+        "info": "Chcete-li používat všechny funkce aplikace, přihlaste se",
         "error400": "špatný email nebo heslo",
         "error401": "E-mail a heslo již existují",
         "error403": "Uživatel je zablokován!",
@@ -149,7 +164,8 @@
         "fieldType": "Typ pole",
         "cancelBtn": "Zrušení",
         "createBtn": "Vytvořit",
-        "updateBtn": "Aktualizace"
+        "updateBtn": "Aktualizace",
+        "success": "Úspěšné!"
       },
       "admin": {
         "users": "Uživatelé",
@@ -158,7 +174,9 @@
         "email": "E-mail",
         "admin": "Správa",
         "blocked": "Blokováno",
-        "delete": "Vymazat"
+        "delete": "Vymazat",
+        "confirmTitle": "Jsi si jistá?",
+        "confirmText": "Opravdu chcete smazat tohoto uživatele se všemi jeho sbírkami?"
       },
       "collection": {
         "items": "Položky",
@@ -169,6 +187,9 @@
         "itemName": "Název položky",
         "addButton": "Přidat nový",
         "tags": "Tagy",
+        "deleteBtn": "Vymazat",
+        "confirmText": "Opravdu chcete smazat tuto kolekci se všemi prvky v ní?",
+        "confirmTitle": "Jsi si jistá?",
         "cancelBtn": "Zrušení",
         "createBtn": "Vytvořit",
         "updateBtn": "Aktualizace",
@@ -180,7 +201,10 @@
         "comments": "Komentáře",
         "notFound": "Komentáře nebyly nalezeny.",
         "commentInput": "Zde přidejte svůj komentář...",
-        "commentBtn": "Přidat komentář"
+        "commentBtn": "Přidat komentář",
+        "deleteBtn": "Vymazat",
+        "confirmText": "Opravdu chcete odstranit tuto položku se všemi prvky v ní?",
+        "confirmTitle": "Jsi si jistá?"
       },
       "search": {
         "results": "Výsledky pro",

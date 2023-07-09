@@ -5,7 +5,10 @@ import {
 import { useUploadMutation } from "@/app/services/uplooadImage";
 import CustomFieldsForm from "@/components/CustomFieldsForm";
 import UploadFile from "@/components/UploadFile";
-import { INIT_VALUES_COLLECTION, TOPIC_VALUES as options } from "@/constants/fields";
+import {
+  INIT_VALUES_COLLECTION,
+  TOPIC_VALUES as options,
+} from "@/constants/fields";
 import { DEFAULT_IMAGE_URL } from "@/constants/imageUrl";
 import { schemaCollection } from "@/helpers/validationForm";
 import {
@@ -17,7 +20,7 @@ import {
   Select,
   TextField,
   Typography,
-  styled
+  styled,
 } from "@mui/material";
 import MDEditor from "@uiw/react-md-editor";
 import { useFormik } from "formik";
@@ -65,7 +68,10 @@ const CollectionForm = ({ setOpenForm, variant, collection, author }) => {
           name: collection.name,
           description: collection.description,
           topic: collection.topic,
-          customFields: [...collection.customFields],
+          customFields: collection.customFields.map((customField) => ({
+            ...customField,
+            isDisabledType: true,
+          })),
         }
       : INIT_VALUES_COLLECTION;
   const [image, setImage] = useState("");
@@ -105,13 +111,15 @@ const CollectionForm = ({ setOpenForm, variant, collection, author }) => {
           const newCollection = {
             ...values,
             author,
-            image: responseUpload ? responseUpload.secure_url : DEFAULT_IMAGE_URL,
+            image: responseUpload
+              ? responseUpload.secure_url
+              : DEFAULT_IMAGE_URL,
           };
           await postCollection(newCollection).unwrap();
           break;
       }
       actions.resetForm();
-      toast.success("Successful create new collection");
+      toast.success(t("success"));
       setOpenForm(false);
     } catch (err) {
       toast.error(err.data.message);
@@ -174,7 +182,7 @@ const CollectionForm = ({ setOpenForm, variant, collection, author }) => {
       </FormControl>
       <UploadFile image={image} setImage={setImage} />
       <Box>
-        <CustomFieldsForm formik={formik} />
+        <CustomFieldsForm formik={formik} variant={variant} />
       </Box>
       <Box display="flex" justifyContent="space-around">
         <Button

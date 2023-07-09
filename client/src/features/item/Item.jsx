@@ -1,6 +1,4 @@
-import {
-  useRemoveItemMutation
-} from "@/app/services/item";
+import { useRemoveItemMutation } from "@/app/services/item";
 import { selectCurrentUser } from "@/features/auth/authSlice";
 import Likes from "@/features/likes/Likes";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -19,11 +17,13 @@ import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ItemForm from "./ItemForm";
+import AlertDialog from "@/components/AlertDialog";
 
 const Item = ({ item }) => {
   const { t } = useTranslation("translation", { keyPrefix: "item" });
   const navigate = useNavigate();
   const [openForm, setOpenForm] = useState(false);
+  const [open, setOpen] = useState(false);
   const user = useSelector(selectCurrentUser);
   const [removeItem, { isLoading }] = useRemoveItemMutation();
   const handleDeleteItem = () => {
@@ -92,7 +92,7 @@ const Item = ({ item }) => {
                     </IconButton>
                   </Box>
                   <Box>
-                    <IconButton aria-label="delete" onClick={handleDeleteItem}>
+                    <IconButton aria-label="delete" onClick={() => setOpen(true)}>
                       <DeleteIcon />
                     </IconButton>
                   </Box>
@@ -110,6 +110,14 @@ const Item = ({ item }) => {
           item={item}
         />
       )}
+      <AlertDialog
+        open={open}
+        setOpen={setOpen}
+        confirmBtn={t("deleteBtn")}
+        confirmText={t("confirmText")}
+        confirmTitle={t("confirmTitle")}
+        handleConfirm={handleDeleteItem}
+      />
     </>
   );
 };

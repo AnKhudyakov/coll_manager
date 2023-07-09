@@ -18,7 +18,6 @@ const commentWS = async (ws, req) => {
 };
 
 const broadcastMessage = async (ws, msg) => {
-  //console.log("MSG", msg);
   const comment = await createNewComment(msg.comment);
   const user = await UserService.getUserById(comment.author);
   const resultComment = {
@@ -38,7 +37,6 @@ const createNewComment = async (comment) => {
 const broadcastConnection = (ws, msg) => {
   ws.id = msg.id;
   aWss.clients.forEach(async (client) => {
-    //console.log("Connect", msg);
     const comments = await Comment.find({ itemId: msg.itemId });
     const resultComments = await Promise.all(
       comments.map(async (comment) => {

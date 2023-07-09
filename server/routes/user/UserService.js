@@ -1,4 +1,5 @@
 import User from "../../models/User.js";
+import Collection from "../../models/Collection.js";
 
 class UserService {
   async getUserByEmail(email) {

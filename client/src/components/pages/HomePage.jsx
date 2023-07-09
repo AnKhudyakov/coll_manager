@@ -6,7 +6,6 @@ import { Box, Button, Typography } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import "react-toastify/dist/ReactToastify.css";
 
 const HomePage = () => {
   const { t } = useTranslation("translation", { keyPrefix: "home" });
@@ -17,7 +16,7 @@ const HomePage = () => {
     sort_order: "desc",
   });
   const navigate = useNavigate();
-  console.log("Home",getTagError,error);
+
   return (
     <section>
       <Box p={3} pt="70px" bgcolor="background.light" minHeight="100vh">

@@ -37,13 +37,14 @@ const CollectionPage = () => {
             </Typography>
             <Items collectionId={id} customFields={collection.customFields} />
             {(collection.author === user?._id || user?.admin) && (
-              <Box mt={2} px={5}>
+              <Box px={5}>
                 {openForm ? (
                   <ItemForm setOpenForm={setOpenForm} collectionId={id} />
                 ) : (
                   <Button
                     sx={{
                       p: 1,
+                      px: 3,
                       bgcolor: "background.main",
                       color: "text.secondary",
                     }}
