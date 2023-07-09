@@ -11,7 +11,13 @@ const ItemPage = () => {
   const { id } = useParams();
   const { data: item, isLoading } = useGetItemByIdQuery(id);
   return (
-    <Box p={3} pt="60px" width="100%" minHeight="100vh" bgcolor="background.light">
+    <Box
+      p={3}
+      pt="60px"
+      width="100%"
+      minHeight="100vh"
+      bgcolor="background.light"
+    >
       <Box maxWidth="1250px">
         {isLoading ? (
           <Box
@@ -24,7 +30,7 @@ const ItemPage = () => {
           </Box>
         ) : (
           <>
-            <Item item={item} />
+            <Item item={item} variant="collectionPage" />
             <Box p={2}>
               <Typography color="text.secondary">{t("comments")}: </Typography>
               <Comments item={item} />

@@ -108,7 +108,6 @@ const Items = ({ collectionId, variant, customFields }) => {
                                   variant="h5"
                                   component="div"
                                 >
-                                  {/* {...Object.keys(field)[0]}:{" "} */}
                                   {Object.values(field)[0]}
                                 </Typography>
                               ) : (
@@ -138,16 +137,6 @@ const Items = ({ collectionId, variant, customFields }) => {
           </TableContainer>
         </>
       )}
-      {/* <>
-        {!items?.length ? (
-          <Typography variant="h4">Items not found.</Typography>
-        ) : (
-          <></>
-        )}
-        {items?.map((item) => (
-          <ItemCard item={item} key={item._id} variant={variant} />
-        ))}
-      </> */}
     </Box>
   );
 };

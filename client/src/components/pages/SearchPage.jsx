@@ -1,5 +1,5 @@
 import { useSearchQuery } from "@/app/services/search";
-import ItemCard from "@/features/item/ItemCard";
+import Item from "@/features/item/Item";
 import { Box, CircularProgress, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -43,7 +43,7 @@ const SearchPage = () => {
           </Typography>
           {results?.map((item) => (
             <Box m={2} key={item._id}>
-              <ItemCard item={item} />
+              <Item item={item} />
             </Box>
           ))}
         </Box>
