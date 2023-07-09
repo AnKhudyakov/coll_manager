@@ -5,7 +5,7 @@ class CollectionController {
     try {
       const collections = await CollectionService.getAllCollections(req.query);
       if (!collections) {
-        return res.status(404).json({ message: "DB is empty" });
+        return res.status(404).json({ message: "Collections not found" });
       }
       return res.status(200).json(collections);
     } catch (e) {

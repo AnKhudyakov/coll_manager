@@ -7,7 +7,7 @@ const CommentCard = ({ comment }) => {
         <CardContent sx={{ display: "flex", alignItems: "center" }}>
           <Box width={"150px"}>
             <Typography gutterBottom variant="h4" component="div">
-              {comment?.author}
+              {comment?.author.username}
             </Typography>
             <Typography>{comment?.createdAt?.slice(0, 10)}</Typography>
             <Typography>{comment?.createdAt?.slice(11, 19)}</Typography>

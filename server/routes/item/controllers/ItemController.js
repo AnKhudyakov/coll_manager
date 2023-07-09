@@ -6,7 +6,7 @@ class ItemController {
     try {
       const items = await ItemService.getAllItems(req.query);
       if (!items) {
-        return res.status(404).json({ message: "DB is empty" });
+        return res.status(404).json({ message: "Items not found" });
       }
       return res.status(200).json(items);
     } catch (e) {
@@ -14,19 +14,14 @@ class ItemController {
       return res.status(500).json({ message: "Server error" });
     }
   }
-  
+
   async getItemById(req, res) {
     try {
       const item = await ItemService.getItemById(req.params.id);
       if (!item) {
         return res.status(404).json({ message: "Item doesn't exist" });
       }
-      const tags = (await TagService.getTagContent(item.tags)).map((tag) => tag.content);
-      const resultItem = {
-        ...item._doc,
-        tags,
-      };
-      return res.status(200).json(resultItem);
+      return res.status(200).json(item);
     } catch (e) {
       console.log(e);
       return res.status(500).json({ message: "Server error" });
@@ -40,17 +35,7 @@ class ItemController {
           .status(404)
           .json({ message: "No items found for collection" });
       }
-      const resultItems = await Promise.all(
-        items.map(async (item) => {
-          const tags = await TagService.getTagContent(item.tags);
-          const tagContent = tags.map((tag) => tag.content);
-          return {
-            ...item._doc,
-            tags: tagContent,
-          };
-        })
-      );
-      return res.status(200).json(resultItems);
+      return res.status(200).json(items);
     } catch (e) {
       console.log(e);
       return res.status(500).json({ message: "Server error" });

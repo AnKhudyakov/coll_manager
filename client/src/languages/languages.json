@@ -99,7 +99,8 @@
         "commentBtn": "Add comment",
         "deleteBtn": "Delete",
         "confirmText": "Do you really want to delete this item with all the elements in it?",
-        "confirmTitle": "Are you sure?"
+        "confirmTitle": "Are you sure?",
+        "collection":"Collection"
       },
       "search": {
         "results": "Results for",
@@ -213,7 +214,8 @@
         "commentBtn": "Přidat komentář",
         "deleteBtn": "Vymazat",
         "confirmText": "Opravdu chcete odstranit tuto položku se všemi prvky v ní?",
-        "confirmTitle": "Jsi si jistá?"
+        "confirmTitle": "Jsi si jistá?",
+        "collection":"Sbírka"
       },
       "search": {
         "results": "Výsledky pro",

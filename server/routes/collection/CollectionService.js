@@ -25,7 +25,7 @@ class CollectionService {
   }
   async createCollection(collection) {
     const newCollection = new Collection(collection);
-    await User.findOneAndUpdate(
+    await User.updateOne(
       { _id: collection.author },
       { $push: { collections: newCollection } }
     );
@@ -64,7 +64,6 @@ class CollectionService {
         }
       });
       const keysToKeep = collection.customFields.map((field) => field.name);
-      const types = collection.customFields.map((field) => field.type);
       await Item.updateMany(
         { _id: { $in: collection.items } },
         {

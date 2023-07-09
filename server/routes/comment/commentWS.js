@@ -37,20 +37,11 @@ const createNewComment = async (comment) => {
 const broadcastConnection = (ws, msg) => {
   ws.id = msg.id;
   aWss.clients.forEach(async (client) => {
-    const comments = await Comment.find({ itemId: msg.itemId });
-    const resultComments = await Promise.all(
-      comments.map(async (comment) => {
-        const user = await UserService.getUserById(comment.author);
-        return {
-          ...comment._doc,
-          author: user.username,
-        };
-      })
+    const comments = await Comment.find({ itemId: msg.itemId }).populate(
+      "author"
     );
     if (client.id === msg.id) {
-      client.send(
-        JSON.stringify({ event: "comments", comments: resultComments })
-      );
+      client.send(JSON.stringify({ event: "comments", comments }));
     }
   });
 };

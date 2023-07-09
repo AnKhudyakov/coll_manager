@@ -23,7 +23,6 @@ const Item = ({ item, variant }) => {
     removeItem(item._id);
     navigate(`/profile/${user._id}`);
   };
-
   return (
     <>
       <Card>
@@ -36,17 +35,17 @@ const Item = ({ item, variant }) => {
         >
           {variant !== "collectionPage" ? (
             <CardActionArea onClick={() => navigate(`/items/${item._id}`)}>
-              <ItemCard item={item} />
+              <ItemCard item={item} variant={variant} />
             </CardActionArea>
           ) : (
-            <ItemCard item={item} />
+            <ItemCard item={item} variant={variant} />
           )}
 
           <Box display={"flex"}>
             <Divider orientation="vertical" variant="middle" flexItem />
             <Box justifySelf={"center"}>
               <Likes item={item} user={user} />
-              {(item?.author === user?._id || user?.admin) &&
+              {(item?.author.username === user?._id || user?.admin) &&
                 variant === "collectionPage" && (
                   <Box display={"flex"}>
                     <Box>

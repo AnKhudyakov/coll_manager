@@ -7,22 +7,11 @@ class ItemService {
   async getAllItems(query) {
     const { limit, sort_by, sort_order } = query;
     const items = await Item.find({})
+      .populate("author")
+      .populate("collectionId")
       .limit(limit)
       .sort({ [sort_by]: sort_order });
-    const resultItems = await Promise.all(
-      items.map(async (item) => {
-        const collection = await CollectionService.getCollectionById(
-          item.collectionId
-        );
-        const user = await UserService.getUserById(item.author);
-        return {
-          ...item._doc,
-          collectionId: collection.name,
-          author: user.username,
-        };
-      })
-    );
-    return resultItems;
+    return items;
   }
   async createItem(item) {
     const idsTag = await TagService.createTags(item.tags);
@@ -35,10 +24,10 @@ class ItemService {
     return await Item.find({ author: id });
   }
   async getItemsByCollection(id) {
-    return await Item.find({ collectionId: id });
+    return await Item.find({ collectionId: id }).populate("tags");
   }
   async getItemById(id) {
-    return await Item.findOne({ _id: id });
+    return await Item.findOne({ _id: id }).populate("tags");
   }
   async getItemByTag(id) {
     return await Item.findOne({ tags: id });
@@ -83,6 +72,5 @@ class ItemService {
       { $push: { comments: newComment._id } }
     );
   }
-
 }
 export default new ItemService();

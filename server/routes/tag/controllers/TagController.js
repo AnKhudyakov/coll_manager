@@ -5,7 +5,7 @@ class TagController {
     try {
       const tags = await TagService.getAllTags();
       if (!tags) {
-        return res.status(404).json({ message: "DB is empty" });
+        return res.status(404).json({ message: "Tags not found" });
       }
       return res.status(200).json(tags);
     } catch (e) {
