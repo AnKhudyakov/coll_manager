@@ -3,7 +3,7 @@ import {
   useGetCollectionsQuery,
 } from "@/app/services/collection";
 import { useGetUserByIdQuery } from "@/app/services/user";
-import Profile from "@/components/Profile";
+import Profile from "@/features/profile/Profile";
 import CollectionForm from "@/features/collection/CollectionForm";
 import Collections from "@/features/collection/Collections";
 import { Box, Button, Typography } from "@mui/material";
@@ -16,8 +16,16 @@ const ProfilePage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [openForm, setOpenForm] = useState(false);
-  const { data: user, isLoading: isLoadingUser, error : getUserError } = useGetUserByIdQuery(id);
-  const { data: collections, isLoading, error } = user?.admin
+  const {
+    data: user,
+    isLoading: isLoadingUser,
+    error: getUserError,
+  } = useGetUserByIdQuery(id);
+  const {
+    data: collections,
+    isLoading,
+    error,
+  } = user?.admin
     ? useGetCollectionsQuery({
         limit: 10,
         sort_by: "items",
@@ -40,7 +48,7 @@ const ProfilePage = () => {
       >
         <Box>
           <Profile user={user} />
-          <Typography variant="h3" color="text.secondary">
+          <Typography variant="h3" color="text.secondary" mt={3}>
             {t("collections")}:
           </Typography>
 

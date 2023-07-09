@@ -45,6 +45,7 @@
       "profile": {
         "profile": "Profile",
         "username": "Username",
+        "email": "E-mail",
         "collections": "Collections",
         "addButton": "Add new",
         "notFound": "You don't have any collections yet.",
@@ -58,6 +59,7 @@
         "cancelBtn": "Cancel",
         "createBtn": "Create",
         "updateBtn": "Update",
+        "password": "Password",
         "success": "Successful!"
       },
       "admin": {
@@ -152,6 +154,8 @@
       "profile": {
         "profile": "Profil",
         "username": "Uživatelské jméno",
+        "password": "Heslo",
+        "email": "E-mail",
         "collections": "Sbírky",
         "addButton": "Přidat nový",
         "notFound": "Sbírky nebyli nalezeni",

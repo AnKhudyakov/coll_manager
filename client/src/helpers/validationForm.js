@@ -81,3 +81,19 @@ export const schemaComment = yup.object().shape({
     .max(300, "Comment is too long - should be 300 chars maximum.")
     .required("No comment provided."),
 });
+
+export const schemaProfile = yup.object().shape({
+  username: yup
+    .string()
+    .required("No Name provided.")
+    .max(20, "Name is too long - should be 20 chars maximum."),
+  email: yup
+    .string()
+    .email("Please enter correct email.")
+    .max(50, "Email is too long - should be 50 chars maximum.")
+    .matches(
+      /^([a-z0-9_\.-]+)@([a-z0-9_\.-]+)\.([a-z]{2,6})$/i,
+      "Please enter correct email."
+    )
+    .required("No email provided."),
+});
