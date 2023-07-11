@@ -1,5 +1,5 @@
 import SearchIcon from "@mui/icons-material/Search";
-import { Box, InputBase } from "@mui/material";
+import { Box, InputBase, useMediaQuery } from "@mui/material";
 import { alpha, styled } from "@mui/material/styles";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -52,6 +52,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const SearchMenu = () => {
   const { t } = useTranslation("translation", { keyPrefix: "header" });
+  const isNonMobile = useMediaQuery("(min-width:740px)");
   const navigate = useNavigate();
   const [value, setValue] = useState("");
 
@@ -63,8 +64,8 @@ const SearchMenu = () => {
   return (
     <Box
       zIndex={10}
-      width="45%"
-      maxWidth="470px"
+      width="100%"
+      maxWidth="350px"
       height="36px"
       borderRadius=" 0px 0 0 5px"
     >

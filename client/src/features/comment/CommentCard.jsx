@@ -3,9 +3,9 @@ import { Box, Card, CardContent, Divider, Typography } from "@mui/material";
 const CommentCard = ({ comment }) => {
   return (
     <Card>
-      <Box display="flex" alignItems="center" maxWidth="800px">
+      <Box display="flex" alignItems="center" >
         <CardContent sx={{ display: "flex", alignItems: "center" }}>
-          <Box width={"150px"}>
+          <Box px={2}>
             <Typography gutterBottom variant="h4" component="div">
               {comment?.author.username}
             </Typography>

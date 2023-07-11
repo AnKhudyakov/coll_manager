@@ -18,7 +18,7 @@ const ItemPage = () => {
       minHeight="100vh"
       bgcolor="background.light"
     >
-      <Box maxWidth="1250px">
+      <Box maxWidth="1250px" m={"0 auto"}>
         {isLoading ? (
           <Box
             display="flex"
@@ -31,7 +31,7 @@ const ItemPage = () => {
         ) : (
           <>
             <Item item={item} variant="collectionPage" />
-            <Box p={2}>
+            <Box >
               <Typography color="text.secondary">{t("comments")}: </Typography>
               <Comments item={item} />
             </Box>

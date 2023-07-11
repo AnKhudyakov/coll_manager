@@ -6,7 +6,11 @@
         "confirmTitle": "Are you sure to singout?",
         "confirmText": "You can always sign back in at any time",
         "cancelBtn": "Cancel",
-        "signoutBtn": "Signout"
+        "signoutBtn": "SignOut",
+        "signinBtn": "SignIn",
+        "home": "Home",
+        "adminPanel": "Admin panel",
+        "profile": "Profile"
       },
       "home": {
         "LargestCollections": "The Largest Collections",
@@ -100,7 +104,7 @@
         "deleteBtn": "Delete",
         "confirmText": "Do you really want to delete this item with all the elements in it?",
         "confirmTitle": "Are you sure?",
-        "collection":"Collection"
+        "collection": "Collection"
       },
       "search": {
         "results": "Results for",
@@ -121,7 +125,11 @@
         "confirmTitle": "Opravdu se chcete odhlásit?",
         "confirmText": "Vždy se můžete kdykoli znovu přihlásit",
         "cancelBtn": "Zrušení",
-        "signoutBtn": "Odhlásit se"
+        "signoutBtn": "Odhlásit se",
+        "signinBtn": "Přihlásit se",
+        "home": "Domov",
+        "adminPanel": "Admin lišta",
+        "profile": "Profil"
       },
       "home": {
         "LargestCollections": "Největší sbírky",
@@ -215,7 +223,7 @@
         "deleteBtn": "Vymazat",
         "confirmText": "Opravdu chcete odstranit tuto položku se všemi prvky v ní?",
         "confirmTitle": "Jsi si jistá?",
-        "collection":"Sbírka"
+        "collection": "Sbírka"
       },
       "search": {
         "results": "Výsledky pro",

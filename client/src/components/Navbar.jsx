@@ -5,23 +5,28 @@ import {
   HomeOutlined,
   LoginOutlined,
   LogoutOutlined,
+  MenuOutlined,
   PersonOutline,
   SupervisorAccount,
 } from "@mui/icons-material";
 import { Box, IconButton, Typography, useMediaQuery } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import AlertDialog from "./AlertDialog";
+import NavMenu from "./NavMenu";
 import SwitcherLang from "./SwitcherLang";
 import SwitcherTheme from "./SwitcherTheme";
 
 const Navbar = () => {
   const { t } = useTranslation("translation", { keyPrefix: "header" });
   const [open, setOpen] = useState(false);
+  const [anchorElNav, setAnchorElNav] = useState(null);
   const user = useSelector(selectCurrentUser);
-  const isNonTablet = useMediaQuery("(min-width:700px)");
+  const isNonTablet = useMediaQuery("(min-width:970px)");
+  const isNonMobile = useMediaQuery("(min-width:740px)");
+  const isHovered = useMediaQuery("(hover:hover)");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleLogout = () => {
@@ -29,6 +34,10 @@ const Navbar = () => {
     setOpen(false);
     unsetToken(navigate);
   };
+
+  useEffect(() => {
+    if (isNonMobile) setAnchorElNav(null);
+  }, [isNonMobile]);
 
   return (
     <nav>
@@ -52,66 +61,99 @@ const Navbar = () => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Link to="/" style={{ textDecoration: "none" }}>
-            <Typography
-              sx={{
-                color: "text.main",
-                "&:hover": {
-                  color: "text.hover",
-                },
-              }}
-            >
-              COLLECTION MANAGER
-            </Typography>
-          </Link>
-          <SearchMenu />
-          <Box
-            px={1}
-            display="flex"
-            justifyContent="space-between"
-            columnGap={isNonTablet ? "60px" : "15px"}
-            zIndex="2"
-          >
-            <Link to="/">
-              <IconButton color="text.secondary">
-                <HomeOutlined />
-              </IconButton>
+          <Box display="flex" alignItems="center">
+            <Link to="/" style={{ textDecoration: "none" }}>
+              <Typography
+                color="text.main"
+                variant={!isNonMobile ? "h5" : "h4"}
+                sx={{
+                  px: 2,
+                  maxWidth: "130px",
+                  "&:hover": {
+                    color: "text.hover",
+                  },
+                }}
+              >
+                COLLECTION MANAGER
+              </Typography>
             </Link>
-            {user ? (
-              <>
-                {user.admin && (
-                  <Link to="/admin">
-                    <IconButton color="text.secondary">
-                      <SupervisorAccount />
-                    </IconButton>
-                  </Link>
-                )}
-                <Link to={`/profile/${user._id}`}>
-                  <IconButton color="text.secondary">
-                    <PersonOutline />
-                  </IconButton>
-                </Link>
-                <SwitcherTheme />
-                <SwitcherLang />
-                <IconButton
-                  onClick={() => setOpen(true)}
-                  color="text.secondary"
-                >
-                  <LogoutOutlined />
-                </IconButton>
-              </>
-            ) : (
-              <>
-                <SwitcherTheme />
-                <SwitcherLang />
-                <Link to="/login">
-                  <IconButton onClick={(e) => {}} color="text.secondary">
-                    <LoginOutlined />
-                  </IconButton>
-                </Link>
-              </>
-            )}
           </Box>
+
+          {isNonMobile ? (
+            <>
+              <SearchMenu />
+              <Box
+                px={1}
+                display="flex"
+                justifyContent="space-between"
+                alignItems={"center"}
+                columnGap={isNonTablet ? "50px" : "20px"}
+                zIndex="2"
+              >
+                <Link to="/">
+                  <IconButton color="text.secondary">
+                    <HomeOutlined />
+                  </IconButton>
+                </Link>
+                {user ? (
+                  <>
+                    {user.admin && (
+                      <Link to="/admin">
+                        <IconButton color="text.secondary">
+                          <SupervisorAccount />
+                        </IconButton>
+                      </Link>
+                    )}
+                    <Link to={`/profile/${user._id}`}>
+                      <IconButton color="text.secondary">
+                        <PersonOutline />
+                      </IconButton>
+                    </Link>
+                    <SwitcherTheme />
+                    <SwitcherLang />
+                    <IconButton
+                      onClick={() => setOpen(true)}
+                      color="text.secondary"
+                    >
+                      <LogoutOutlined />
+                    </IconButton>
+                  </>
+                ) : (
+                  <>
+                    <SwitcherTheme />
+                    <SwitcherLang />
+                    <Link to="/login">
+                      <IconButton color="text.secondary">
+                        <LoginOutlined />
+                      </IconButton>
+                    </Link>
+                  </>
+                )}
+              </Box>
+            </>
+          ) : (
+            <>
+              <SwitcherTheme />
+              <SwitcherLang />
+              <IconButton
+                color="text.secondary"
+                onClick={(e) => setAnchorElNav(e.currentTarget)}
+                onMouseOver={(e) => {
+                  isHovered ? setAnchorElNav(e.currentTarget) : null;
+                }}
+              >
+                <MenuOutlined fontSize="large" />
+              </IconButton>
+            </>
+          )}
+          {anchorElNav && (
+            <NavMenu
+              setAnchorElNav={setAnchorElNav}
+              anchorElNav={anchorElNav}
+              user={user}
+              setOpen={setOpen}
+            />
+          )}
         </Box>
       </Box>
       <AlertDialog

@@ -52,7 +52,7 @@ const ItemForm = ({ setOpenForm, collectionId, variant, item }) => {
   //TODO: add custom hook getExistValues
   const currentValues =
     variant === "edit"
-      ? { name: item.name, tags: item.tags, customFields: item.customFields }
+      ? { name: item.name, tags: item.tags.map((tag)=>tag.content), customFields: item.customFields }
       : getInitValuesItem(collection.customFields);
   const formik = useFormik({
     initialValues: currentValues,

@@ -26,6 +26,7 @@ const Collection = ({ collection, variant }) => {
   const [open, setOpen] = useState(false);
   const user = useSelector(selectCurrentUser);
   const isNonTablet = useMediaQuery("(min-width:900px)");
+  const isNonMobile = useMediaQuery("(min-width:700px)");
   const cardWidth =
     isNonTablet && variant !== "page" ? "calc(50% - 0.5rem)" : "100%";
   const imageWidth = !isNonTablet || variant !== "page" ? "40%" : "20%";
@@ -40,51 +41,64 @@ const Collection = ({ collection, variant }) => {
       <Card
         sx={{
           width: `${cardWidth}`,
-          display: "flex",
+          display: `${isNonMobile ? "flex" : "block"}`,
           alignItems: "center",
           justifyContent: "space-between",
-          pr: 3,
         }}
       >
         <CardMedia
           component="img"
           image={collection?.image}
           alt="Collection image"
-          sx={{ width: `${imageWidth}`, height: "200px" }}
+          sx={{
+            width: `${isNonMobile ? imageWidth : "100%"}`,
+            height: "200px",
+          }}
         />
-        <CardContent sx={{ width: "100%", height: "100%" }}>
-          <Typography gutterBottom variant="h3" component="div">
-            {collection?.name}
-          </Typography>
-          <Typography gutterBottom variant="h5" component="div">
-            {collection?.topic}
-          </Typography>
-          <MDEditor.Markdown
-            source={collection?.description}
-            style={{ backgroundColor: "inherit", color: "inherit" }}
-          />
-        </CardContent>
-        {(collection?.author === user?._id || user?.admin) && (
+        <CardContent
+          sx={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
           <Box>
-            <Box>
-              <IconButton aria-label="edit" onClick={() => setOpenForm(true)}>
-                <EditIcon />
-              </IconButton>
-            </Box>
-            <Box>
-              <IconButton aria-label="delete" onClick={() => setOpen(true)}>
-                <DeleteIcon />
-              </IconButton>
-            </Box>
+            <Typography gutterBottom variant="h3" component="div">
+              {collection?.name}
+            </Typography>
+            <Typography gutterBottom variant="h5" component="div">
+              {collection?.topic}
+            </Typography>
+            <MDEditor.Markdown
+              source={collection?.description}
+              style={{ backgroundColor: "inherit", color: "inherit" }}
+            />
           </Box>
-        )}
+          {(collection?.author === user?._id || user?.admin) && (
+            <Box px={isNonMobile?1:0} >
+              <Box>
+                <IconButton aria-label="edit" onClick={() => setOpenForm(true)}>
+                  <EditIcon />
+                </IconButton>
+              </Box>
+              <Box>
+                <IconButton aria-label="delete" onClick={() => setOpen(true)}>
+                  <DeleteIcon />
+                </IconButton>
+              </Box>
+            </Box>
+          )}
+        </CardContent>
       </Card>
       {openForm && (
+        <Box px={1}>
         <CollectionForm
           variant="edit"
           setOpenForm={setOpenForm}
           collection={collection}
         />
+        </Box>
       )}
       <AlertDialog
         open={open}

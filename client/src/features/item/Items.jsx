@@ -45,7 +45,7 @@ const Items = ({ collectionId, variant, customFields }) => {
   );
 
   return (
-    <Box display="flex" flexDirection="column" gap={2} mt={1} p={5}>
+    <Box display="flex" flexDirection="column" gap={2} mt={1} p={2}>
       {isLoading ? (
         <Box
           display="flex"
@@ -66,10 +66,29 @@ const Items = ({ collectionId, variant, customFields }) => {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell>№</TableCell>
-                  <TableCell>{t("itemName")}</TableCell>
+                  <TableCell
+                    sx={{
+                      width: "1%",
+                    }}
+                  >
+                    №
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      position: "sticky",
+                      left: 0,
+                      zIndex: 1,
+                      backgroundColor: "background.default",
+                      width: "10%",
+                    }}
+                  >
+                    {t("itemName")}
+                  </TableCell>
                   {customFields?.map((field) => (
                     <TableCell
+                    sx={{
+                      width: "20%",
+                    }}
                       align={field.type !== "checkbox" ? "left" : "center"}
                       key={field.name}
                     >
@@ -91,7 +110,17 @@ const Items = ({ collectionId, variant, customFields }) => {
                         <TableCell component="th" scope="row">
                           {index + 1}
                         </TableCell>
-                        <TableCell component="th" scope="row">
+                        <TableCell
+                          component="th"
+                          scope="row"
+                          sx={{
+                            position: "sticky",
+                            left: 0,
+                            zIndex: 1,
+                            backgroundColor: "background.default",
+                            width: "150px",
+                          }}
+                        >
                           <Link to={`/items/${item._id}`}>{item.name}</Link>
                         </TableCell>
                         {item?.customFields.map((field, index) => (

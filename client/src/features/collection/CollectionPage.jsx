@@ -37,7 +37,7 @@ const CollectionPage = () => {
             </Typography>
             <Items collectionId={id} customFields={collection.customFields} />
             {(collection.author === user?._id || user?.admin) && (
-              <Box px={5}>
+              <Box px={2}>
                 {openForm ? (
                   <ItemForm setOpenForm={setOpenForm} collectionId={id} />
                 ) : (
@@ -47,6 +47,7 @@ const CollectionPage = () => {
                       px: 3,
                       bgcolor: "background.main",
                       color: "text.secondary",
+                      mb: 3
                     }}
                     onClick={() => setOpenForm(true)}
                   >
