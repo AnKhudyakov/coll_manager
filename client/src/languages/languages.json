@@ -64,7 +64,8 @@
         "createBtn": "Create",
         "updateBtn": "Update",
         "password": "Password",
-        "success": "Successful!"
+        "success": "Successful!",
+        "uploadText": "Upload or drop a file right here"
       },
       "admin": {
         "users": "Users",
@@ -183,7 +184,8 @@
         "cancelBtn": "Zrušení",
         "createBtn": "Vytvořit",
         "updateBtn": "Aktualizace",
-        "success": "Úspěšné!"
+        "success": "Úspěšné!",
+        "uploadText": "Nahrajte nebo přetáhněte soubor přímo sem"
       },
       "admin": {
         "users": "Uživatelé",

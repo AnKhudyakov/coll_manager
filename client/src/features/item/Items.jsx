@@ -20,10 +20,11 @@ import {
 import CircularProgress from "@mui/material/CircularProgress";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Items = ({ collectionId, variant, customFields }) => {
   const { t } = useTranslation("translation", { keyPrefix: "collection" });
+  const navigate = useNavigate();
   const [items, setItems] = useState([]);
   const { data: currentItems, isLoading } =
     variant === "last"
@@ -62,108 +63,110 @@ const Items = ({ collectionId, variant, customFields }) => {
             setFilter={setFilter}
             customFields={customFields}
           />
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell
-                    sx={{
-                      width: "1%",
-                    }}
-                  >
-                    №
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      position: "sticky",
-                      left: 0,
-                      zIndex: 1,
-                      backgroundColor: "background.default",
-                      width: "10%",
-                    }}
-                  >
-                    {t("itemName")}
-                  </TableCell>
-                  {customFields?.map((field) => (
+          {filteredAndSortedItems.length ? (
+            <TableContainer component={Paper}>
+              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <TableHead>
+                  <TableRow>
                     <TableCell
-                    sx={{
-                      width: "20%",
-                    }}
-                      align={field.type !== "checkbox" ? "left" : "center"}
-                      key={field.name}
+                      sx={{
+                        width: "1%",
+                      }}
                     >
-                      {field.name}
+                      №
                     </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {filteredAndSortedItems.length ? (
-                  <>
-                    {filteredAndSortedItems.map((item, index) => (
-                      <TableRow
-                        key={item._id}
+                    <TableCell
+                      sx={{
+                        position: "sticky",
+                        left: 0,
+                        zIndex: 1,
+                        backgroundColor: "background.default",
+                        width: "10%",
+                      }}
+                    >
+                      {t("itemName")}
+                    </TableCell>
+                    {customFields?.map((field) => (
+                      <TableCell
                         sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
+                          width: "20%",
+                        }}
+                        align={field.type !== "checkbox" ? "left" : "center"}
+                        key={field.name}
+                      >
+                        {field.name}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {filteredAndSortedItems.map((item, index) => (
+                    <TableRow
+                      key={item._id}
+                      onClick={() => navigate(`/items/${item._id}`)}
+                      sx={(theme) => ({
+                        "&:last-child td, &:last-child th": { border: 0 },
+                        backgroundColor: "background.default",
+                        "&:hover": {
+                          cursor: "pointer",
+                          backgroundColor: theme.palette.background.main,
+                        },
+                      })}
+                    >
+                      <TableCell component="th" scope="row">
+                        {index + 1}
+                      </TableCell>
+                      <TableCell
+                        component="th"
+                        scope="row"
+                        sx={{
+                          position: "sticky",
+                          left: 0,
+                          zIndex: 1,
+                          backgroundColor: "inherit",
+                          width: "150px",
                         }}
                       >
-                        <TableCell component="th" scope="row">
-                          {index + 1}
-                        </TableCell>
+                        {item.name}
+                      </TableCell>
+                      {item?.customFields.map((field, index) => (
                         <TableCell
-                          component="th"
-                          scope="row"
-                          sx={{
-                            position: "sticky",
-                            left: 0,
-                            zIndex: 1,
-                            backgroundColor: "background.default",
-                            width: "150px",
-                          }}
+                          key={index}
+                          align={
+                            field.fieldType !== "checkbox" ? "left" : "center"
+                          }
                         >
-                          <Link to={`/items/${item._id}`}>{item.name}</Link>
+                          <Box>
+                            {field.fieldType !== "checkbox" ? (
+                              <Typography
+                                gutterBottom
+                                variant="h5"
+                                component="div"
+                              >
+                                {Object.values(field)[0]}
+                              </Typography>
+                            ) : (
+                              <>
+                                {Object.values(field)[0] ? (
+                                  <CheckCircleOutlineIcon />
+                                ) : (
+                                  <HighlightOffIcon />
+                                )}
+                              </>
+                            )}
+                          </Box>
                         </TableCell>
-                        {item?.customFields.map((field, index) => (
-                          <TableCell
-                            key={index}
-                            align={
-                              field.fieldType !== "checkbox" ? "left" : "center"
-                            }
-                          >
-                            <Box>
-                              {field.fieldType !== "checkbox" ? (
-                                <Typography
-                                  gutterBottom
-                                  variant="h5"
-                                  component="div"
-                                >
-                                  {Object.values(field)[0]}
-                                </Typography>
-                              ) : (
-                                <>
-                                  {Object.values(field)[0] ? (
-                                    <CheckCircleOutlineIcon />
-                                  ) : (
-                                    <HighlightOffIcon />
-                                  )}
-                                </>
-                              )}
-                            </Box>
-                          </TableCell>
-                        ))}
-                      </TableRow>
-                    ))}
-                  </>
-                ) : (
-                  <TableRow
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell>{t("notFound")}</TableCell>
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
+                      ))}
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          ) : (
+            <Typography variant="h3" textAlign={"center"}>
+              {t("notFound")}
+            </Typography>
+          )}
         </>
       )}
     </Box>

@@ -38,7 +38,7 @@ const ItemCard = ({ item, variant }) => {
           {item.tags?.map((tag) => (
             <Button
               sx={{
-                mx: 1,
+                m: 1,
                 p: 1,
                 bgcolor: "background.main",
                 color: "text.secondary",

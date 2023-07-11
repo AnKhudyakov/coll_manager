@@ -35,7 +35,6 @@ const Collection = ({ collection, variant }) => {
     removeCollection(collection._id);
     navigate(`/profile/${user._id}`);
   };
-
   return (
     <>
       <Card
@@ -61,6 +60,7 @@ const Collection = ({ collection, variant }) => {
             height: "100%",
             display: "flex",
             alignItems: "center",
+            justifyContent:"space-between"
           }}
         >
           <Box>

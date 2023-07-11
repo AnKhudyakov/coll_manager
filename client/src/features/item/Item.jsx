@@ -4,7 +4,14 @@ import { selectCurrentUser } from "@/features/auth/authSlice";
 import Likes from "@/features/likes/Likes";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { Box, Card, CardActionArea, Divider, IconButton } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardActionArea,
+  Divider,
+  IconButton,
+  useMediaQuery,
+} from "@mui/material";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
@@ -15,6 +22,7 @@ import ItemForm from "./ItemForm";
 const Item = ({ item, variant }) => {
   const { t } = useTranslation("translation", { keyPrefix: "item" });
   const navigate = useNavigate();
+  const isNonMobile = useMediaQuery("(min-width:700px)");
   const [openForm, setOpenForm] = useState(false);
   const [open, setOpen] = useState(false);
   const user = useSelector(selectCurrentUser);
@@ -27,11 +35,10 @@ const Item = ({ item, variant }) => {
     <>
       <Card>
         <Box
-          sx={{
-            display: "flex",
-            alignItems: "stretch",
-            justifyContent: "space-between",
-          }}
+          display="flex"
+          alignItems="stretch"
+          justifyContent="space-between"
+          flexDirection={isNonMobile ? "row" : "column"}
         >
           {variant !== "collectionPage" ? (
             <CardActionArea onClick={() => navigate(`/items/${item._id}`)}>
@@ -41,13 +48,13 @@ const Item = ({ item, variant }) => {
             <ItemCard item={item} variant={variant} />
           )}
 
-          <Box display={"flex"}>
-            <Divider orientation="vertical" variant="middle" flexItem />
-            <Box justifySelf={"center"}>
+          <Box display={"flex"} alignItems={"center"} justifyContent={"center"} flexDirection={isNonMobile ? "row" : "column"}>
+            <Divider orientation={isNonMobile ? "vertical":"horizontal"} variant="middle" flexItem />
+            <Box justifySelf={"center"} display={"flex"} flexDirection={!isNonMobile ? "row" : "column"}>
               <Likes item={item} user={user} />
               {(item?.author.username === user?._id || user?.admin) &&
                 variant === "collectionPage" && (
-                  <Box display={"flex"}>
+                  <Box display={"flex"} >
                     <Box>
                       <IconButton
                         aria-label="edit"

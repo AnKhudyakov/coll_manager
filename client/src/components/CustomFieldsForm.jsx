@@ -16,7 +16,6 @@ import { useTranslation } from "react-i18next";
 
 const CustomFieldsForm = ({ formik, variant }) => {
   const { t } = useTranslation("translation", { keyPrefix: "profile" });
-  console.log(formik.values);
   return (
     <FormikProvider value={formik}>
       <FieldArray
@@ -80,7 +79,7 @@ const CustomFieldsForm = ({ formik, variant }) => {
                   </Box>
                 );
               })}
-              <Box display="flex" alignItems="center" my={1}>
+              <Box display="flex" alignItems="center" mt={3}>
                 <Typography variant="h4" color="text.secondary">
                   {t("addCustomField")}
                 </Typography>
