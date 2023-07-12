@@ -10,7 +10,7 @@ const ItemCard = ({ item, variant }) => {
       <Typography gutterBottom variant="h3" component="div">
         {item.name}
       </Typography>
-      {variant !== "collectionPage" && (
+      {variant !== "search" && (
         <Typography
           gutterBottom
           variant="h4"
@@ -30,7 +30,7 @@ const ItemCard = ({ item, variant }) => {
             )}
           </Box>
         ))}
-      {variant === "collectionPage" && (
+      {variant === "itemPage" && (
         <Box>
           <Typography gutterBottom variant="h5" component="div">
             {t("tags")}:

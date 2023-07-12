@@ -16,7 +16,6 @@ const CollectionPage = () => {
   const { id } = useParams();
   const { data: collection, isLoading } = useGetCollectionByIdQuery(id);
   const user = useSelector(selectCurrentUser);
-
   return (
     <Box pt="60px" width="100%" bgcolor="background.light" minHeight="100vh">
       <Box maxWidth="1250px" mx="auto">
@@ -47,7 +46,7 @@ const CollectionPage = () => {
                       px: 3,
                       bgcolor: "background.main",
                       color: "text.secondary",
-                      mb: 3
+                      mb: 3,
                     }}
                     onClick={() => setOpenForm(true)}
                   >

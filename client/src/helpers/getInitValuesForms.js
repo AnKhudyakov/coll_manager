@@ -8,3 +8,23 @@ export const getInitValuesItem = (fields) => {
   });
   return { name: "", tags: [], customFields };
 };
+
+export const getExistValuesItem = (item) => {
+  return {
+    name: item.name,
+    tags: item.tags.map((tag) => tag.content),
+    customFields: item.customFields,
+  }
+}
+
+export const getExistValuesCollection = (collection) => {
+  return {
+    name: collection.name,
+    description: collection.description,
+    topic: collection.topic,
+    customFields: collection.customFields.map((customField) => ({
+      ...customField,
+      isDisabledType: true,
+    })),
+  }
+}

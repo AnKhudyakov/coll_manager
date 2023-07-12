@@ -14,7 +14,7 @@ import {
 import { FieldArray, FormikProvider } from "formik";
 import { useTranslation } from "react-i18next";
 
-const CustomFieldsForm = ({ formik, variant }) => {
+const CustomFieldsCollectionForm = ({ formik }) => {
   const { t } = useTranslation("translation", { keyPrefix: "profile" });
   return (
     <FormikProvider value={formik}>
@@ -40,12 +40,6 @@ const CustomFieldsForm = ({ formik, variant }) => {
                       onChange={formik.handleChange}
                       name={`customFields.${index}.name`}
                       value={formik.values.customFields[index].name}
-                      //   error={Boolean(
-                      //     formik.touched.custom_name && formik.errors.custom_name
-                      //   )}
-                      //   helperText={
-                      //     formik.touched.custom_name && formik.errors.custom_name
-                      //   }
                     />
                     <FormControl fullWidth>
                       <InputLabel>{t("fieldType")}</InputLabel>
@@ -100,4 +94,4 @@ const CustomFieldsForm = ({ formik, variant }) => {
   );
 };
 
-export default CustomFieldsForm;
+export default CustomFieldsCollectionForm;

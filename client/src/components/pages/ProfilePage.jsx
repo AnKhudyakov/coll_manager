@@ -10,7 +10,7 @@ import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
-import withAuthRedirect from "@/hocs/withAuthRedirect";
+import withAuthRedirect from "@/hoc/withAuthRedirect";
 
 const ProfilePage = () => {
   const { t } = useTranslation("translation", { keyPrefix: "profile" });

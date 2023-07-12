@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 const ItemsList = ({ collectionId, variant }) => {
   const { t } = useTranslation("translation", { keyPrefix: "collection" });
   const { data: items, isLoading } =
-    variant === "last"
+    variant === "lastItems"
       ? useGetItemsQuery({ limit: 5, sort_by: "createdAt", sort_order: "desc" })
       : useGetItemsByCollectionQuery(collectionId);
   return (
@@ -31,11 +31,12 @@ const ItemsList = ({ collectionId, variant }) => {
               {t("notFound")}
             </Typography>
           ) : (
-            <></>
+            <>
+              {items?.map((item) => (
+                <Item item={item} key={item._id} variant={variant} />
+              ))}
+            </>
           )}
-          {items?.map((item) => (
-            <Item item={item} key={item._id} variant="lastItem" />
-          ))}
         </>
       )}
     </Box>

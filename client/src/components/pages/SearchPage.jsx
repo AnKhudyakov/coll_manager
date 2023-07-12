@@ -1,7 +1,6 @@
 import { useSearchQuery } from "@/app/services/search";
 import Item from "@/features/item/Item";
 import { Box, CircularProgress, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
 
@@ -9,12 +8,7 @@ const SearchPage = () => {
   const { t } = useTranslation("translation", { keyPrefix: "search" });
   const [searchParams] = useSearchParams();
   const query = searchParams.get("text");
-  const [results, setResults] = useState([]);
-  const { data: currentResults, isLoading, error } = useSearchQuery(query);
-
-  useEffect(() => {
-    currentResults ? setResults(currentResults) : null;
-  }, [currentResults]);
+  const { data: results, isLoading, error } = useSearchQuery(query);
   return (
     <Box
       p={3}
@@ -35,7 +29,7 @@ const SearchPage = () => {
         </Box>
       ) : (
         <Box maxWidth="1250px" mx="auto">
-          <Typography color="text.secondary" variant="h3">
+          <Typography color="text.primary" variant="h3">
             {t("results")}: {query}
           </Typography>
           <Typography color="text.secondary" variant="h4">
@@ -43,7 +37,7 @@ const SearchPage = () => {
           </Typography>
           {results?.map((item) => (
             <Box m={2} key={item._id}>
-              <Item item={item} />
+              <Item item={item} variant="search" />
             </Box>
           ))}
         </Box>

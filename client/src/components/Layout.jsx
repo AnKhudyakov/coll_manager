@@ -1,4 +1,4 @@
-import Navbar from "@/components/Navbar";
+import Header from "@/components/Header";
 import { ThemeContext, useTheme } from "@/hooks/useTheme";
 import { ThemeProvider } from "@mui/material/styles";
 import { useEffect, useMemo } from "react";
@@ -24,19 +24,19 @@ const Layout = ({ children, error }) => {
   return (
     <ThemeContext.Provider value={memoizedColor}>
       <ThemeProvider theme={theme}>
-        <Navbar />
+        <Header />
         <main>{children}</main>
         <ToastContainer
-        position="bottom-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
+          position="bottom-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
       </ThemeProvider>
     </ThemeContext.Provider>
   );

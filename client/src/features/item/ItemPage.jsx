@@ -30,9 +30,11 @@ const ItemPage = () => {
           </Box>
         ) : (
           <>
-            <Item item={item} variant="collectionPage" />
-            <Box >
-              <Typography color="text.secondary">{t("comments")}: </Typography>
+            <Item item={item} variant="itemPage" />
+            <Box>
+              <Typography color="text.primary" mt={1} variant="h3">
+                {t("comments")}:
+              </Typography>
               <Comments item={item} />
             </Box>
           </>

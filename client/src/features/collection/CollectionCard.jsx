@@ -16,7 +16,6 @@ const CollectionCard = ({ collection, variant }) => {
   const cardWidth =
     isNonTablet && variant !== "page" ? "calc(50% - 0.5rem)" : "100%";
   const imageWidth = !isNonTablet || variant !== "page" ? "40%" : "20%";
-
   return (
     <Card
       sx={{

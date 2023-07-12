@@ -40,7 +40,7 @@ const Item = ({ item, variant }) => {
           justifyContent="space-between"
           flexDirection={isNonMobile ? "row" : "column"}
         >
-          {variant !== "collectionPage" ? (
+          {variant !== "itemPage" ? (
             <CardActionArea onClick={() => navigate(`/items/${item._id}`)}>
               <ItemCard item={item} variant={variant} />
             </CardActionArea>
@@ -48,13 +48,26 @@ const Item = ({ item, variant }) => {
             <ItemCard item={item} variant={variant} />
           )}
 
-          <Box display={"flex"} alignItems={"center"} justifyContent={"center"} flexDirection={isNonMobile ? "row" : "column"}>
-            <Divider orientation={isNonMobile ? "vertical":"horizontal"} variant="middle" flexItem />
-            <Box justifySelf={"center"} display={"flex"} flexDirection={!isNonMobile ? "row" : "column"}>
+          <Box
+            display={"flex"}
+            alignItems={"center"}
+            justifyContent={"center"}
+            flexDirection={isNonMobile ? "row" : "column"}
+          >
+            <Divider
+              orientation={isNonMobile ? "vertical" : "horizontal"}
+              variant="middle"
+              flexItem
+            />
+            <Box
+              justifySelf={"center"}
+              display={"flex"}
+              flexDirection={!isNonMobile ? "row" : "column"}
+            >
               <Likes item={item} user={user} />
               {(item?.author.username === user?._id || user?.admin) &&
-                variant === "collectionPage" && (
-                  <Box display={"flex"} >
+                variant === "itemPage" && (
+                  <Box display={"flex"}>
                     <Box>
                       <IconButton
                         aria-label="edit"
@@ -81,7 +94,7 @@ const Item = ({ item, variant }) => {
         <ItemForm
           variant="edit"
           setOpenForm={setOpenForm}
-          collectionId={item.collectionId}
+          collectionId={item.collectionId._id}
           item={item}
         />
       )}

@@ -27,34 +27,38 @@ function App() {
       dispatch(setCredentials({ user, token: getToken() }));
     }
   }, [user]);
-  if (isLoading) {
-    return (
-      <Box
-        display="flex"
-        justifyContent="center"
-        height="100vh"
-        alignItems="center"
-      >
-        <CircularProgress />
-      </Box>
-    );
-  }
   return (
-    <BrowserRouter>
-      <Layout error={error}>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<AuthPage variant="login" />} />
-          <Route path="/register" element={<AuthPage variant="register" />} />
-          <Route path="/forgot" element={<AuthPage variant="forgot" />} />
-          <Route path="/profile/:id" element={<ProfilePageWithAuth />} />
-          <Route path="/admin" element={<AdminPageWithAuth />} />
-          <Route path="/collections/:id" element={<CollectionPage />} />
-          <Route path="/items/:id" element={<ItemPage />} />
-          <Route path="/search" element={<SearchPage />} />
-        </Routes>
-      </Layout>
-    </BrowserRouter>
+    <>
+      {isLoading ? (
+        <Box
+          display="flex"
+          justifyContent="center"
+          height="100vh"
+          alignItems="center"
+        >
+          <CircularProgress />
+        </Box>
+      ) : (
+        <BrowserRouter>
+          <Layout error={error}>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/login" element={<AuthPage variant="login" />} />
+              <Route
+                path="/register"
+                element={<AuthPage variant="register" />}
+              />
+              <Route path="/forgot" element={<AuthPage variant="forgot" />} />
+              <Route path="/profile/:id" element={<ProfilePageWithAuth />} />
+              <Route path="/admin" element={<AdminPageWithAuth />} />
+              <Route path="/collections/:id" element={<CollectionPage />} />
+              <Route path="/items/:id" element={<ItemPage />} />
+              <Route path="/search" element={<SearchPage />} />
+            </Routes>
+          </Layout>
+        </BrowserRouter>
+      )}
+    </>
   );
 }
 

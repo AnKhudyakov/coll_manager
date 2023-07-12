@@ -1,5 +1,5 @@
 import { selectCurrentUser } from "@/features/auth/authSlice";
-import { getUserId } from "@/helpers/auth";
+import { connectSocket } from "@/app/services/comment";
 import { Box, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -12,38 +12,9 @@ const Comments = ({ item }) => {
   const [socket, setSocket] = useState(null);
   const [comments, setComments] = useState([]);
   const user = useSelector(selectCurrentUser);
-  const [connected, setConnected] = useState(false);
   useEffect(() => {
     if (item) {
-      const socket = new WebSocket(import.meta.env.VITE_API_WS);
-      setSocket(socket);
-      socket.onopen = () => {
-        setConnected(true);
-        const message = {
-          event: "connection",
-          id: getUserId(),
-          itemId: item._id,
-        };
-        socket.send(JSON.stringify(message));
-      };
-      socket.onmessage = (event) => {
-        const msg = JSON.parse(event.data);
-        switch (msg.event) {
-          case "comments":
-            setComments(msg.comments);
-            break;
-          case "comment":
-            setComments((prev) => [...prev, msg.comment]);
-            break;
-        }
-      };
-      socket.onclose = () => {
-        // alert("Connection closed");
-        setConnected(false);
-      };
-      socket.onerror = () => {
-        // alert("Connection died");
-      };
+      connectSocket(setSocket, setComments, item);
     }
   }, []);
   return (

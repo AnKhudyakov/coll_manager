@@ -1,22 +1,28 @@
 import { useGetCollectionsQuery } from "@/app/services/collection";
 import { useGetTagsQuery } from "@/app/services/tag";
+import Tags from "@/components/Tags";
 import Collections from "@/features/collection/Collections";
 import ItemsList from "@/features/item/ItemsList";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const { t } = useTranslation("translation", { keyPrefix: "home" });
-  const { data: tags, isLoading: isLoadingTags, error: getTagError } = useGetTagsQuery();
-  const { data: collections, isLoading, error } = useGetCollectionsQuery({
+  const {
+    data: tags,
+    isLoading: isLoadingTags,
+    error: getTagError,
+  } = useGetTagsQuery();
+  const {
+    data: collections,
+    isLoading,
+    error,
+  } = useGetCollectionsQuery({
     limit: 5,
     sort_by: "items",
     sort_order: "desc",
   });
-  const navigate = useNavigate();
-
   return (
     <section>
       <Box p={3} pt="70px" bgcolor="background.light" minHeight="100vh">
@@ -25,7 +31,7 @@ const HomePage = () => {
             <Typography variant="h3" color="text.secondary">
               {t("lastItems")}
             </Typography>
-            <ItemsList variant="last" />
+            <ItemsList variant="lastItems" />
           </Box>
           <Box mt={3}>
             <Typography variant="h3" color="text.secondary">
@@ -61,19 +67,7 @@ const HomePage = () => {
               <Typography variant="h3" color="text.secondary">
                 {t("popularTags")}
               </Typography>
-              {tags?.map((tag) => (
-                <Button
-                  sx={{
-                    m: 1,
-                    bgcolor: "background.main",
-                    color: "text.secondary",
-                  }}
-                  key={tag._id}
-                  onClick={() => navigate(`/search?text=${tag.content}`)}
-                >
-                  #{tag.content}
-                </Button>
-              ))}
+              <Tags tags={tags} />
             </>
           )}
         </Box>

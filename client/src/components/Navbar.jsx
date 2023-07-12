@@ -9,7 +9,7 @@ import {
   PersonOutline,
   SupervisorAccount,
 } from "@mui/icons-material";
-import { Box, IconButton, Typography, useMediaQuery } from "@mui/material";
+import { Box, IconButton, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
@@ -34,51 +34,11 @@ const Navbar = () => {
     setOpen(false);
     unsetToken(navigate);
   };
-
   useEffect(() => {
     if (isNonMobile) setAnchorElNav(null);
   }, [isNonMobile]);
-
   return (
-    <nav>
-      <Box
-        display="flex"
-        alignItems="center"
-        width="100%"
-        height="60px"
-        bgcolor="background.dark"
-        position="fixed"
-        top="0"
-        left="0"
-        zIndex="2"
-        justifyContent="space-between"
-      >
-        <Box
-          px={2}
-          width={isNonTablet ? "1250px" : "100%"}
-          mx="auto"
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Box display="flex" alignItems="center">
-            <Link to="/" style={{ textDecoration: "none" }}>
-              <Typography
-                color="text.main"
-                variant={!isNonMobile ? "h5" : "h4"}
-                sx={{
-                  px: 2,
-                  maxWidth: "130px",
-                  "&:hover": {
-                    color: "text.hover",
-                  },
-                }}
-              >
-                COLLECTION MANAGER
-              </Typography>
-            </Link>
-          </Box>
-
+    <>
           {isNonMobile ? (
             <>
               <SearchMenu />
@@ -154,8 +114,6 @@ const Navbar = () => {
               setOpen={setOpen}
             />
           )}
-        </Box>
-      </Box>
       <AlertDialog
         open={open}
         setOpen={setOpen}
@@ -164,7 +122,7 @@ const Navbar = () => {
         confirmTitle={t("confirmTitle")}
         handleConfirm={handleLogout}
       />
-    </nav>
+    </>
   );
 };
 

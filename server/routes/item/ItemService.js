@@ -27,7 +27,7 @@ class ItemService {
     return await Item.find({ collectionId: id }).populate("tags");
   }
   async getItemById(id) {
-    return await Item.findOne({ _id: id }).populate("tags");
+    return await Item.findOne({ _id: id }).populate("tags").populate("collectionId");
   }
   async getItemByTag(id) {
     return await Item.findOne({ tags: id });

@@ -1,3 +1,5 @@
+import { DEFAULT_AVATAR_URL } from "@/constants/imageUrl";
+import EditIcon from "@mui/icons-material/Edit";
 import {
   Box,
   Card,
@@ -5,12 +7,9 @@ import {
   CardMedia,
   IconButton,
   Typography,
-  useMediaQuery,
 } from "@mui/material";
-import { useTranslation } from "react-i18next";
-import EditIcon from "@mui/icons-material/Edit";
-import { DEFAULT_AVATAR_URL } from "@/constants/imageUrl";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import ProfileForm from "./ProfileForm";
 
 const Profile = ({ user }) => {

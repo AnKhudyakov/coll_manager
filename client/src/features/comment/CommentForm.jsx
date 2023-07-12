@@ -4,20 +4,15 @@ import { Box, Button, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import { useTranslation } from "react-i18next";
 import { ToastContainer, toast } from "react-toastify";
+import { createComment } from "@/helpers/createPostValue";
 import "react-toastify/dist/ReactToastify.css";
 
 const CommentForm = ({ socket, itemId }) => {
   const { t } = useTranslation("translation", { keyPrefix: "item" });
   const handleFormSubmit = async (values, actions) => {
     try {
-      const comment = {
-        event: "message",
-        comment: {
-          author: getUserId(),
-          itemId,
-          content: values.comment,
-        },
-      };
+      const author = getUserId();
+      const comment = createComment(author, itemId, values.comment);
       socket.send(JSON.stringify(comment));
       actions.resetForm();
     } catch (err) {
