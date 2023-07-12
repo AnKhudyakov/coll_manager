@@ -75,7 +75,7 @@ const AuthPage = ({ variant }) => {
           </Typography>
           {variant === "login" ? (
             <LoginForm />
-          ) : variant === "login" ? (
+          ) : variant === "register" ? (
             <RegForm />
           ) : (
             <RecoverForm />
