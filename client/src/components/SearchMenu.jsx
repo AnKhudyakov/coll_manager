@@ -27,7 +27,7 @@ const SearchMenu = () => {
       height="36px"
       borderRadius=" 0px 0 0 5px"
     >
-      <Search>
+      <Search >
         <SearchIconWrapper>
           <SearchIcon />
         </SearchIconWrapper>
@@ -36,6 +36,7 @@ const SearchMenu = () => {
           inputProps={{ "aria-label": "search" }}
           value={value}
           onChange={handleChange}
+          onBlur = {()=>setValue("")}
         />
       </Search>
     </Box>

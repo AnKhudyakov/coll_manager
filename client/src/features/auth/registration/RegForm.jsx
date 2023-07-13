@@ -85,6 +85,7 @@ const FormReg = () => {
           bgcolor: "background.main",
           color: "text.secondary",
         }}
+        disabled={isLoading}
       >
         {t("signUp")}
       </Button>

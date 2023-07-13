@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 const ToolBar = ({ filter, setFilter, customFields }) => {
   const { t } = useTranslation("translation", { keyPrefix: "collection" });
   const isNonMobile = useMediaQuery("(min-width:700px)");
+  const options = [...customFields, {name:"Item name"}]
   return (
     <Box display="flex" gap={2} flexDirection={isNonMobile ? "row" : "column"}>
       <FormControl fullWidth>
@@ -37,7 +38,7 @@ const ToolBar = ({ filter, setFilter, customFields }) => {
               setFilter({ ...filter, sort: selectedSort.target.value })
             }
           >
-            {customFields
+            {options
               .filter((field) => field.type !== "checkbox")
               .map((option) => (
                 <MenuItem key={option.name} value={option.name}>

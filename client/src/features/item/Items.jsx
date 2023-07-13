@@ -41,7 +41,6 @@ const Items = ({ collectionId, variant, customFields }) => {
     filter.query,
     filter.order
   );
-
   return (
     <Box display="flex" flexDirection="column" gap={2} mt={1} p={2}>
       {isLoading ? (

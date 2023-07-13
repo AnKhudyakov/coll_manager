@@ -12,7 +12,7 @@ const Likes = ({ user, item }) => {
       <IconButton
         aria-label="edit"
         onClick={() => addLike({ id: item._id, like: user._id }).unwrap()}
-        disabled={item?.likes.includes(user?._id)}
+        disabled={item?.likes.includes(user?._id)||!user}
       >
         <FavoriteIcon />
       </IconButton>

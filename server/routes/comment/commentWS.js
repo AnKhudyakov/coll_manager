@@ -22,7 +22,7 @@ const broadcastMessage = async (ws, msg) => {
   const user = await UserService.getUserById(comment.author);
   const resultComment = {
     ...comment._doc,
-    author: user.username,
+    author: user,
   };
   aWss.clients.forEach((client) => {
     client.send(JSON.stringify({ event: "comment", comment: resultComment }));

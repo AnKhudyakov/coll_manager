@@ -38,8 +38,6 @@ const CommentForm = ({ socket, itemId }) => {
         onChange={formik.handleChange}
         value={formik.values.comment}
         name="comment"
-        error={Boolean(formik.touched.comment && formik.errors.comment)}
-        helperText={formik.touched.comment && formik.errors.comment}
       />
       <Box display="flex" justifyContent="space-around">
         <Button
@@ -52,6 +50,10 @@ const CommentForm = ({ socket, itemId }) => {
             bgcolor: "background.main",
             color: "text.secondary",
           }}
+          disabled={Boolean(
+            (formik.touched.comment && formik.errors.comment) ||
+              !formik.values.comment
+          )}
         >
           {t("commentBtn")}
         </Button>

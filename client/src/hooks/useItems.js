@@ -2,7 +2,7 @@ import { useMemo } from "react";
 
 export const useSortedItems = (items, sort, order) => {
   const sortedItems = useMemo(() => {
-    if (sort) {
+    if (sort && sort !== "Item name") {
       return [...items].sort((a, b) => {
         if (order === "asc") {
           return a.customFields
@@ -20,6 +20,13 @@ export const useSortedItems = (items, sort, order) => {
               Object.keys(field).includes(sort)
             )[0][sort]
           );
+      });
+    } else if (sort && sort === "Item name") {
+      return [...items].sort((a, b) => {
+        if (order === "asc") {
+          return a.name.localeCompare(b.name);
+        }
+        return b.name.localeCompare(a.name);
       });
     }
     return items;

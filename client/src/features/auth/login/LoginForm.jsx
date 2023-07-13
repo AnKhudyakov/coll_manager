@@ -81,6 +81,7 @@ const FormLogin = () => {
           bgcolor: "background.main",
           color: "text.secondary",
         }}
+        disabled={isLoading}
       >
         {t("signIn")}
       </Button>
