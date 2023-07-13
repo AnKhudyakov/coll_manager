@@ -79,7 +79,7 @@ class CollectionService {
         {
           $pull: {
             customFields: {
-              $or: keysToKeep.map((key) => ({ [key]: { $in: keysToKeep } })),
+              $nor: keysToKeep.map((key) => ({ [key]: { $exists: true } })),
             },
           },
         }

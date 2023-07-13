@@ -56,7 +56,7 @@ export const validateAdmin = async (req, res, next) => {
 export const validateAuthor = async (req, res, next) => {
   try {
     const user = await UserService.getUserByEmail(req.email);
-    if (user.email === req.body.email) {
+    if (user.email === req.body.email || user.admin) {
       next();
     } else {
       return res.status(403).json({ message: "User doesn't have access" });
