@@ -11,16 +11,26 @@ const ItemCard = ({ item, variant }) => {
         {item.name}
       </Typography>
       {variant !== "search" && (
-        <Typography
-          gutterBottom
-          variant="h4"
-          component="div"
-          color={"text.secondary"}
-        >
-          {t("collection")}: {item.collectionId.name}
-        </Typography>
+        <>
+          <Typography
+            gutterBottom
+            variant="h4"
+            component="div"
+            color={"text.secondary"}
+          >
+            {t("collection")}: {item.collectionId.name}
+          </Typography>
+          <Typography
+            gutterBottom
+            variant="h4"
+            component="div"
+            color={"text.secondary"}
+          >
+            {t("author")}: {item.author.username}
+          </Typography>
+        </>
       )}
-      {item.customFields.length &&
+      {item.customFields.length ? (
         item.customFields.map((field, index) => (
           <Box key={index}>
             {field.fieldType !== "checkbox" && (
@@ -29,7 +39,10 @@ const ItemCard = ({ item, variant }) => {
               </Typography>
             )}
           </Box>
-        ))}
+        ))
+      ) : (
+        <></>
+      )}
       {variant === "itemPage" && (
         <Box>
           <Typography gutterBottom variant="h5" component="div">

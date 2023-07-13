@@ -14,7 +14,7 @@ const CommentCard = ({ comment }) => {
           </Box>
           <Divider orientation="vertical" flexItem />
           <Box px={2} maxWidth={"500px"}>
-            <Typography sx={{ width: "100px" }}>{comment?.content}</Typography>
+            <Typography>{comment?.content}</Typography>
           </Box>
         </CardContent>
       </Box>

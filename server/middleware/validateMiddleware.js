@@ -28,7 +28,7 @@ export const validateBlocked = async (req, res, next) => {
       return res.status(404).json({ message: "User doesn't exist" });
     }
     if (!user.blocked) {
-      req.user = user
+      req.user = user;
       next();
     } else {
       return res.status(405).json({ message: "User was blocked" });
@@ -43,6 +43,20 @@ export const validateAdmin = async (req, res, next) => {
   try {
     const user = await UserService.getUserByEmail(req.email);
     if (user.admin) {
+      next();
+    } else {
+      return res.status(403).json({ message: "User doesn't have access" });
+    }
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const validateAuthor = async (req, res, next) => {
+  try {
+    const user = await UserService.getUserByEmail(req.email);
+    if (user.email === req.body.email) {
       next();
     } else {
       return res.status(403).json({ message: "User doesn't have access" });

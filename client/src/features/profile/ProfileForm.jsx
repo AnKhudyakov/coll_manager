@@ -1,6 +1,6 @@
 import { useUpdateUserMutation } from "@/app/services/user";
 import { schemaProfile } from "@/helpers/validationForm";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, CircularProgress, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
@@ -12,7 +12,7 @@ const ProfileForm = ({ username, setOpenForm, email, userId }) => {
   const [updateUser, { isLoading: isUpdating }] = useUpdateUserMutation();
   const handleFormSubmit = async (values, actions) => {
     try {
-      await updateUser({ id: userId, ...values }).unwrap();
+      await updateUser({ id: userId, email, ...values }).unwrap();
       actions.resetForm();
       setOpenForm(false);
       toast.success(t("success"));
@@ -32,7 +32,7 @@ const ProfileForm = ({ username, setOpenForm, email, userId }) => {
   };
 
   const formik = useFormik({
-    initialValues: { username, email },
+    initialValues: { username },
     onSubmit: handleFormSubmit,
     validationSchema: schemaProfile,
   });
@@ -62,18 +62,6 @@ const ProfileForm = ({ username, setOpenForm, email, userId }) => {
             name="username"
             error={Boolean(formik.touched.username && formik.errors.username)}
             helperText={formik.touched.username && formik.errors.username}
-          />
-          <TextField
-            sx={{ mt: 2 }}
-            fullWidth
-            type="text"
-            label={t("email")}
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-            value={formik.values.email}
-            name="email"
-            error={Boolean(formik.touched.email && formik.errors.email)}
-            helperText={formik.touched.email && formik.errors.email}
           />
           <Box display="flex" justifyContent="space-around">
             <Button
