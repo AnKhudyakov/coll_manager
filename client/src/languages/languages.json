@@ -65,7 +65,9 @@
         "updateBtn": "Update",
         "password": "Password",
         "success": "Successful!",
-        "uploadText": "Upload or drop a file right here"
+        "uploadText": "Upload or drop a file right here",
+        "collectionformTitle": "Submit the form to create a new collection",
+        "userFormTitle": "Submit the form to change a username"
       },
       "admin": {
         "users": "Users",
@@ -94,7 +96,9 @@
         "createBtn": "Create",
         "updateBtn": "Update",
         "success": "Successful!",
-        "error": "Unexpected error! Please try again later"
+        "error": "Unexpected error! Please try again later",
+        "newItemFormTitle": "Submit the form to create a new item",
+        "updateItemFormTitle": "Submit the form to update the item"
       },
       "item": {
         "tags": "Tags",
@@ -186,7 +190,9 @@
         "createBtn": "Vytvořit",
         "updateBtn": "Aktualizace",
         "success": "Úspěšné!",
-        "uploadText": "Nahrajte nebo přetáhněte soubor přímo sem"
+        "uploadText": "Nahrajte nebo přetáhněte soubor přímo sem",
+        "collectionformTitle": "Chcete-li vytvořit novou kolekci, odešlete formulář",
+        "userFormTitle": "Chcete-li změnit uživatelské jméno, odešlete formulář"
       },
       "admin": {
         "users": "Uživatelé",
@@ -215,7 +221,9 @@
         "createBtn": "Vytvořit",
         "updateBtn": "Aktualizace",
         "success": "Úspěšné!",
-        "error": "Neočekávaná chyba! Prosím zkuste to znovu později"
+        "error": "Neočekávaná chyba! Prosím zkuste to znovu později",
+        "newItemFormTitle": "Chcete-li vytvořit novou položku, odešlete formulář",
+        "updateItemFormTitle": "Odesláním formuláře aktualizujte položku"
       },
       "item": {
         "tags": "Tagy",

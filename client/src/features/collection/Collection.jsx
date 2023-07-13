@@ -60,7 +60,7 @@ const Collection = ({ collection, variant }) => {
             height: "100%",
             display: "flex",
             alignItems: "center",
-            justifyContent:"space-between"
+            justifyContent: "space-between",
           }}
         >
           <Box>
@@ -76,7 +76,7 @@ const Collection = ({ collection, variant }) => {
             />
           </Box>
           {(collection?.author === user?._id || user?.admin) && (
-            <Box px={isNonMobile?1:0} >
+            <Box px={isNonMobile ? 1 : 0}>
               <Box>
                 <IconButton aria-label="edit" onClick={() => setOpenForm(true)}>
                   <EditIcon />
@@ -93,11 +93,14 @@ const Collection = ({ collection, variant }) => {
       </Card>
       {openForm && (
         <Box px={1}>
-        <CollectionForm
-          variant="edit"
-          setOpenForm={setOpenForm}
-          collection={collection}
-        />
+          <Typography variant="h3" color="text.primary" mt={3} p={1}>
+            {t("updateItemFormTitle")}
+          </Typography>
+          <CollectionForm
+            variant="edit"
+            setOpenForm={setOpenForm}
+            collection={collection}
+          />
         </Box>
       )}
       <AlertDialog

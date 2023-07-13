@@ -49,12 +49,17 @@ const Profile = ({ user }) => {
         </Box>
       </Card>
       {openForm && (
-        <ProfileForm
-          username={user.username}
-          setOpenForm={setOpenForm}
-          email={user.email}
-          userId={user._id}
-        />
+        <>
+          <Typography variant="h3" color="text.primary" mt={3}>
+            {t("userFormTitle")}
+          </Typography>
+          <ProfileForm
+            username={user.username}
+            setOpenForm={setOpenForm}
+            email={user.email}
+            userId={user._id}
+          />
+        </>
       )}
     </>
   );

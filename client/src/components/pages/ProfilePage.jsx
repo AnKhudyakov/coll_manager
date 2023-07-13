@@ -77,13 +77,18 @@ const ProfilePage = () => {
           ) : (
             <Collections variant="profile" collections={collections} />
           )}
-          <Box mt={2}>
+          <Box mt={3}>
             {openForm ? (
-              <CollectionForm
-                setOpenForm={setOpenForm}
-                variant="new"
-                author={id}
-              />
+              <>
+                <Typography variant="h3" color="text.primary">
+                  {t("collectionformTitle")}
+                </Typography>
+                <CollectionForm
+                  setOpenForm={setOpenForm}
+                  variant="new"
+                  author={id}
+                />
+              </>
             ) : (
               <Button
                 sx={{

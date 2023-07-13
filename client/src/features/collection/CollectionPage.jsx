@@ -38,7 +38,12 @@ const CollectionPage = () => {
             {(collection.author === user?._id || user?.admin) && (
               <Box px={2}>
                 {openForm ? (
-                  <ItemForm setOpenForm={setOpenForm} collectionId={id} />
+                  <>
+                    <Typography variant="h3" color="text.primary" mt={3} px={3}>
+                      {t("newItemFormTitle")}
+                    </Typography>
+                    <ItemForm setOpenForm={setOpenForm} collectionId={id} />
+                  </>
                 ) : (
                   <Button
                     sx={{

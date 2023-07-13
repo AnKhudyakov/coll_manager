@@ -82,7 +82,7 @@ const CollectionForm = ({ setOpenForm, variant, collection, author }) => {
     validationSchema: schemaCollection,
   });
   return (
-    <Box px={1}>
+    <Box>
       {isLoading || isUpdating || isUploading ? (
         <Box
           display="flex"

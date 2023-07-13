@@ -4,16 +4,18 @@ const CommentCard = ({ comment }) => {
   return (
     <Card>
       <Box>
-        <CardContent sx={{ display: "flex", alignItems: "center" }}>
-          <Box px={2}>
-            <Typography gutterBottom variant="h4" component="div">
+        <CardContent >
+          <Box p={1} display={"flex"} alignItems={"flex-end"} justifyContent={"space-between"}>
+            <Typography variant="h3" component="div">
               {comment?.author.username}
             </Typography>
-            <Typography>{comment?.createdAt?.slice(0, 10)}</Typography>
-            <Typography>{comment?.createdAt?.slice(11, 19)}</Typography>
+            <Typography color="text.secondary">
+              {comment?.createdAt?.slice(0, 10)}{" "}
+              {comment?.createdAt?.slice(11, 19)}
+            </Typography>
           </Box>
-          <Divider orientation="vertical" flexItem />
-          <Box px={2} maxWidth={"500px"}>
+          <Divider orientation="horizontal" flexItem />
+          <Box p={2} maxWidth={"500px"}>
             <Typography>{comment?.content}</Typography>
           </Box>
         </CardContent>
