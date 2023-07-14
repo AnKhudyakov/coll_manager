@@ -7,25 +7,20 @@ const ItemCard = ({ item, variant }) => {
   const { t } = useTranslation("translation", { keyPrefix: "item" });
   return (
     <CardContent>
-      <Typography gutterBottom variant="h3" component="div">
+      <Typography
+        gutterBottom
+        variant="h3"
+        component="div"
+        color="text.primary"
+      >
         {item.name}
       </Typography>
       {variant !== "search" && (
         <>
-          <Typography
-            gutterBottom
-            variant="h4"
-            component="div"
-            color={"text.secondary"}
-          >
+          <Typography gutterBottom variant="h4" component="div">
             {t("collection")}: {item.collectionId.name}
           </Typography>
-          <Typography
-            gutterBottom
-            variant="h4"
-            component="div"
-            color={"text.secondary"}
-          >
+          <Typography gutterBottom variant="h4" component="div">
             {t("author")}: {item.author.username}
           </Typography>
         </>
@@ -54,7 +49,7 @@ const ItemCard = ({ item, variant }) => {
                 m: 1,
                 p: 1,
                 bgcolor: "background.main",
-                color: "text.secondary",
+                color: "text.primary",
               }}
               key={tag._id}
               onClick={() => navigate(`/search?text=${tag.content}`)}

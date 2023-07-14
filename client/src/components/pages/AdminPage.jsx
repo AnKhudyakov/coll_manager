@@ -23,7 +23,7 @@ const AdminPage = () => {
         </Box>
       ) : (
         <Box maxWidth="1250px" mx="auto">
-          <Typography variant="h3" color="text.secondary" m={2}>
+          <Typography variant="h3" color="text.primary" m={2}>
             {t("users")}:
           </Typography>
           {users?.length ? (

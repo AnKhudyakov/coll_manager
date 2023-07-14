@@ -48,7 +48,12 @@ const FormLogin = () => {
   return (
     <form onSubmit={formik.handleSubmit}>
       <TextField
-        sx={{ mt: 2 }}
+        sx={(theme) => ({
+          mt: 2,
+          "& .MuiOutlinedInput-input:-webkit-autofill": {
+            "-webkit-box-shadow": `0 0 0 100px ${theme.palette.background.main} inset`,
+          },
+        })}
         fullWidth
         type="text"
         label={t("email")}

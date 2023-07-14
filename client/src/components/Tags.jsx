@@ -10,7 +10,7 @@ const Tags = ({ tags }) => {
           sx={{
             m: 1,
             bgcolor: "background.main",
-            color: "text.secondary",
+            color: "text.primary",
           }}
           key={tag._id}
           onClick={() => navigate(`/search?text=${tag.content}`)}

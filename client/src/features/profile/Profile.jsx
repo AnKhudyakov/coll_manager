@@ -36,7 +36,12 @@ const Profile = ({ user }) => {
           <Typography gutterBottom variant="h3" component="div">
             {t("username")}: {user?.username}
           </Typography>
-          <Typography gutterBottom variant="body" component="div">
+          <Typography
+            gutterBottom
+            variant="body"
+            component="div"
+            color="text.secondary"
+          >
             {t("email")}: {user?.email}
           </Typography>
         </CardContent>

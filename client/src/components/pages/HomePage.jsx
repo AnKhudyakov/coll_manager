@@ -26,15 +26,15 @@ const HomePage = () => {
   return (
     <section>
       <Box p={3} pt="70px" bgcolor="background.light" minHeight="100vh">
-        <Box maxWidth="1250px" mx="auto">
+        <Box maxWidth="1250px" mx="auto" color="text.primary">
           <Box>
-            <Typography variant="h3" color="text.secondary">
+            <Typography variant="h3" my={3}>
               {t("lastItems")}
             </Typography>
             <ItemsList variant="lastItems" />
           </Box>
           <Box mt={3}>
-            <Typography variant="h3" color="text.secondary">
+            <Typography variant="h3" my={3}>
               {t("LargestCollections")}
             </Typography>
             {isLoading ? (
@@ -53,6 +53,9 @@ const HomePage = () => {
               </Box>
             )}
           </Box>
+          <Typography variant="h3" my={3}>
+            {t("popularTags")}
+          </Typography>
           {isLoadingTags ? (
             <Box
               display="flex"
@@ -63,12 +66,7 @@ const HomePage = () => {
               <CircularProgress />
             </Box>
           ) : (
-            <>
-              <Typography variant="h3" color="text.secondary">
-                {t("popularTags")}
-              </Typography>
-              <Tags tags={tags} />
-            </>
+            <Tags tags={tags} />
           )}
         </Box>
       </Box>

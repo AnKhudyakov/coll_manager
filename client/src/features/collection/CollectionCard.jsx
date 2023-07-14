@@ -41,8 +41,8 @@ const CollectionCard = ({ collection, variant }) => {
             minHeight: "200px",
           }}
         />
-        <CardContent sx={{ width: "100%", height: "100%" }}>
-          <Typography gutterBottom variant="h3" component="div">
+        <CardContent sx={{ width: "100%", height: "100%", color: "text.secondary" }}>
+          <Typography gutterBottom variant="h3" component="div" color="text.primary">
             {collection?.name}
           </Typography>
           <Typography gutterBottom variant="h5" component="div">

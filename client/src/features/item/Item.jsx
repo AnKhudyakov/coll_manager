@@ -39,6 +39,7 @@ const Item = ({ item, variant }) => {
           alignItems="stretch"
           justifyContent="space-between"
           flexDirection={isNonMobile ? "row" : "column"}
+          color="text.secondary"
         >
           {variant !== "itemPage" ? (
             <CardActionArea onClick={() => navigate(`/items/${item._id}`)}>

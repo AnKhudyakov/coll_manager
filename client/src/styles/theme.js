@@ -5,8 +5,8 @@ export const shades = {
     300: "#666666",
     400: "#333333",
     500: "#515151",
-    600: "#e0e0e0",
-    700: "#000000",
+    600: "#a1a1a1",
+    700: "#e0e0e0",
     800: "#000000",
     900: "#ffffff",
   },
@@ -41,7 +41,7 @@ export const themeOptions = (mode) => {
       ...(mode === "dark"
         ? {
             primary: {
-              main: shades.primary[400],
+              main: shades.primary[600],
             },
             secondary: {
               main: shades.secondary[400],
@@ -77,7 +77,7 @@ export const themeOptions = (mode) => {
               light: shades.neutral[200],
             },
             background: {
-              dark: shades.neutral[500],
+              dark: shades.primary[200],
               main: shades.neutral[300],
               light: shades.neutral[100],
               default: shades.primary[900],
