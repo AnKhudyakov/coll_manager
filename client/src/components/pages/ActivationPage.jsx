@@ -1,3 +1,4 @@
+import { PAGE_ACTIVATION_URL } from "@/constants/imageUrl";
 import {
   Box,
   Button,
@@ -6,12 +7,11 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { PAGE_404_URL } from "@/constants/imageUrl";
+import { useNavigate } from "react-router-dom";
 
-export default function ErrorPage() {
-  const { t } = useTranslation("translation", { keyPrefix: "error" });
+export default function ActivationPage({ email }) {
+  const { t } = useTranslation("translation", { keyPrefix: "activation" });
   const navigate = useNavigate();
   const isNonMobile = useMediaQuery("(min-width:740px)");
   return (
@@ -21,7 +21,7 @@ export default function ErrorPage() {
         justifyContent: "center",
         minHeight: "100vh",
         width: "100%",
-        pt: "calc(60px + 2vh)",
+        pt: "calc(60px + 1vh)",
         bgcolor: "background.light",
       }}
     >
@@ -29,16 +29,16 @@ export default function ErrorPage() {
         <Box color="text.primary">
           <CardMedia
             component="img"
-            image={PAGE_404_URL}
+            image={PAGE_ACTIVATION_URL}
             alt="404 image"
             sx={{ width: "100%", height: "50vh", objectFit: "contain" }}
           />
           <Box m={"0 auto"} mt={1} textAlign={"center"}>
             <Typography variant={isNonMobile ? "h2" : "h3"}>
-              {t("notFoundTitle")}
+              {t("notActivationTitle")} {email}
             </Typography>
             <Typography variant="h6" color="text.secondary">
-              {t("notFoundText")}
+              {t("notActivationText")}
             </Typography>
             <Button
               variant="contained"

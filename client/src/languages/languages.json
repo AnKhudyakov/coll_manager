@@ -122,6 +122,11 @@
         "notFoundTitle": "Page not found",
         "notFoundText": "The page you’re looking for doesn’t exist.",
         "backHome": "Back Home"
+      },
+      "activation": {
+        "notActivationTitle": "Activate Your Account",
+        "notActivationText": "Please click the activation link in the email we've sent to",
+        "backHome": "Back Home"
       }
     }
   },
@@ -247,6 +252,11 @@
       "error": {
         "notFoundTitle": "Stránka nenalezena",
         "notFoundText": "Stránka, kterou hledáte, neexistuje.",
+        "backHome": "Zpět doma"
+      },
+      "activation": {
+        "notActivationTitle": "Aktivujte svuj ucet",
+        "notActivationText": "Klikněte prosím na aktivační odkaz v e-mailu, který jsme vám zaslali na",
         "backHome": "Zpět doma"
       }
     }

@@ -1,11 +1,13 @@
 import ErrorPage from "@/components/pages/ErrorPage";
-import { selectCurrentAuth } from "@/features/auth/authSlice";
+import { selectCurrentUser } from "@/features/auth/authSlice";
 import { useSelector } from "react-redux";
+import ActivationPage from "@/components/pages/ActivationPage";
 
 function withAuthRedirect(Component) {
   return (props) => {
-    const auth = useSelector(selectCurrentAuth);
-    if (!auth) return <ErrorPage />;
+    const user = useSelector(selectCurrentUser);
+    if (!user) return <ErrorPage />;
+    if (!user.isActivated) return <ActivationPage email={user.email} />;
     return <Component {...props} />;
   };
 }
