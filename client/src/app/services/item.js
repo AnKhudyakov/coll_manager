@@ -12,6 +12,7 @@ export const itemApi = createApi({
       }
       return headers;
     },
+    credentials: "include",
   }),
   tagTypes: ["Item"],
   endpoints: (builder) => ({

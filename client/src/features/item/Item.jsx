@@ -66,7 +66,7 @@ const Item = ({ item, variant }) => {
               flexDirection={!isNonMobile ? "row" : "column"}
             >
               <Likes item={item} user={user} />
-              {(item?.author.username === user?._id || user?.admin) &&
+              {(item?.author.username === user?.username || user?.admin) &&
                 variant === "itemPage" && (
                   <Box display={"flex"}>
                     <Box>

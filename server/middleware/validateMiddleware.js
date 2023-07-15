@@ -41,7 +41,7 @@ export const validateBlocked = async (req, res, next) => {
 
 export const validateAdmin = async (req, res, next) => {
   try {
-    const user = await UserService.getUserByEmail(req.email);
+    const user = await UserService.getUserByEmail(req.user.email);
     if (user.admin) {
       next();
     } else {
@@ -55,7 +55,7 @@ export const validateAdmin = async (req, res, next) => {
 
 export const validateAuthor = async (req, res, next) => {
   try {
-    const user = await UserService.getUserByEmail(req.email);
+    const user = await UserService.getUserByEmail(req.user.email);
     if (user.email === req.body.email || user.admin) {
       next();
     } else {

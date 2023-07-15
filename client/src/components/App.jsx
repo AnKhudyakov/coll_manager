@@ -1,4 +1,4 @@
-import { useGetUserByIdQuery } from "@/app/services/user";
+import { useRefreshQuery } from "@/app/services/auth";
 import Layout from "@/components/Layout";
 import AdminPageWithAuth from "@/components/pages/AdminPage";
 import HomePage from "@/components/pages/HomePage";
@@ -8,7 +8,7 @@ import AuthPage from "@/features/auth/AuthPage";
 import { setCredentials } from "@/features/auth/authSlice";
 import CollectionPage from "@/features/collection/CollectionPage";
 import ItemPage from "@/features/item/ItemPage";
-import { getToken, getUserId } from "@/helpers/auth";
+import { getToken } from "@/helpers/auth";
 import { Box, CircularProgress } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -17,16 +17,12 @@ import { BrowserRouter } from "react-router-dom";
 
 function App() {
   const dispatch = useDispatch();
-  const {
-    data: user,
-    isLoading,
-    error,
-  } = getUserId() ? useGetUserByIdQuery(getUserId()) : "";
+  const { data, isLoading, error } = getToken() ? useRefreshQuery() : "";
   useEffect(() => {
-    if (user) {
-      dispatch(setCredentials({ user, token: getToken() }));
+    if (data) {
+      dispatch(setCredentials(data));
     }
-  }, [user]);
+  }, [data]);
   return (
     <>
       {isLoading ? (

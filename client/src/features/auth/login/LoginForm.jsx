@@ -1,8 +1,7 @@
 import { useLoginMutation } from "@/app/services/auth";
 import { INIT_VALUES_LOGIN as initialValues } from "@/constants/fields";
-import { setToken } from "@/helpers/auth";
 import { schemaLogin } from "@/helpers/validationForm";
-import { Button, Grid, TextField, Typography } from "@mui/material";
+import { Button, CircularProgress, Grid, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
@@ -19,8 +18,8 @@ const FormLogin = () => {
   const handleFormSubmit = async (values, actions) => {
     try {
       const data = await login(values).unwrap();
+      navigate(`/profile/${data.user._id}`);
       dispatch(setCredentials(data));
-      setToken(data, navigate);
       actions.resetForm();
       toast.success(t("successSignIn"));
     } catch (err) {
@@ -51,7 +50,7 @@ const FormLogin = () => {
         sx={(theme) => ({
           mt: 2,
           "& .MuiOutlinedInput-input:-webkit-autofill": {
-            "-webkit-box-shadow": `0 0 0 100px ${theme.palette.background.main} inset`,
+            WebkitBoxShadow: `0 0 0 100px ${theme.palette.background.main} inset`,
           },
         })}
         fullWidth
@@ -89,6 +88,7 @@ const FormLogin = () => {
         disabled={isLoading}
       >
         {t("signIn")}
+        {isLoading && <CircularProgress sx={{ml:1}} size={20}/>}
       </Button>
       <Grid container>
         <Grid item xs>
@@ -107,7 +107,7 @@ const FormLogin = () => {
       </Grid>
       <ToastContainer
         position="bottom-center"
-        autoClose={5000}
+        autoClose={2000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

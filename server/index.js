@@ -11,6 +11,7 @@ import searchRouter from "./routes/search/searchRouter.js"
 import commentWS from "./routes/comment/commentWS.js";
 import expressWs from "express-ws";
 import initRouter from "./routes/initDB/initRouter.js";
+import cookieParser from "cookie-parser"
 
 dotenv.config();
 
@@ -22,10 +23,12 @@ export const aWss = WSServer.getWss();
 
 app.use(
   cors({
+    credentials: true,
     origin: [process.env.CLIENT_URL],
   })
 );
 app.use(express.json());
+app.use(cookieParser())
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
 app.use("/collections", collectionRouter);
