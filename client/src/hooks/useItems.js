@@ -12,13 +12,11 @@ export const useSortedItems = (items, sort, order) => {
         )[0];
         if (order === "asc") {
           if (fieldA.fieldType !== "number") {
-            console.log(fieldA[sort].localeCompare(fieldB[sort]));
             return fieldA[sort].localeCompare(fieldB[sort]);
           }
           return fieldA[sort] >= fieldB[sort] ? 1 : -1;
         }
         if (fieldA.fieldType !== "number") {
-          console.log(fieldB[sort].localeCompare(fieldA[sort]));
           return fieldB[sort].localeCompare(fieldA[sort]);
         }
         return fieldA[sort] >= fieldB[sort] ? -1 : 1;
