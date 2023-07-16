@@ -84,6 +84,15 @@ class CollectionService {
           },
         }
       );
+    } else {
+      await Item.updateMany(
+        { _id: { $in: collection.items } },
+        {
+          $set: {
+            customFields: [],
+          },
+        }
+      );
     }
   }
   async addItemInCollection(item, newItem) {

@@ -27,7 +27,10 @@ class ItemService {
     return await Item.find({ collectionId: id }).populate("tags");
   }
   async getItemById(id) {
-    return await Item.findOne({ _id: id }).populate("tags").populate("collectionId").populate("author");
+    return await Item.findOne({ _id: id })
+      .populate("tags")
+      .populate("collectionId")
+      .populate("author");
   }
   async getItemByTag(id) {
     return await Item.findOne({ tags: id });
@@ -45,9 +48,10 @@ class ItemService {
     const update = idsTag
       ? {
           ...req.body,
+          customFields: req.body.customFields,
           tags: idsTag,
         }
-      : { ...req.body };
+      : { ...req.body, customFields: req.body.customFields };
     await Item.findOneAndUpdate({ _id: id }, update, { new: true });
   }
   async addLike(req) {

@@ -12,7 +12,12 @@ import { useTranslation } from "react-i18next";
 const ToolBar = ({ filter, setFilter, customFields }) => {
   const { t } = useTranslation("translation", { keyPrefix: "collection" });
   const isNonMobile = useMediaQuery("(min-width:700px)");
-  const options = [...customFields, {name:"Item name"}]
+  const options = [
+    ...customFields.filter(
+      (field) => field.type !== "textarea" && field.type !== "checkbox"
+    ),
+    { name: "Item name" },
+  ];
   return (
     <Box display="flex" gap={2} flexDirection={isNonMobile ? "row" : "column"}>
       <FormControl fullWidth>
@@ -38,13 +43,11 @@ const ToolBar = ({ filter, setFilter, customFields }) => {
               setFilter({ ...filter, sort: selectedSort.target.value })
             }
           >
-            {options
-              .filter((field) => field.type !== "checkbox")
-              .map((option) => (
-                <MenuItem key={option.name} value={option.name}>
-                  {option.name}
-                </MenuItem>
-              ))}
+            {options.map((option) => (
+              <MenuItem key={option.name} value={option.name}>
+                {option.name}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
         <FormControl fullWidth>
@@ -56,8 +59,8 @@ const ToolBar = ({ filter, setFilter, customFields }) => {
               setFilter({ ...filter, order: selectedSort.target.value })
             }
           >
-            <MenuItem value="asc">A-Z</MenuItem>
-            <MenuItem value="desc">Z-A</MenuItem>
+            <MenuItem value="asc">A - Z (0 - 9 )</MenuItem>
+            <MenuItem value="desc">Z - A (9 - 0)</MenuItem>
           </Select>
         </FormControl>
       </Box>

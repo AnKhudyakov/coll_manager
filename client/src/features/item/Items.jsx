@@ -82,17 +82,19 @@ const Items = ({ collectionId, variant, customFields }) => {
                     >
                       {t("itemName")}
                     </TableCell>
-                    {customFields?.map((field) => (
-                      <TableCell
-                        sx={{
-                          width: "20%",
-                        }}
-                        align={field.type !== "checkbox" ? "left" : "center"}
-                        key={field.name}
-                      >
-                        {field.name}
-                      </TableCell>
-                    ))}
+                    {customFields
+                      ?.filter((field) => field.type !== "textarea")
+                      .map((field) => (
+                        <TableCell
+                          sx={{
+                            width: "20%",
+                          }}
+                          align={field.type !== "checkbox" ? "left" : "center"}
+                          key={field.name}
+                        >
+                          {field.name}
+                        </TableCell>
+                      ))}
                   </TableRow>
                 </TableHead>
                 <TableBody>

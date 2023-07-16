@@ -55,7 +55,7 @@ export const collectionApi = createApi({
         method: "PUT",
         body: patch,
       }),
-      invalidatesTags: ["Collections"],
+      invalidatesTags: ["Collections", "Items"],
     }),
   }),
 });

@@ -62,6 +62,19 @@ export const schemaCollection = yup.object().shape({
     .string()
     .required("No topic provided.")
     .max(100, "Topic is too long - should be 100 chars maximum."),
+  customFields: yup.array().of(
+    yup.object().shape({
+      name: yup
+        .string()
+        .required("Name is required")
+        .test("is-unique", "Name must be unique", function (value) {
+          const { customFields } = this.options.context;
+          if (!value) return true; // Skip validation if name is empty
+          return customFields.filter((item) => item.name === value).length === 1;
+        }),
+      type: yup.string().required("Type is required"),
+    })
+  ),
 });
 
 export const schemaItem = yup.object().shape({
