@@ -17,8 +17,8 @@ export const shades = {
     400: "#de3349",
     500: "#d6001c",
     600: "#ab0016",
-    700: "#800011",
-    800: "#56000b",
+    700: "#f44336",
+    800: "#d32f2f",
     900: "#2b0006",
   },
   neutral: {
@@ -62,6 +62,7 @@ export const themeOptions = (mode) => {
               secondary: shades.primary[200],
               main: shades.secondary[400],
               hover: shades.secondary[200],
+              error: shades.secondary[700],
             },
           }
         : {
@@ -86,6 +87,7 @@ export const themeOptions = (mode) => {
               primary: shades.primary[400],
               main: shades.secondary[500],
               hover: shades.secondary[300],
+              error: shades.secondary[800],
             },
           }),
     },
