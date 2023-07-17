@@ -35,10 +35,10 @@ export default function ActivationPage({ email }) {
           />
           <Box m={"0 auto"} mt={1} textAlign={"center"}>
             <Typography variant={isNonMobile ? "h2" : "h3"}>
-              {t("notActivationTitle")} {email}
+              {t("notActivationTitle")}
             </Typography>
             <Typography variant="h6" color="text.secondary">
-              {t("notActivationText")}
+              {t("notActivationText")} {email}
             </Typography>
             <Button
               variant="contained"

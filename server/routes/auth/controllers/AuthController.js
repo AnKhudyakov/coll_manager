@@ -33,6 +33,7 @@ class AuthController {
         res.cookie("refreshToken", tokens.refreshToken, {
           maxAge: 30 * 24 * 60 * 60 * 1000,
           httpOnly: true,
+          secure: true,
         });
         return res.status(200).json({ ...tokens, user: userDto });
       }
@@ -60,6 +61,7 @@ class AuthController {
           res.cookie("refreshToken", tokens.refreshToken, {
             maxAge: 30 * 24 * 60 * 60 * 1000,
             httpOnly: true,
+            secure: true,
           });
           return res.status(200).json({ ...tokens, user: userDto });
         }
@@ -90,7 +92,7 @@ class AuthController {
       }
       user.isActivated = true;
       await user.save();
-      return res.redirect(process.env.CLIENT_URL);
+      return res.redirect(`${process.env.CLIENT_URL}/login`);
     } catch (e) {
       console.log(e);
       return res.status(500).json({ message: "Server error" });

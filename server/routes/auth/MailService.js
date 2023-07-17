@@ -14,7 +14,7 @@ class MailService {
     const info = await transporter.sendMail({
       from: process.env.SMTP_USER,
       to,
-      subject: "Activaton account on" + process.env.CLIENT_URL,
+      subject: "Activaton account on " + process.env.CLIENT_URL,
       text: "",
       html: `
               <div>
