@@ -6,14 +6,13 @@ export const authApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_URL,
     prepareHeaders: (headers, { getState }) => {
-      const token = getToken()
-        ? getToken()
-        : getState().auth.token;
+      const token = getToken() ? getToken() : getState().auth.token;
       if (token) {
         headers.set("authorization", `Bearer ${token}`);
       }
       return headers;
     },
+    credentials: "include",
   }),
   endpoints: (builder) => ({
     login: builder.mutation({
@@ -30,7 +29,18 @@ export const authApi = createApi({
         body: credentials,
       }),
     }),
+    refresh: builder.query({
+      query: () => ({
+        url: "/auth/refresh",
+      }),
+    }),
+    logout: builder.mutation({
+      query: () => ({
+        url: "/auth/logout",
+        method: "POST",
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation, useRegMutation } = authApi;
+export const { useLoginMutation, useRegMutation, useRefreshQuery, useLogoutMutation } = authApi;

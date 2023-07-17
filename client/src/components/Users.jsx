@@ -126,7 +126,7 @@ const Users = ({ users, setOpen, open }) => {
                       confirmBtn={t("delete")}
                       confirmText={t("confirmText")}
                       confirmTitle={t("confirmTitle")}
-                      handleConfirm={() => removeUser(user._id)}
+                      handleConfirm={() => {removeUser(user._id);setOpen(false)}}
                     />
                   </TableCell>
                 </TableRow>

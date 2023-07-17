@@ -64,12 +64,28 @@ class CollectionService {
         }
       });
       const keysToKeep = collection.customFields.map((field) => field.name);
+      const itemIds = collection.items;
+      const mapCustomFields = await Promise.all(
+        customFields.map(async (field) => {
+          const item = await Item.findOne({
+            _id: { $in: itemIds },
+          });
+          const currentKey = Object.keys(field)[0];
+          const existKeys = Object.values(item.customFields).map(
+            (key) => Object.keys(key)[0]
+          );
+          return { ...field, existField: existKeys.includes(currentKey) };
+        })
+      );
+      const resultFieldToAdd = mapCustomFields.filter(
+        (field) => !field.existField
+      );
       await Item.updateMany(
-        { _id: { $in: collection.items } },
+        { _id: { $in: itemIds } },
         {
           $addToSet: {
             customFields: {
-              $each: customFields,
+              $each: resultFieldToAdd,
             },
           },
         }
@@ -81,6 +97,15 @@ class CollectionService {
             customFields: {
               $nor: keysToKeep.map((key) => ({ [key]: { $exists: true } })),
             },
+          },
+        }
+      );
+    } else {
+      await Item.updateMany(
+        { _id: { $in: collection.items } },
+        {
+          $set: {
+            customFields: [],
           },
         }
       );

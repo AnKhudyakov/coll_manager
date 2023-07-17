@@ -25,7 +25,7 @@ const HomePage = () => {
   });
   return (
     <section>
-      <Box p={3} pt="70px" bgcolor="background.light" minHeight="100vh">
+      <Box p={3} pt="60px" bgcolor="background.light" minHeight="100vh">
         <Box maxWidth="1250px" mx="auto" color="text.primary">
           <Box>
             <Typography variant="h3" my={3}>

@@ -33,28 +33,30 @@ const ItemRow = ({ item, index }) => {
       >
         {item.name}
       </TableCell>
-      {item?.customFields.map((field, index) => (
-        <TableCell
-          key={index}
-          align={field.fieldType !== "checkbox" ? "left" : "center"}
-        >
-          <Box>
-            {field.fieldType !== "checkbox" ? (
-              <Typography gutterBottom variant="h5" component="div">
-                {Object.values(field)[0]}
-              </Typography>
-            ) : (
-              <>
-                {Object.values(field)[0] ? (
-                  <CheckCircleOutlineIcon />
-                ) : (
-                  <HighlightOffIcon />
-                )}
-              </>
-            )}
-          </Box>
-        </TableCell>
-      ))}
+      {item?.customFields
+        .filter((field) => field.fieldType !== "textarea")
+        .map((field, index) => (
+          <TableCell
+            key={index}
+            align={field.fieldType !== "checkbox" ? "left" : "center"}
+          >
+            <Box>
+              {field.fieldType !== "checkbox" ? (
+                <Typography gutterBottom variant="h5" component="div">
+                  {Object.values(field)[0]}
+                </Typography>
+              ) : (
+                <>
+                  {Object.values(field)[0] ? (
+                    <CheckCircleOutlineIcon />
+                  ) : (
+                    <HighlightOffIcon />
+                  )}
+                </>
+              )}
+            </Box>
+          </TableCell>
+        ))}
     </TableRow>
   );
 };

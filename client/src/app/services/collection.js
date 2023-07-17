@@ -12,8 +12,9 @@ export const collectionApi = createApi({
       }
       return headers;
     },
+    credentials: "include",
   }),
-  tagTypes: ["Collection"],
+  tagTypes: ["Collections"],
   endpoints: (builder) => ({
     getCollections: builder.query({
       query: ({ limit, sort_by, sort_order }) => ({

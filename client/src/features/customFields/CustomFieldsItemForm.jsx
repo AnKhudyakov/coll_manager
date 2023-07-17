@@ -35,6 +35,11 @@ const CustomFieldsItemForm = ({ formik, collection }) => {
                                 customField.name
                               ]
                             }
+                            checked={
+                              formik.values.customFields[index][
+                                customField.name
+                              ]
+                            }
                             onChange={formik.handleChange}
                             name={`customFields.${index}.${customField.name}`}
                           />

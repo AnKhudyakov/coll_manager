@@ -1,6 +1,5 @@
 import Router from "express";
-import RegController from "./controllers/RegController.js";
-import LoginController from "./controllers/LoginController.js";
+import AuthController from "./controllers/AuthController.js";
 import {
   validateMiddlewareLogin,
   validateMiddlewareReg,
@@ -9,13 +8,16 @@ import {
 
 const router = Router();
 
-router.post("/register", validateMiddlewareReg, RegController.regUser);
+router.post("/register", validateMiddlewareReg, AuthController.regUser);
 
 router.post(
   "/login",
   validateMiddlewareLogin,
   validateBlocked,
-  LoginController.loginUser
+  AuthController.loginUser
 );
+router.post("/logout", validateMiddlewareReg, AuthController.logoutUser);
+router.get("/activate/:link", validateMiddlewareReg, AuthController.activate);
+router.get("/refresh", AuthController.refreshToken);
 
 export default router;

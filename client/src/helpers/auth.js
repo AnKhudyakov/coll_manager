@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 
-export const setToken = (data, navigate) => {
+export const setToken = (data) => {
   if (typeof window === "undefined") {
     return;
   }
@@ -9,22 +9,16 @@ export const setToken = (data, navigate) => {
     sameSite: "strict",
     secure: true,
   });
-  Cookies.set("jwt", data.token, { sameSite: "strict", secure: true });
-  if (Cookies.get("username")) {
-    setTimeout(() => {
-      navigate(`/profile/${data.user._id}`);
-    }, 1500);
-  }
+  Cookies.set("jwt", data.accessToken, { sameSite: "strict", secure: true });
 };
 
-export const unsetToken = (navigate) => {
+export const unsetToken = () => {
   if (typeof window === "undefined") {
     return;
   }
   Cookies.remove("id");
   Cookies.remove("jwt");
   Cookies.remove("username");
-  navigate("/");
 };
 
 export const getUserId = () => {

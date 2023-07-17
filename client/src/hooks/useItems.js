@@ -4,22 +4,22 @@ export const useSortedItems = (items, sort, order) => {
   const sortedItems = useMemo(() => {
     if (sort && sort !== "Item name") {
       return [...items].sort((a, b) => {
+        const fieldA = a.customFields.filter((field) =>
+          Object.keys(field).includes(sort)
+        )[0];
+        const fieldB = b.customFields.filter((field) =>
+          Object.keys(field).includes(sort)
+        )[0];
         if (order === "asc") {
-          return a.customFields
-            .filter((field) => Object.keys(field).includes(sort))[0]
-            [sort].localeCompare(
-              b.customFields.filter((field) =>
-                Object.keys(field).includes(sort)
-              )[0][sort]
-            );
+          if (fieldA.fieldType !== "number") {
+            return fieldA[sort].localeCompare(fieldB[sort]);
+          }
+          return fieldA[sort] >= fieldB[sort] ? 1 : -1;
         }
-        return b.customFields
-          .filter((field) => Object.keys(field).includes(sort))[0]
-          [sort].localeCompare(
-            a.customFields.filter((field) =>
-              Object.keys(field).includes(sort)
-            )[0][sort]
-          );
+        if (fieldA.fieldType !== "number") {
+          return fieldB[sort].localeCompare(fieldA[sort]);
+        }
+        return fieldA[sort] >= fieldB[sort] ? -1 : 1;
       });
     } else if (sort && sort === "Item name") {
       return [...items].sort((a, b) => {

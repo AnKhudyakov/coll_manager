@@ -25,13 +25,7 @@ const CustomFieldsCollectionForm = ({ formik }) => {
             <>
               {formik.values.customFields.map((customField, index) => {
                 return (
-                  <Box
-                    key={index}
-                    display="flex"
-                    gap={1}
-                    alignItems={"center"}
-                    sx={{ mt: 2 }}
-                  >
+                  <Box key={index} display="flex" gap={1} sx={{ mt: 2 }}>
                     <TextField
                       fullWidth
                       type="text"
@@ -40,6 +34,14 @@ const CustomFieldsCollectionForm = ({ formik }) => {
                       onChange={formik.handleChange}
                       name={`customFields.${index}.name`}
                       value={formik.values.customFields[index].name}
+                      error={Boolean(
+                        formik.errors?.customFields?.[index]?.name &&
+                          formik.touched?.customFields?.[index]?.name
+                      )}
+                      helperText={
+                        formik.touched?.customFields?.[index]?.name &&
+                        formik.errors?.customFields?.[index]?.name
+                      }
                     />
                     <FormControl fullWidth>
                       <InputLabel>{t("fieldType")}</InputLabel>
@@ -49,6 +51,14 @@ const CustomFieldsCollectionForm = ({ formik }) => {
                         label={t("fieldType")}
                         onBlur={formik.handleBlur}
                         onChange={formik.handleChange}
+                        error={Boolean(
+                          formik.errors?.customFields?.[index]?.type &&
+                            formik.touched?.customFields?.[index]?.type
+                        )}
+                        // helperText={
+                        //   formik.touched?.customFields?.[index]?.type &&
+                        //   formik.errors?.customFields?.[index]?.type
+                        // }
                         disabled={
                           formik.values.customFields[index].isDisabledType
                             ? !formik.values.customFields[index].isCanUpdateType
@@ -61,8 +71,18 @@ const CustomFieldsCollectionForm = ({ formik }) => {
                           </MenuItem>
                         ))}
                       </Select>
+                      {formik.touched?.customFields?.[index]?.type &&
+                        formik.errors?.customFields?.[index]?.type && (
+                          <Typography
+                            color={"text.error"}
+                            mt={"3px"}
+                            fontSize={"10px"}
+                          >
+                            {formik.errors?.customFields?.[index]?.type}
+                          </Typography>
+                        )}
                     </FormControl>
-                    <Box>
+                    <Box mt={1}>
                       <IconButton
                         aria-label="add custom field"
                         onClick={() => remove(index)}

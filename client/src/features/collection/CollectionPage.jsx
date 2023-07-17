@@ -31,7 +31,7 @@ const CollectionPage = () => {
         ) : (
           <Box>
             <Collection collection={collection} variant="page" />
-            <Typography variant="h3" mt={2} px={5} color="text.secondary">
+            <Typography variant="h3" mt={2} px={5} color="text.primary">
               {t("items")}:
             </Typography>
             <Items collectionId={id} customFields={collection.customFields} />

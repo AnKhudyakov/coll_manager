@@ -1,7 +1,6 @@
-import { selectCurrentUser, setCredentials } from "@/features/auth/authSlice";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import ErrorPage from "@/components/pages/ErrorPage";
+import { selectCurrentUser } from "@/features/auth/authSlice";
+import { useSelector } from "react-redux";
 
 function withAdminRedirect(Component) {
   return (props) => {

@@ -7,6 +7,7 @@
         "confirmText": "You can always sign back in at any time",
         "cancelBtn": "Cancel",
         "signoutBtn": "SignOut",
+        "successSignout": "Successful Signout",
         "signinBtn": "SignIn",
         "home": "Home",
         "adminPanel": "Admin panel",
@@ -110,7 +111,8 @@
         "confirmText": "Do you really want to delete this item with all the elements in it?",
         "confirmTitle": "Are you sure?",
         "collection": "Collection",
-        "author": "Author"
+        "author": "Author",
+        "deletedUser": "Deleted user"
       },
       "search": {
         "results": "Results for",
@@ -120,6 +122,11 @@
       "error": {
         "notFoundTitle": "Page not found",
         "notFoundText": "The page you’re looking for doesn’t exist.",
+        "backHome": "Back Home"
+      },
+      "activation": {
+        "notActivationTitle": "Activate Your Account",
+        "notActivationText": "Please click the activation link in the email we've sent to",
         "backHome": "Back Home"
       }
     }
@@ -132,6 +139,7 @@
         "confirmText": "Vždy se můžete kdykoli znovu přihlásit",
         "cancelBtn": "Zrušení",
         "signoutBtn": "Odhlásit se",
+        "successSignout": "Úspěšná Odhlásit se",
         "signinBtn": "Přihlásit se",
         "home": "Domov",
         "adminPanel": "Admin lišta",
@@ -235,7 +243,8 @@
         "confirmText": "Opravdu chcete odstranit tuto položku se všemi prvky v ní?",
         "confirmTitle": "Jsi si jistá?",
         "collection": "Sbírka",
-        "author": "Autor"
+        "author": "Autor",
+        "deletedUser": "Vymazaný uživatel"
       },
       "search": {
         "results": "Výsledky pro",
@@ -245,6 +254,11 @@
       "error": {
         "notFoundTitle": "Stránka nenalezena",
         "notFoundText": "Stránka, kterou hledáte, neexistuje.",
+        "backHome": "Zpět doma"
+      },
+      "activation": {
+        "notActivationTitle": "Aktivujte svuj ucet",
+        "notActivationText": "Klikněte prosím na aktivační odkaz v e-mailu, který jsme vám zaslali na",
         "backHome": "Zpět doma"
       }
     }

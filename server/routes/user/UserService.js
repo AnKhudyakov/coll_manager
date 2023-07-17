@@ -1,22 +1,24 @@
 import User from "../../models/User.js";
-import Collection from "../../models/Collection.js";
 
 class UserService {
   async getUserByEmail(email) {
     return await User.findOne({ email });
   }
-  async createUser(user, password) {
+  async createUser(user, password, activationLink) {
     const newUser = new User({
-      username: user.username,
-      email: user.email,
+      ...user,
       password,
-      admin: user.admin?user.admin:false,
+      admin: user.admin ? user.admin : false,
       blocked: false,
+      activationLink,
     });
     return await newUser.save();
   }
   async getUserById(id) {
     return await User.findOne({ _id: id }).select({ password: 0 });
+  }
+  async getUserByLink(activationLink) {
+    return await User.findOne({ activationLink }).select({ password: 0 });
   }
   async getAllUsers() {
     return await User.find({}).select({ password: 0 });

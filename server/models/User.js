@@ -16,6 +16,8 @@ const User = new Schema({
   },
   admin: { type: Boolean, required: true },
   blocked: { type: Boolean, required: true },
+  isActivated: { type: Boolean, default: false },
+  activationLink: { type: String },
   collections: [
     {
       type: Schema.Types.ObjectId,

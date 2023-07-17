@@ -113,6 +113,8 @@ const ItemForm = ({ setOpenForm, variant, item, collectionId }) => {
             minWidth: "30%",
             padding: "20px 40px",
             m: "20px 0",
+            bgcolor: "background.main",
+            color: "text.secondary",
           }}
         >
           {variant === "edit" ? t("updateBtn") : t("createBtn")}

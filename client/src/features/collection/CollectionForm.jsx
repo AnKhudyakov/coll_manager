@@ -8,6 +8,7 @@ import {
   INIT_VALUES_COLLECTION,
   TOPIC_VALUES as options,
 } from "@/constants/fields";
+import { setUpdateItems } from "@/features/collection/collectionSlice";
 import CustomFieldsCollectionForm from "@/features/customFields/CustomFieldsCollectionForm";
 import { createCollection } from "@/helpers/createPostValue";
 import { getExistValuesCollection } from "@/helpers/getInitValuesForms";
@@ -30,11 +31,13 @@ import MDEditor from "@uiw/react-md-editor";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const CollectionForm = ({ setOpenForm, variant, collection, author }) => {
   const { t } = useTranslation("translation", { keyPrefix: "profile" });
+  const dispatch = useDispatch();
   const [image, setImage] = useState("");
   const [postCollection, { isLoading }] = usePostCollectionMutation();
   const [updateCollection, { isLoading: isUpdating }] =
@@ -55,6 +58,7 @@ const CollectionForm = ({ setOpenForm, variant, collection, author }) => {
           } else {
             await updateCollection({ id: collection._id, ...values }).unwrap();
           }
+          dispatch(setUpdateItems());
           break;
         case "new":
           const newCollection = createCollection(

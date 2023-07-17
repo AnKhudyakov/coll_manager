@@ -1,7 +1,7 @@
 import { useRegMutation } from "@/app/services/auth";
 import { INIT_VALUES_REG as initialValues } from "@/constants/fields";
 import { schemaReg } from "@/helpers/validationForm";
-import { Button, TextField } from "@mui/material";
+import { Button, CircularProgress, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
@@ -88,11 +88,11 @@ const FormReg = () => {
         disabled={isLoading}
       >
         {t("signUp")}
+        {isLoading && <CircularProgress sx={{ ml: 1 }} size={20} />}
       </Button>
-
       <ToastContainer
         position="bottom-center"
-        autoClose={5000}
+        autoClose={2000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

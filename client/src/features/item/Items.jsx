@@ -3,6 +3,7 @@ import {
   useGetItemsQuery,
 } from "@/app/services/item";
 import ToolBar from "@/components/ToolBar";
+import { selectIsUpdateItems } from "@/features/collection/collectionSlice";
 import { useItems } from "@/hooks/useItems";
 import {
   Box,
@@ -18,20 +19,29 @@ import {
 import CircularProgress from "@mui/material/CircularProgress";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 import ItemRow from "./ItemRow";
 
 const Items = ({ collectionId, variant, customFields }) => {
   const { t } = useTranslation("translation", { keyPrefix: "collection" });
+  const isUpdateItems = useSelector(selectIsUpdateItems);
   const [items, setItems] = useState([]);
-  const { data: currentItems, isLoading } =
-    variant === "last"
-      ? useGetItemsQuery({ limit: 5, sort_by: "createdAt", sort_order: "desc" })
-      : useGetItemsByCollectionQuery(collectionId);
+  const {
+    data: currentItems,
+    isLoading,
+    refetch,
+  } = variant === "last"
+    ? useGetItemsQuery({ limit: 5, sort_by: "createdAt", sort_order: "desc" })
+    : useGetItemsByCollectionQuery(collectionId);
   useEffect(() => {
     if (!isLoading && currentItems.length) {
       setItems(currentItems);
     }
   }, [currentItems]);
+
+  useEffect(() => {
+    refetch();
+  }, [isUpdateItems]);
 
   const [filter, setFilter] = useState({ query: "", sort: "", order: "" });
 
@@ -82,17 +92,19 @@ const Items = ({ collectionId, variant, customFields }) => {
                     >
                       {t("itemName")}
                     </TableCell>
-                    {customFields?.map((field) => (
-                      <TableCell
-                        sx={{
-                          width: "20%",
-                        }}
-                        align={field.type !== "checkbox" ? "left" : "center"}
-                        key={field.name}
-                      >
-                        {field.name}
-                      </TableCell>
-                    ))}
+                    {customFields
+                      ?.filter((field) => field.type !== "textarea")
+                      .map((field) => (
+                        <TableCell
+                          sx={{
+                            width: "20%",
+                          }}
+                          align={field.type !== "checkbox" ? "left" : "center"}
+                          key={field.name}
+                        >
+                          {field.name}
+                        </TableCell>
+                      ))}
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -103,7 +115,7 @@ const Items = ({ collectionId, variant, customFields }) => {
               </Table>
             </TableContainer>
           ) : (
-            <Typography variant="h3" textAlign={"center"}>
+            <Typography variant="h3" textAlign={"center"} color="text.primary">
               {t("notFound")}
             </Typography>
           )}
