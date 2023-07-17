@@ -5,6 +5,7 @@ import {
   validateMiddlewareReg,
   validateBlocked,
 } from "../../middleware/validateMiddleware.js";
+import { refreshMiddleware } from "../../middleware/authMiddleware.js";
 
 const router = Router();
 
@@ -16,8 +17,8 @@ router.post(
   validateBlocked,
   AuthController.loginUser
 );
-router.post("/logout", validateMiddlewareReg, AuthController.logoutUser);
+router.post("/logout", refreshMiddleware, AuthController.logoutUser);
 router.get("/activate/:link", validateMiddlewareReg, AuthController.activate);
-router.get("/refresh", AuthController.refreshToken);
+router.get("/refresh", refreshMiddleware, AuthController.refreshToken);
 
 export default router;

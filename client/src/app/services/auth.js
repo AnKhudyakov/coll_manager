@@ -1,17 +1,10 @@
+import { getRefreshToken } from "@/helpers/auth";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { getToken } from "@/helpers/auth";
 
 export const authApi = createApi({
   reducerPath: "authAPI",
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_URL,
-    prepareHeaders: (headers, { getState }) => {
-      const token = getToken() ? getToken() : getState().auth.token;
-      if (token) {
-        headers.set("authorization", `Bearer ${token}`);
-      }
-      return headers;
-    },
     credentials: "include",
   }),
   endpoints: (builder) => ({
@@ -32,12 +25,18 @@ export const authApi = createApi({
     refresh: builder.query({
       query: () => ({
         url: "/auth/refresh",
+        headers: {
+          Authorization: `Bearer ${getRefreshToken()}`,
+        },
       }),
     }),
     logout: builder.mutation({
       query: () => ({
         url: "/auth/logout",
         method: "POST",
+        headers: {
+          Authorization: `Bearer ${getRefreshToken()}`,
+        },
       }),
     }),
   }),

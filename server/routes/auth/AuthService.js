@@ -29,8 +29,8 @@ class AuthService {
     const token = await Token.create({ user: userId, refreshToken });
     return token;
   }
-  async logout(refreshToken) {
-    const tokenData = await Token.deleteOne({ refreshToken });
+  async logout(user) {
+    const tokenData = await Token.deleteOne({ user });
     return tokenData;
   }
   validateAccessToken(token) {

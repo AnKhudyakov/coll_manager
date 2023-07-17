@@ -55,10 +55,6 @@ const CustomFieldsCollectionForm = ({ formik }) => {
                           formik.errors?.customFields?.[index]?.type &&
                             formik.touched?.customFields?.[index]?.type
                         )}
-                        // helperText={
-                        //   formik.touched?.customFields?.[index]?.type &&
-                        //   formik.errors?.customFields?.[index]?.type
-                        // }
                         disabled={
                           formik.values.customFields[index].isDisabledType
                             ? !formik.values.customFields[index].isCanUpdateType

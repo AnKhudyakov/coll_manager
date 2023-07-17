@@ -27,17 +27,7 @@ class AuthController {
           req.body.email,
           `${process.env.API_URL}/auth/activate/${activationLink}`
         );
-        const userDto = new UserDto(user);
-        const tokens = AuthService.createToken({ ...userDto });
-        await AuthService.saveToken(userDto._id, tokens.refreshToken);
-        res.cookie("refreshToken", tokens.refreshToken, {
-          maxAge: 30 * 24 * 60 * 60 * 1000,
-          httpOnly: true,
-          secure: true,
-          sameSite: "None",
-          path: "/api/refresh",
-        });
-        return res.status(200).json({ ...tokens, user: userDto });
+        return res.status(200).json({ message: "Success registration!" });
       }
       return res
         .status(400)
@@ -60,13 +50,6 @@ class AuthController {
           const userDto = new UserDto(user);
           const tokens = AuthService.createToken({ ...userDto });
           await AuthService.saveToken(userDto._id, tokens.refreshToken);
-          res.cookie("refreshToken", tokens.refreshToken, {
-            maxAge: 30 * 24 * 60 * 60 * 1000,
-            httpOnly: true,
-            secure: true,
-            sameSite: "None",
-            path: "/api/refresh",
-          });
           return res.status(200).json({ ...tokens, user: userDto });
         }
         return res.status(400).json({ message: "Invalid email or password" });
@@ -79,9 +62,7 @@ class AuthController {
   }
   async logoutUser(req, res) {
     try {
-      const { refreshToken } = req.cookies;
-      const token = await AuthService.logout(refreshToken);
-      res.clearCookie("refreshToken");
+      const token = await AuthService.logout(req.user._id);
       return res.status(200).json(token);
     } catch (e) {
       console.log(e);
@@ -104,18 +85,11 @@ class AuthController {
   }
   async refreshToken(req, res) {
     try {
-      const { refreshToken } = req.cookies;
-      if (!refreshToken) {
-        return res.status(401).json({ message: "User unauthenticated" });
-      }
-      const userData = AuthService.validateRefreshToken(refreshToken);
-      const tokenFromDb = await AuthService.findToken(refreshToken);
-      if (!userData || !tokenFromDb) {
-        return res.status(401).json({ message: "User unauthenticated" });
-      }
+      const userData = req.user;
       const user = await UserService.getUserById(userData._id);
       const userDto = new UserDto(user);
       const tokens = AuthService.createToken({ ...userDto });
+      await AuthService.saveToken(userDto._id, tokens.refreshToken);
       return res.status(200).json({ ...tokens, user: userDto });
     } catch (e) {
       console.log(e);

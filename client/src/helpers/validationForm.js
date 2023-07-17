@@ -69,7 +69,7 @@ export const schemaCollection = yup.object().shape({
         .required("Name is required")
         .test("is-unique", "Name must be unique", function (value) {
           const { customFields } = this.options.context;
-          if (!value) return true; // Skip validation if name is empty
+          if (!value) return true;
           return customFields.filter((item) => item.name === value).length === 1;
         }),
       type: yup.string().required("Type is required"),
