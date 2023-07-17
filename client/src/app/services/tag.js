@@ -26,43 +26,10 @@ export const tagApi = createApi({
         url: `/tags/${id}`,
       }),
     }),
-    // getItemsByItem: builder.query({
-    //   query: (id) => ({
-    //     url: `/tags/item/${id}`,
-    //   }),
-    //   providesTags: ["Tags"],
-    // }),
-    // postItem: builder.mutation({
-    //   query: (credentials) => ({
-    //     url: "/items",
-    //     method: "POST",
-    //     body: credentials,
-    //   }),
-    //   invalidatesTags: ["Tags"],
-    // }),
-    // removeItem: builder.mutation({
-    //   query: (id) => ({
-    //     url: `/items/${id}`,
-    //     method: "DELETE",
-    //   }),
-    //   invalidatesTags: ["Tags"],
-    // }),
-    // updateItem: builder.mutation({
-    //   query: (id) => ({
-    //     url: `/items/${id}`,
-    //     method: "PATCH",
-    //   }),
-    //   invalidatesTags: ["Tags"],
-    // }),
   }),
 });
 
 export const {
   useGetTagsQuery,
-  //useGetItemsByUserQuery,
-  // useGetItemsByCollectionQuery,
   useGetTagByIdQuery,
-  // usePostItemMutation,
-  // useRemoveItemMutation,
-  // useUpdateItemMutation,
 } = tagApi;

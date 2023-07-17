@@ -10,6 +10,7 @@ export const setToken = (data) => {
     secure: true,
   });
   Cookies.set("jwt", data.accessToken, { sameSite: "strict", secure: true });
+  Cookies.set("refreshToken", data.refreshToken, { sameSite: "strict", secure: true });
 };
 
 export const unsetToken = () => {
@@ -28,3 +29,7 @@ export const getUserId = () => {
 export const getToken = () => {
   return Cookies.get("jwt");
 };
+
+export const getRefreshToken = () => {
+  return Cookies.get("refreshToken")
+}

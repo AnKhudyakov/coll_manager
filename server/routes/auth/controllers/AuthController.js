@@ -35,7 +35,7 @@ class AuthController {
           httpOnly: true,
           secure: true,
           sameSite: "None",
-          domain: process.env.CLIENT_URL,
+          path: "/api/refresh",
         });
         return res.status(200).json({ ...tokens, user: userDto });
       }
@@ -65,7 +65,7 @@ class AuthController {
             httpOnly: true,
             secure: true,
             sameSite: "None",
-            domain: process.env.CLIENT_URL,
+            path: "/api/refresh",
           });
           return res.status(200).json({ ...tokens, user: userDto });
         }
@@ -116,9 +116,7 @@ class AuthController {
       const user = await UserService.getUserById(userData._id);
       const userDto = new UserDto(user);
       const tokens = AuthService.createToken({ ...userDto });
-      return res
-        .status(200)
-        .json({ accessToken: tokens.accessToken, user: userDto });
+      return res.status(200).json({ ...tokens, user: userDto });
     } catch (e) {
       console.log(e);
       return res.status(500).json({ message: "Server error" });
