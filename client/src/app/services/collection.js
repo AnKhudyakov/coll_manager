@@ -14,7 +14,7 @@ export const collectionApi = createApi({
     },
     credentials: "include",
   }),
-  tagTypes: ["Collection"],
+  tagTypes: ["Collections"],
   endpoints: (builder) => ({
     getCollections: builder.query({
       query: ({ limit, sort_by, sort_order }) => ({
@@ -55,7 +55,7 @@ export const collectionApi = createApi({
         method: "PUT",
         body: patch,
       }),
-      invalidatesTags: ["Collections", "Items"],
+      invalidatesTags: ["Collections"],
     }),
   }),
 });

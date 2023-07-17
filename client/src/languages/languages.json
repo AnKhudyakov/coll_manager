@@ -111,7 +111,8 @@
         "confirmText": "Do you really want to delete this item with all the elements in it?",
         "confirmTitle": "Are you sure?",
         "collection": "Collection",
-        "author": "Author"
+        "author": "Author",
+        "deletedUser": "Deleted user"
       },
       "search": {
         "results": "Results for",
@@ -242,7 +243,8 @@
         "confirmText": "Opravdu chcete odstranit tuto položku se všemi prvky v ní?",
         "confirmTitle": "Jsi si jistá?",
         "collection": "Sbírka",
-        "author": "Autor"
+        "author": "Autor",
+        "deletedUser": "Vymazaný uživatel"
       },
       "search": {
         "results": "Výsledky pro",

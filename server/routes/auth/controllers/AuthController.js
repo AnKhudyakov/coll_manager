@@ -110,12 +110,9 @@ class AuthController {
       const user = await UserService.getUserById(userData._id);
       const userDto = new UserDto(user);
       const tokens = AuthService.createToken({ ...userDto });
-      await AuthService.saveToken(userDto.id, tokens.refreshToken);
-      res.cookie("refreshToken", tokens.refreshToken, {
-        maxAge: 30 * 24 * 60 * 60 * 1000,
-        httpOnly: true,
-      });
-      return res.status(200).json({ ...tokens, user: userDto });
+      return res
+        .status(200)
+        .json({ accessToken: tokens.accessToken, user: userDto });
     } catch (e) {
       console.log(e);
       return res.status(500).json({ message: "Server error" });

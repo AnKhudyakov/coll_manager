@@ -1,5 +1,7 @@
 import { useRemoveCollectionMutation } from "@/app/services/collection";
+import AlertDialog from "@/components/AlertDialog";
 import { selectCurrentUser } from "@/features/auth/authSlice";
+import { setUpdateItems } from "@/features/collection/collectionSlice";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import {
@@ -14,9 +16,8 @@ import {
 import MDEditor from "@uiw/react-md-editor";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import AlertDialog from "@/components/AlertDialog";
 import CollectionForm from "./CollectionForm";
 
 const Collection = ({ collection, variant }) => {
@@ -25,6 +26,7 @@ const Collection = ({ collection, variant }) => {
   const [openForm, setOpenForm] = useState(false);
   const [open, setOpen] = useState(false);
   const user = useSelector(selectCurrentUser);
+  const dispatch = useDispatch();
   const isNonTablet = useMediaQuery("(min-width:900px)");
   const isNonMobile = useMediaQuery("(min-width:700px)");
   const cardWidth =
@@ -33,6 +35,7 @@ const Collection = ({ collection, variant }) => {
   const [removeCollection, { isLoading }] = useRemoveCollectionMutation();
   const handleDeleteCollection = () => {
     removeCollection(collection._id);
+    dispatch(setUpdateItems());
     navigate(`/profile/${user._id}`);
   };
   return (
