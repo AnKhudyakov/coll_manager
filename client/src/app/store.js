@@ -9,7 +9,6 @@ import { tagApi } from "./services/tag";
 import { uploadImageApi } from "./services/uplooadImage";
 import { commentApi } from "./services/comment";
 import { searchApi } from "./services/search";
-import { rtkQueryErrorLogger } from "./interpreters/authError";
 
 const rootReducer = combineReducers({
   auth: authReducer,

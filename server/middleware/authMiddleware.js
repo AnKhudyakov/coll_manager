@@ -38,9 +38,9 @@ export const refreshMiddleware = async (req, res, next) => {
     const refreshToken = req.headers.authorization.split(" ")[1];
     const decoded = AuthService.validateRefreshToken(refreshToken);
     const tokenFromDb = await AuthService.findToken(refreshToken);
-      if (!decoded || !tokenFromDb) {
-        return res.status(401).json({ message: "User unauthenticated" });
-      }
+    if (!decoded || !tokenFromDb) {
+      return res.status(401).json({ message: "User unauthenticated" });
+    }
     req.user = decoded;
     next();
   } catch (e) {

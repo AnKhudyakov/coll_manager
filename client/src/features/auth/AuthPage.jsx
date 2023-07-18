@@ -1,21 +1,17 @@
-import { selectCurrentUser } from "@/features/auth/authSlice";
+import Copyright from "@/components/Copyright";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import {
+  Avatar,
   Box,
   CssBaseline,
-  Typography,
   Grid,
-  Avatar,
   Paper,
+  Typography,
 } from "@mui/material";
-import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import LoginForm from "./login/LoginForm";
-import RegForm from "./registration/RegForm";
-import Copyright from "@/components/Copyright";
 import RecoverForm from "./recover/RecoverForm";
+import RegForm from "./registration/RegForm";
 
 const AuthPage = ({ variant }) => {
   const { t } = useTranslation("translation", { keyPrefix: "auth" });
@@ -25,13 +21,7 @@ const AuthPage = ({ variant }) => {
       : variant === "register"
       ? t("register")
       : t("recoverTitle");
-  const user = useSelector(selectCurrentUser);
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (user) {
-      navigate(`/profile/${user._id}`);
-    }
-  }, [user]);
+
   return (
     <Grid
       container

@@ -18,11 +18,7 @@ class AuthController {
         }
         const hashPassword = AuthService.hashPassword(req.body.password);
         const activationLink = uuidv4();
-        const user = await UserService.createUser(
-          req.body,
-          hashPassword,
-          activationLink
-        );
+        await UserService.createUser(req.body, hashPassword, activationLink);
         await MailService.sendActivationMail(
           req.body.email,
           `${process.env.API_URL}/auth/activate/${activationLink}`

@@ -1,5 +1,5 @@
+import { unsetToken } from "@/helpers/auth";
 import { createSlice } from "@reduxjs/toolkit";
-import { setToken, unsetToken } from "@/helpers/auth";
 
 const slice = createSlice({
   name: "auth",
@@ -7,7 +7,6 @@ const slice = createSlice({
   reducers: {
     setCredentials: (state, { payload: data }) => {
       state.user = data.user;
-      setToken(data);
       state.isAuth = true;
     },
     setLogout: (state) => {

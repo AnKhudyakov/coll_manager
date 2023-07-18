@@ -1,39 +1,35 @@
-import Cookies from "js-cookie";
-
 export const setToken = (data) => {
   if (typeof window === "undefined") {
     return;
   }
-  Cookies.set("id", data.user._id, { sameSite: "strict", secure: true });
-  Cookies.set("username", data.user.username, {
-    sameSite: "strict",
-    secure: true,
-  });
-  Cookies.set("email", data.user.email, {
-    sameSite: "strict",
-    secure: true,
-  });
-  Cookies.set("jwt", data.accessToken, { sameSite: "strict", secure: true });
-  Cookies.set("refreshToken", data.refreshToken, { sameSite: "strict", secure: true });
+  localStorage.setItem("user", JSON.stringify(data.user));
+  localStorage.setItem("accessToken", data.accessToken);
+  localStorage.setItem("refreshToken", data.refreshToken);
 };
 
 export const unsetToken = () => {
   if (typeof window === "undefined") {
     return;
   }
-  Cookies.remove("id");
-  Cookies.remove("jwt");
-  Cookies.remove("username");
+  console.log("unsetToken");
+  localStorage.removeItem("user");
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
 };
 
 export const getUserId = () => {
-  return Cookies.get("id");
+  const user = localStorage.getItem("user");
+  return user._id;
 };
 
 export const getToken = () => {
-  return Cookies.get("jwt");
+  return localStorage.getItem("accessToken");
 };
 
 export const getRefreshToken = () => {
-  return Cookies.get("refreshToken")
-}
+  return localStorage.getItem("refreshToken");
+};
+
+export const getUser = () => {
+  return JSON.parse(localStorage.getItem("user"));
+};

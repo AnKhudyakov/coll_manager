@@ -1,17 +1,18 @@
 import Header from "@/components/Header";
-import { selectRelogin } from "@/features/auth/authSlice";
+import { setCredentials } from "@/features/auth/authSlice";
+import { getUser, unsetToken } from "@/helpers/auth";
 import { ThemeContext, useTheme } from "@/hooks/useTheme";
 import { ThemeProvider } from "@mui/material/styles";
 import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Layout = ({ children , isLoading}) => {
+const Layout = ({ children, error }) => {
   const { t } = useTranslation("translation", { keyPrefix: "auth" });
-  const relogin = useSelector(selectRelogin);
+  const dispatch = useDispatch();
   const [theme, themeMode, mode] = useTheme();
   const memoizedColor = useMemo(
     () => ({
@@ -22,11 +23,23 @@ const Layout = ({ children , isLoading}) => {
   );
   const navigate = useNavigate();
   useEffect(() => {
-    if (relogin && !isLoading) {
+    if (error) {
+      console.log("LAYOUT");
+      unsetToken();
       toast(t("relogin"));
-     // navigate("/login");
+      dispatch(setCredentials({ user: null }));
+      navigate("/login");
     }
-  }, [relogin]);
+  }, [error]);
+  useEffect(() => {
+    const user = getUser();
+    if (user) {
+      dispatch(setCredentials({ user }));
+    } else {
+      navigate("/login");
+    }
+  }, []);
+
   return (
     <ThemeContext.Provider value={memoizedColor}>
       <ThemeProvider theme={theme}>

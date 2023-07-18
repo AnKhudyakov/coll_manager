@@ -1,7 +1,14 @@
 import { useLoginMutation } from "@/app/services/auth";
 import { INIT_VALUES_LOGIN as initialValues } from "@/constants/fields";
+import { setToken } from "@/helpers/auth";
 import { schemaLogin } from "@/helpers/validationForm";
-import { Button, CircularProgress, Grid, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  CircularProgress,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useFormik } from "formik";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
@@ -9,6 +16,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { setCredentials } from "../authSlice";
+
 
 const FormLogin = () => {
   const { t } = useTranslation("translation", { keyPrefix: "auth" });
@@ -20,6 +28,7 @@ const FormLogin = () => {
       const data = await login(values).unwrap();
       navigate(`/profile/${data.user._id}`);
       dispatch(setCredentials(data));
+      setToken(data);
       actions.resetForm();
       toast.success(t("successSignIn"));
     } catch (err) {
@@ -88,7 +97,7 @@ const FormLogin = () => {
         disabled={isLoading}
       >
         {t("signIn")}
-        {isLoading && <CircularProgress sx={{ml:1}} size={20}/>}
+        {isLoading && <CircularProgress sx={{ ml: 1 }} size={20} />}
       </Button>
       <Grid container>
         <Grid item xs>

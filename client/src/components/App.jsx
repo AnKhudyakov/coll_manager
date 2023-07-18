@@ -1,41 +1,49 @@
-import { useRefreshQuery } from "@/app/services/auth";
+import { useLazyRefreshTokenQuery } from "@/app/services/auth";
 import Layout from "@/components/Layout";
 import AdminPageWithAuth from "@/components/pages/AdminPage";
 import HomePage from "@/components/pages/HomePage";
 import ProfilePageWithAuth from "@/components/pages/ProfilePage";
 import SearchPage from "@/components/pages/SearchPage";
 import AuthPage from "@/features/auth/AuthPage";
-import { setCredentials } from "@/features/auth/authSlice";
+import {
+  selectCurrentUser,
+  selectRefresh,
+  setCredentials,
+  setRefresh,
+} from "@/features/auth/authSlice";
 import CollectionPage from "@/features/collection/CollectionPage";
 import ItemPage from "@/features/item/ItemPage";
-import { getRefreshToken } from "@/helpers/auth";
+import { setToken } from "@/helpers/auth";
 import { Box, CircularProgress } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { selectRefresh, selectRelogin } from "@/features/auth/authSlice";
 import { Route, Routes } from "react-router";
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useTranslation } from "react-i18next";
 
 function App() {
   const { t } = useTranslation("translation", { keyPrefix: "auth" });
-  const refreshToken = getRefreshToken();
   const dispatch = useDispatch();
   const refresh = useSelector(selectRefresh);
-  const { data, isLoading, error, refetch } = refreshToken
-    ? useRefreshQuery()
-    : {};
+  const user = useSelector(selectCurrentUser);
+  const [refreshToken, { data, isLoading, error }] = useLazyRefreshTokenQuery();
   useEffect(() => {
-    if (refresh) {
-      refetch();
+    if (refresh && !error) {
+      refreshToken();
       toast(t("refreshToken"));
+      dispatch(setRefresh(false));
     }
-    if (data) {
+    if (error) {
+      console.log("APP");
+      dispatch(setRefresh(false));
+    }
+    if (data && !error) {
+      setToken(data);
       dispatch(setCredentials(data));
     }
-  }, [refresh, data]);
+  }, [refresh, data, error]);
   return (
     <>
       {isLoading ? (
@@ -49,7 +57,7 @@ function App() {
         </Box>
       ) : (
         <BrowserRouter>
-          <Layout isLoading={isLoading}>
+          <Layout error={error}>
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/login" element={<AuthPage variant="login" />} />
