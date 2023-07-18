@@ -8,21 +8,34 @@ import AuthPage from "@/features/auth/AuthPage";
 import { setCredentials } from "@/features/auth/authSlice";
 import CollectionPage from "@/features/collection/CollectionPage";
 import ItemPage from "@/features/item/ItemPage";
-import { getToken } from "@/helpers/auth";
+import { getRefreshToken } from "@/helpers/auth";
 import { Box, CircularProgress } from "@mui/material";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { selectRefresh, selectRelogin } from "@/features/auth/authSlice";
 import { Route, Routes } from "react-router";
 import { BrowserRouter } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useTranslation } from "react-i18next";
 
 function App() {
+  const { t } = useTranslation("translation", { keyPrefix: "auth" });
+  const refreshToken = getRefreshToken();
   const dispatch = useDispatch();
-  const { data, isLoading, error } = getToken() ? useRefreshQuery() : "";
+  const refresh = useSelector(selectRefresh);
+  const { data, isLoading, error, refetch } = refreshToken
+    ? useRefreshQuery()
+    : {};
   useEffect(() => {
+    if (refresh) {
+      refetch();
+      toast(t("refreshToken"));
+    }
     if (data) {
       dispatch(setCredentials(data));
     }
-  }, [data]);
+  }, [refresh, data]);
   return (
     <>
       {isLoading ? (
@@ -36,7 +49,7 @@ function App() {
         </Box>
       ) : (
         <BrowserRouter>
-          <Layout error={error}>
+          <Layout isLoading={isLoading}>
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/login" element={<AuthPage variant="login" />} />
@@ -54,6 +67,17 @@ function App() {
           </Layout>
         </BrowserRouter>
       )}
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </>
   );
 }

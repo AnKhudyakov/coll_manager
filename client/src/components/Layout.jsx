@@ -1,13 +1,17 @@
 import Header from "@/components/Header";
+import { selectRelogin } from "@/features/auth/authSlice";
 import { ThemeContext, useTheme } from "@/hooks/useTheme";
 import { ThemeProvider } from "@mui/material/styles";
 import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Layout = ({ children, error }) => {
+const Layout = ({ children , isLoading}) => {
   const { t } = useTranslation("translation", { keyPrefix: "auth" });
+  const relogin = useSelector(selectRelogin);
   const [theme, themeMode, mode] = useTheme();
   const memoizedColor = useMemo(
     () => ({
@@ -16,11 +20,13 @@ const Layout = ({ children, error }) => {
     }),
     [themeMode.toggleTheme, mode]
   );
+  const navigate = useNavigate();
   useEffect(() => {
-    if (error?.status === 401) {
-      toast.info(t("info"));
+    if (relogin && !isLoading) {
+      toast(t("relogin"));
+     // navigate("/login");
     }
-  }, [error]);
+  }, [relogin]);
   return (
     <ThemeContext.Provider value={memoizedColor}>
       <ThemeProvider theme={theme}>

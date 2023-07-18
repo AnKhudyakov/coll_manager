@@ -1,10 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { getToken } from "@/helpers/auth";
+import { setRefresh } from "@/features/auth/authSlice";
 
-export const collectionApi = createApi({
-  reducerPath: "collectionApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: import.meta.env.VITE_API_URL,
+const baseQueryWithError = (baseUrl) => {
+  const baseQuery = fetchBaseQuery({
+    baseUrl,
     prepareHeaders: (headers, { getState }) => {
       const token = getToken() ? getToken() : getState().auth.token;
       if (token) {
@@ -12,8 +12,21 @@ export const collectionApi = createApi({
       }
       return headers;
     },
-    credentials: "include",
-  }),
+  });
+  return async (args, api, extraOptions) => {
+    const { error, data } = await baseQuery(args, api, extraOptions);
+    if (error && error.status == 401) {
+      api.dispatch(setRefresh(true));
+      return { error: { status: error.status, data: error.data } };
+    }
+    api.dispatch(setRefresh(false));
+    return { data };
+  };
+};
+
+export const collectionApi = createApi({
+  reducerPath: "collectionApi",
+  baseQuery: baseQueryWithError(import.meta.env.VITE_API_URL),
   tagTypes: ["Collections"],
   endpoints: (builder) => ({
     getCollections: builder.query({

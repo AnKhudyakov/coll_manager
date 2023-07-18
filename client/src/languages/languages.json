@@ -45,7 +45,9 @@
         "error401": "Email and Password already exist",
         "error405": "User is blocked!",
         "error404": "User doesn't exist",
-        "copyright": "Copyright"
+        "copyright": "Copyright",
+        "refreshToken": "Your token has been updated, please repeat the request",
+        "relogin": "Please Re-SignIn"
       },
       "profile": {
         "profile": "Profile",
@@ -177,7 +179,9 @@
         "error401": "E-mail a heslo již existují",
         "error405": "Uživatel je zablokován!",
         "error404": "Uživatel neexistuje",
-        "copyright": "Autorská práva"
+        "copyright": "Autorská práva",
+        "refreshToken": "Váš token byl aktualizován, opakujte požadavek",
+        "relogin": "Prosím znovu se přihlaste"
       },
       "profile": {
         "profile": "Profil",

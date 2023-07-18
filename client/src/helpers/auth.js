@@ -9,6 +9,10 @@ export const setToken = (data) => {
     sameSite: "strict",
     secure: true,
   });
+  Cookies.set("email", data.user.email, {
+    sameSite: "strict",
+    secure: true,
+  });
   Cookies.set("jwt", data.accessToken, { sameSite: "strict", secure: true });
   Cookies.set("refreshToken", data.refreshToken, { sameSite: "strict", secure: true });
 };
