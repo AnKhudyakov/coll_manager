@@ -17,6 +17,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
@@ -25,6 +26,7 @@ const Users = ({ users, setOpen, open }) => {
   const [updateUser, { isLoading: isUpdating }] = useUpdateUserMutation();
   const [removeUser, { isLoading: isRemoving }] = useRemoveUserMutation();
   const { t } = useTranslation("translation", { keyPrefix: "admin" });
+  const [currentId, setCurrentId] = useState("");
   return (
     <>
       {isUpdating || isRemoving ? (
@@ -104,19 +106,23 @@ const Users = ({ users, setOpen, open }) => {
                   <TableCell align="center" sx={{ zIndex: 999 }}>
                     <Switch
                       checked={user.blocked}
-                      onChange={(e) =>
+                      onChange={(e) => {
+                        console.log(user._id);
                         updateUser({
                           id: user._id,
                           blocked: e.target.checked,
-                        })
-                      }
+                        });
+                      }}
                     />
                   </TableCell>
                   <TableCell align="center">
                     <IconButton
                       sx={{ zIndex: 99 }}
                       aria-label="delete"
-                      onClick={() => setOpen(true)}
+                      onClick={() => {
+                        setOpen(true);
+                        setCurrentId(user._id);
+                      }}
                     >
                       <DeleteIcon />
                     </IconButton>
@@ -126,7 +132,10 @@ const Users = ({ users, setOpen, open }) => {
                       confirmBtn={t("delete")}
                       confirmText={t("confirmText")}
                       confirmTitle={t("confirmTitle")}
-                      handleConfirm={() => {removeUser(user._id);setOpen(false)}}
+                      handleConfirm={(e) => {
+                        removeUser(currentId);
+                        setOpen(false);
+                      }}
                     />
                   </TableCell>
                 </TableRow>

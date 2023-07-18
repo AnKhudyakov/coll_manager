@@ -1,6 +1,7 @@
 import { useLazyRefreshTokenQuery } from "@/app/services/auth";
 import Layout from "@/components/Layout";
 import AdminPageWithAuth from "@/components/pages/AdminPage";
+import ErrorPage from "@/components/pages/ErrorPage";
 import HomePage from "@/components/pages/HomePage";
 import ProfilePageWithAuth from "@/components/pages/ProfilePage";
 import SearchPage from "@/components/pages/SearchPage";
@@ -71,6 +72,7 @@ function App() {
               <Route path="/collections/:id" element={<CollectionPage />} />
               <Route path="/items/:id" element={<ItemPage />} />
               <Route path="/search" element={<SearchPage />} />
+              <Route path="*" element={<ErrorPage />} />
             </Routes>
           </Layout>
         </BrowserRouter>
