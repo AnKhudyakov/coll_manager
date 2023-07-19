@@ -13,6 +13,18 @@ class CollectionController {
       return res.status(500).json({ message: "Server error" });
     }
   }
+  async getTopCollections(req, res) {
+    try {
+      const collections = await CollectionService.getTopCollections(req.query);
+      if (!collections) {
+        return res.status(404).json({ message: "Collections not found" });
+      }
+      return res.status(200).json(collections);
+    } catch (e) {
+      console.log(e);
+      return res.status(500).json({ message: "Server error" });
+    }
+  }
   async getCollectionById(req, res) {
     try {
       const collection = await CollectionService.getCollectionById(
@@ -30,7 +42,7 @@ class CollectionController {
   async getCollectionsByUser(req, res) {
     try {
       const collections = await CollectionService.getCollectionsByUser(
-        req.params.id
+        req.params.id, req.query
       );
       if (!collections) {
         return res

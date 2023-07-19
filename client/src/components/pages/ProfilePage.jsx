@@ -7,8 +7,14 @@ import CollectionForm from "@/features/collection/CollectionForm";
 import Collections from "@/features/collection/Collections";
 import Profile from "@/features/profile/Profile";
 import withAuthRedirect from "@/hoc/withAuthRedirect";
-import { Box, Button, CircularProgress, Typography } from "@mui/material";
-import { useState } from "react";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Pagination,
+  Typography,
+} from "@mui/material";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
@@ -16,22 +22,32 @@ const ProfilePage = () => {
   const { t } = useTranslation("translation", { keyPrefix: "profile" });
   const { id } = useParams();
   const [openForm, setOpenForm] = useState(false);
+  const [page, setPage] = useState(1);
+  const [collections, setCollections] = useState([]);
   const {
     data: user,
     isLoading: isLoadingUser,
     error: getUserError,
   } = useGetUserByIdQuery(id);
-  const {
-    data: collections,
-    isLoading,
-    error,
-  } = user?.admin
+  const { data, isLoading, error } = user?.admin
     ? useGetCollectionsQuery({
-        limit: 10,
-        sort_by: "items",
-        sort_order: "desc",
+        page,
+        limit: 5,
+        sort_by: "name",
+        sort_order: "asc",
       })
-    : useGetCollectionsByUserQuery(id);
+    : useGetCollectionsByUserQuery({
+        id,
+        page,
+        limit: 5,
+        sort_by: "name",
+        sort_order: "asc",
+      });
+  useEffect(() => {
+    if (data) {
+      setCollections(data.collections);
+    }
+  }, [data]);
   return (
     <Box pt="60px" height="100%" bgcolor="background.light">
       <Box
@@ -69,7 +85,15 @@ const ProfilePage = () => {
               <CircularProgress />
             </Box>
           ) : (
-            <Collections variant="profile" collections={collections} />
+            <>
+              <Collections variant="profile" collections={collections} />
+              <Pagination
+                sx={{ display: "flex", justifyContent: "center", mt: 1 }}
+                count={data.totalPages}
+                page={page}
+                onChange={(e, value) => setPage(value)}
+              />
+            </>
           )}
           <Box mt={3}>
             {openForm ? (

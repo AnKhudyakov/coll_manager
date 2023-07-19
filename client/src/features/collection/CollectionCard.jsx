@@ -39,10 +39,18 @@ const CollectionCard = ({ collection, variant }) => {
           sx={{
             maxWidth: `${isNonMobile ? imageWidth : "100%"}`,
             minHeight: "200px",
+            maxHeight: `${isNonTablet ? "none" : "250px"}`,
           }}
         />
-        <CardContent sx={{ width: "100%", height: "100%", color: "text.secondary" }}>
-          <Typography gutterBottom variant="h3" component="div" color="text.primary">
+        <CardContent
+          sx={{ width: "100%", height: "100%", color: "text.secondary" }}
+        >
+          <Typography
+            gutterBottom
+            variant="h3"
+            component="div"
+            color="text.primary"
+          >
             {collection?.name}
           </Typography>
           <Typography gutterBottom variant="h5" component="div">

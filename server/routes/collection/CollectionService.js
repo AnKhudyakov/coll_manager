@@ -4,6 +4,18 @@ import User from "../../models/User.js";
 
 class CollectionService {
   async getAllCollections(query) {
+    const { page, limit, sort_by, sort_order } = query;
+    const totalCount = await Collection.countDocuments();
+    const totalPages = Math.ceil(totalCount / limit);
+    const offset = (page - 1) * limit;
+    const collections = await Collection.find({})
+      .skip(offset)
+      .limit(limit)
+      .sort({ [sort_by]: sort_order })
+      .select({ password: 0 });
+    return { collections, totalPages };
+  }
+  async getTopCollections(query) {
     const { limit, sort_by, sort_order } = query;
     const order = sort_order === "desc" ? -1 : 1;
     const sortCollection = await Collection.aggregate([
@@ -31,8 +43,17 @@ class CollectionService {
     );
     return await newCollection.save();
   }
-  async getCollectionsByUser(id) {
-    return await Collection.find({ author: id });
+  async getCollectionsByUser(id, query) {
+    const { page, limit, sort_by, sort_order } = query;
+    const totalCount = await Collection.countDocuments();
+    const totalPages = Math.ceil(totalCount / limit);
+    const offset = (page - 1) * limit;
+    const collections = await Collection.find({ author: id })
+      .skip(offset)
+      .limit(limit)
+      .sort({ [sort_by]: sort_order })
+      .select({ password: 0 });
+    return { collections, totalPages };
   }
   async getCollectionById(id) {
     return await Collection.findOne({ _id: id });

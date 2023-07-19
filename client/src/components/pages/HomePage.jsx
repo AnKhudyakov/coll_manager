@@ -1,4 +1,4 @@
-import { useGetCollectionsQuery } from "@/app/services/collection";
+import { useGetTopCollectionsQuery } from "@/app/services/collection";
 import { useGetTagsQuery } from "@/app/services/tag";
 import Tags from "@/components/Tags";
 import Collections from "@/features/collection/Collections";
@@ -18,7 +18,7 @@ const HomePage = () => {
     data: collections,
     isLoading,
     error,
-  } = useGetCollectionsQuery({
+  } = useGetTopCollectionsQuery({
     limit: 5,
     sort_by: "items",
     sort_order: "desc",
