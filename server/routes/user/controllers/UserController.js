@@ -4,7 +4,7 @@ import CollectionService from "../../collection/CollectionService.js";
 class UserController {
   async getUsers(req, res) {
     try {
-      const users = await UserService.getAllUsers();
+      const users = await UserService.getAllUsers(req.query);
       if (!users) {
         return res.status(404).json({ message: "DB is empty" });
       }

@@ -1,14 +1,26 @@
 import { useGetUsersQuery } from "@/app/services/user";
 import Users from "@/components/Users";
 import withAdminRedirect from "@/hoc/withAdminRedirect";
-import { Box, CircularProgress, Typography } from "@mui/material";
-import { useState } from "react";
+import { Box, CircularProgress, Pagination, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 const AdminPage = () => {
   const { t } = useTranslation("translation", { keyPrefix: "admin" });
   const [open, setOpen] = useState(false);
-  const { data: users, isLoading, error: getUserError } = useGetUsersQuery();
+  const [page, setPage] = useState(1);
+  const [users, setUsers] = useState([]);
+  const { data, isLoading, error } = useGetUsersQuery({
+    page,
+    limit: 5,
+    sort_by: "username",
+    sort_order: "asc",
+  });
+  useEffect(() => {
+    if (data) {
+      setUsers(data.users);
+    }
+  }, [data]);
   return (
     <Box pt="60px" mx="auto" height="100vh" bgcolor="background.light">
       {isLoading ? (
@@ -27,7 +39,15 @@ const AdminPage = () => {
             {t("users")}:
           </Typography>
           {users?.length ? (
-            <Users users={users} setOpen={setOpen} open={open} />
+            <>
+              <Users users={users} setOpen={setOpen} open={open} />
+              <Pagination
+                sx={{ display: "flex", justifyContent: "center", mt: 1 }}
+                count={data ? data.totalPages : 1}
+                page={page}
+                onChange={(e, value) => setPage(value)}
+              />
+            </>
           ) : (
             <Typography variant="h3" align="center" color="text.secondary">
               {t("notFound")}

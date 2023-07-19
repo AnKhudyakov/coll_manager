@@ -20,8 +20,17 @@ class UserService {
   async getUserByLink(activationLink) {
     return await User.findOne({ activationLink }).select({ password: 0 });
   }
-  async getAllUsers() {
-    return await User.find({}).select({ password: 0 });
+  async getAllUsers(query) {
+    const { page, limit, sort_by, sort_order } = query;
+    const totalCount = await User.countDocuments();
+    const totalPages = Math.ceil(totalCount / limit);
+    const offset = (page - 1) * limit;
+    const users = await User.find({})
+      .skip(offset)
+      .limit(limit)
+      .sort({ [sort_by]: sort_order })
+      .select({ password: 0 });
+    return { users, totalPages };
   }
   async updateUser(req) {
     const { id } = req.params;

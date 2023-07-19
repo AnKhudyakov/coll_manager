@@ -7,14 +7,20 @@ export const collectionApi = createApi({
   tagTypes: ["Collections"],
   endpoints: (builder) => ({
     getCollections: builder.query({
+      query: ({ page, limit, sort_by, sort_order }) => ({
+        url: `/collections?page=${page}&limit=${limit}&&sort_by=${sort_by}&sort_order=${sort_order}`,
+      }),
+      providesTags: ["Collections"],
+    }),
+    getTopCollections: builder.query({
       query: ({ limit, sort_by, sort_order }) => ({
-        url: `/collections?limit=${limit}&&sort_by=${sort_by}&sort_order=${sort_order}`,
+        url: `/collections/top?limit=${limit}&&sort_by=${sort_by}&sort_order=${sort_order}`,
       }),
       providesTags: ["Collections"],
     }),
     getCollectionsByUser: builder.query({
-      query: (id) => ({
-        url: `/collections/user/${id}`,
+      query: ({ id, page, limit, sort_by, sort_order }) => ({
+        url: `/collections/user/${id}?page=${page}&limit=${limit}&&sort_by=${sort_by}&sort_order=${sort_order}`,
       }),
       providesTags: ["Collections"],
     }),
@@ -52,6 +58,7 @@ export const collectionApi = createApi({
 
 export const {
   useGetCollectionsQuery,
+  useGetTopCollectionsQuery,
   useGetCollectionsByUserQuery,
   useGetCollectionByIdQuery,
   usePostCollectionMutation,

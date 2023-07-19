@@ -6,6 +6,8 @@ const router = Router();
 
 router.get("/", CollectionController.getCollections);
 
+router.get("/top", CollectionController.getTopCollections);
+
 router.post(`/`, authMiddleware, CollectionController.createCollection);
 
 router.get("/:id", CollectionController.getCollectionById);

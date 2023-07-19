@@ -30,21 +30,21 @@ export const userApi = createApi({
   tagTypes: ["User"],
   endpoints: (builder) => ({
     getUsers: builder.query({
-      query: () => ({
-        url: "/users",      
+      query: ({ page, limit, sort_by, sort_order }) => ({
+        url: `/users?page=${page}&limit=${limit}&sort_by=${sort_by}&sort_order=${sort_order}`,
       }),
       providesTags: ["User"],
     }),
     getUserById: builder.query({
       query: (id) => ({
-        url: `/users/${id}`,      
+        url: `/users/${id}`,
       }),
       providesTags: ["User"],
     }),
     removeUser: builder.mutation({
       query: (id) => ({
         url: `/users/${id}`,
-        method: "DELETE",    
+        method: "DELETE",
       }),
       invalidatesTags: ["User"],
     }),
@@ -61,6 +61,7 @@ export const userApi = createApi({
 
 export const {
   useGetUsersQuery,
+  useLazyGetUsersQuery,
   useGetUserByIdQuery,
   useRemoveUserMutation,
   useUpdateUserMutation,
