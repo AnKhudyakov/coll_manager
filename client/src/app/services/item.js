@@ -8,7 +8,7 @@ export const itemApi = createApi({
   endpoints: (builder) => ({
     getItems: builder.query({
       query: ({ limit, sort_by, sort_order }) => ({
-        url: `/items?limit=${limit}&&sort_by=${sort_by}&sort_order=${sort_order}`,
+        url: `/items?limit=${limit}&sort_by=${sort_by}&sort_order=${sort_order}`,
       }),
       providesTags: ["Items"],
     }),

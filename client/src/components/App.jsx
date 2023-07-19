@@ -33,11 +33,10 @@ function App() {
   useEffect(() => {
     if (refresh && !error) {
       refreshToken();
-      toast(t("refreshToken"));
+      toast.info(t("refreshToken"));
       dispatch(setRefresh(false));
     }
     if (error) {
-      console.log("APP");
       dispatch(setRefresh(false));
     }
     if (data && !error) {
@@ -79,7 +78,7 @@ function App() {
       )}
       <ToastContainer
         position="bottom-center"
-        autoClose={5000}
+        autoClose={2000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

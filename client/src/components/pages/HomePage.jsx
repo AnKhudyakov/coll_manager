@@ -13,7 +13,7 @@ const HomePage = () => {
     data: tags,
     isLoading: isLoadingTags,
     error: getTagError,
-  } = useGetTagsQuery();
+  } = useGetTagsQuery({ limit: 15, sort_by: "count", sort_order: "desc" });
   const {
     data: collections,
     isLoading,

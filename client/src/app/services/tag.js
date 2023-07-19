@@ -16,8 +16,8 @@ export const tagApi = createApi({
   tagTypes: ["Tag"],
   endpoints: (builder) => ({
     getTags: builder.query({
-      query: () => ({
-        url: "/tags",
+      query: ({ limit, sort_by, sort_order }) => ({
+        url: `/tags?limit=${limit}&sort_by=${sort_by}&sort_order=${sort_order}`,
       }),
       providesTags: ["Tags"],
     }),
@@ -29,7 +29,4 @@ export const tagApi = createApi({
   }),
 });
 
-export const {
-  useGetTagsQuery,
-  useGetTagByIdQuery,
-} = tagApi;
+export const { useGetTagsQuery, useGetTagByIdQuery } = tagApi;

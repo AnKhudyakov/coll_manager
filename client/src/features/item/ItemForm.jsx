@@ -11,7 +11,15 @@ import {
   getInitValuesItem,
 } from "@/helpers/getInitValuesForms";
 import { schemaItem } from "@/helpers/validationForm";
-import { Autocomplete, Box, Button, Chip, TextField } from "@mui/material";
+import {
+  Autocomplete,
+  Box,
+  Button,
+  Chip,
+  FormControl,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useFormik } from "formik";
 import { useTranslation } from "react-i18next";
 import { ToastContainer, toast } from "react-toastify";
@@ -22,7 +30,11 @@ const ItemForm = ({ setOpenForm, variant, item, collectionId }) => {
   const { t } = useTranslation("translation", { keyPrefix: "collection" });
   const [postItem, { isLoading }] = usePostItemMutation();
   const [updateItem, { isLoading: isUpdating }] = useUpdateItemMutation();
-  const { data: initTags, isLoading: isLoadingTags } = useGetTagsQuery();
+  const { data: initTags, isLoading: isLoadingTags } = useGetTagsQuery({
+    limit: 0,
+    sort_by: "content",
+    sort_order: "desc",
+  });
   const { data: collection, isLoading: isLoadingCollection } =
     useGetCollectionByIdQuery(collectionId);
   const handleFormSubmit = async (values, actions) => {
@@ -65,17 +77,23 @@ const ItemForm = ({ setOpenForm, variant, item, collectionId }) => {
         helperText={formik.touched.name && formik.errors.name}
       />
       <Autocomplete
+        name="tags"
         sx={{ mt: 2 }}
         multiple
         freeSolo
         fullWidth
         includeInputInList
-        name="tags"
         value={formik.values.tags}
+        onBlur={formik.handleBlur("tags")}
         onChange={(event, value) => {
           formik.setFieldValue("tags", [...value]);
         }}
         options={initTags ? initTags.map((tag) => tag.content) : []}
+        filterOptions={(options, { inputValue }) => {
+          return options.filter((option) =>
+            option.toLowerCase().startsWith(inputValue.toLowerCase())
+          );
+        }}
         getOptionLabel={(option) => option}
         renderTags={(tagValue, getTagProps) =>
           tagValue.map((option, index) => (
@@ -87,7 +105,13 @@ const ItemForm = ({ setOpenForm, variant, item, collectionId }) => {
           ))
         }
         renderInput={(params) => (
-          <TextField {...params} label={t("tags")} placeholder="Add tag..." />
+          <TextField
+            {...params}
+            label={t("tags")}
+            placeholder="Add tag..."
+            error={Boolean(formik.touched.tags && formik.errors.tags)}
+            helperText={formik.touched.tags && formik.errors.tags}
+          />
         )}
       />
       <CustomFieldsItemForm formik={formik} collection={collection} />
@@ -122,7 +146,7 @@ const ItemForm = ({ setOpenForm, variant, item, collectionId }) => {
       </Box>
       <ToastContainer
         position="bottom-center"
-        autoClose={5000}
+        autoClose={2000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

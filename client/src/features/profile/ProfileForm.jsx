@@ -94,7 +94,7 @@ const ProfileForm = ({ username, setOpenForm, email, userId }) => {
           </Box>
           <ToastContainer
             position="bottom-center"
-            autoClose={5000}
+            autoClose={2000}
             hideProgressBar={false}
             newestOnTop={false}
             closeOnClick

@@ -6,6 +6,10 @@ const Tag = new Schema({
     required: true,
     unique: true
   },
+  count: {
+    type: Number,
+    default: 1
+  },
 });
 
 export default model("Tag", Tag);

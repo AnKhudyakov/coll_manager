@@ -14,9 +14,9 @@
         "profile": "Profile"
       },
       "home": {
-        "LargestCollections": "The Largest Collections",
-        "lastItems": "Last items",
-        "popularTags": "Popular tags"
+        "LargestCollections": "Top 5 Collections",
+        "lastItems": "The last 5 items added",
+        "popularTags": "The most popular tags"
       },
       "auth": {
         "signIn": "Sign In",
@@ -148,9 +148,9 @@
         "profile": "Profil"
       },
       "home": {
-        "LargestCollections": "Největší sbírky",
-        "lastItems": "Poslední položky",
-        "popularTags": "Populární tagy"
+        "LargestCollections": "Top 5 sbírek",
+        "lastItems": "Přidáno posledních 5 položek",
+        "popularTags": "Nejpopulárnější tagy"
       },
       "auth": {
         "signIn": "Přihlásit se",

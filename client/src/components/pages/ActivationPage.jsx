@@ -31,7 +31,7 @@ export default function ActivationPage({ email }) {
             component="img"
             image={PAGE_ACTIVATION_URL}
             alt="404 image"
-            sx={{ width: "100%", height: "50vh", objectFit: "contain" }}
+            sx={{ width: "100%", height: "30vh", objectFit: "contain" }}
           />
           <Box m={"0 auto"} mt={1} textAlign={"center"}>
             <Typography variant={isNonMobile ? "h2" : "h3"}>

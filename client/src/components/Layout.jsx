@@ -24,9 +24,8 @@ const Layout = ({ children, error }) => {
   const navigate = useNavigate();
   useEffect(() => {
     if (error) {
-      console.log("LAYOUT");
       unsetToken();
-      toast(t("relogin"));
+      toast.info(t("relogin"));
       dispatch(setCredentials({ user: null }));
       navigate("/login");
     }
@@ -47,7 +46,7 @@ const Layout = ({ children, error }) => {
         <main>{children}</main>
         <ToastContainer
           position="bottom-center"
-          autoClose={5000}
+          autoClose={2000}
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick

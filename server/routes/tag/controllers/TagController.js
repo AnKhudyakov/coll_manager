@@ -3,7 +3,7 @@ import TagService from "../tagService.js";
 class TagController {
   async getTags(req, res) {
     try {
-      const tags = await TagService.getAllTags();
+      const tags = await TagService.getAllTags(req.query);
       if (!tags) {
         return res.status(404).json({ message: "Tags not found" });
       }

@@ -146,6 +146,11 @@ const CollectionForm = ({ setOpenForm, variant, collection, author }) => {
                 </MenuItem>
               ))}
             </Select>
+            {formik.touched.topic && formik.errors.topic && (
+              <Typography color={"text.error"} mt={"3px"} fontSize={"10px"}>
+                {formik.errors.topic}
+              </Typography>
+            )}
           </FormControl>
           <UploadFile image={image} setImage={setImage} />
           <Box>
@@ -182,7 +187,7 @@ const CollectionForm = ({ setOpenForm, variant, collection, author }) => {
           </Box>
           <ToastContainer
             position="bottom-center"
-            autoClose={5000}
+            autoClose={2000}
             hideProgressBar={false}
             newestOnTop={false}
             closeOnClick

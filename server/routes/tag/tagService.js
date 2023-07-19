@@ -1,19 +1,30 @@
 import Tag from "../../models/Tag.js";
 
 class TagService {
-  async getAllTags() {
-    return await Tag.find({});
+  async getAllTags(query) {
+    const { limit, sort_by, sort_order } = query;
+    return await Tag.find({})
+      .limit(limit)
+      .sort({ [sort_by]: sort_order });
   }
-  async createTag(tag) {
+  async createTag(tag, action) {
     const exist = await Tag.findOne({ content: tag.content });
-    if (exist) return;
+    if (exist && action === "create") {
+      await Tag.updateOne(
+        { content: exist.content },
+        { count: exist.count + 1 }
+      );
+      return;
+    } else if (exist && action === "update") {
+      return;
+    }
     const newTag = new Tag(tag);
     return await newTag.save();
   }
-  async createTags(tags) {
+  async createTags(tags, action) {
     return await Promise.all(
       tags.map(async (tag) => {
-        await this.createTag({ content: tag });
+        await this.createTag({ content: tag }, action);
         const newTag = await this.getTagIdByContent(tag);
         return newTag._id;
       })

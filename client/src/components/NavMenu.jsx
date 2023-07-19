@@ -156,7 +156,7 @@ const NavMenu = ({ setAnchorElNav, anchorElNav, user, setOpen }) => {
         }}
       >
         <Box color="text.secondary" textAlign="center">
-          <SearchMenu />
+          <SearchMenu setAnchorElNav={setAnchorElNav}/>
         </Box>
       </Box>
     </Menu>

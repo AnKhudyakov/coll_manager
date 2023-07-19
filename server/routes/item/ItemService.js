@@ -14,7 +14,7 @@ class ItemService {
     return items;
   }
   async createItem(item) {
-    const idsTag = await TagService.createTags(item.tags);
+    const idsTag = await TagService.createTags(item.tags, "create");
     const newItem = new Item({ ...item, tags: idsTag });
     await CollectionService.addItemInCollection(item, newItem);
     await newItem.save();
@@ -43,7 +43,7 @@ class ItemService {
   async updateItem(req) {
     const { id } = req.params;
     const idsTag = req.body.tags
-      ? await TagService.createTags(req.body.tags)
+      ? await TagService.createTags(req.body.tags, "update")
       : null;
     const update = idsTag
       ? {

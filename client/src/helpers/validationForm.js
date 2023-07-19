@@ -84,7 +84,8 @@ export const schemaItem = yup.object().shape({
     .required("No name provided."),
   tags: yup
     .array()
-    .required("No tags provided.")
+    .required("Provide at least one tag.")
+    .min(1, "Provide at least one tag.")
     .max(10, "Should be 10 tags maximum."),
 });
 

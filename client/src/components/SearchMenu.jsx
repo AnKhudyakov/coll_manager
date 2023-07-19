@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
-const SearchMenu = () => {
+const SearchMenu = ({ setAnchorElNav }) => {
   const { t } = useTranslation("translation", { keyPrefix: "header" });
   const navigate = useNavigate();
   const [value, setValue] = useState("");
@@ -17,6 +17,12 @@ const SearchMenu = () => {
   const handleChange = (e) => {
     setValue(e.currentTarget.value);
     navigate(`/search?text=${e.target.value}`);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      if (setAnchorElNav) setAnchorElNav(null);
+    }
   };
 
   return (
@@ -27,7 +33,7 @@ const SearchMenu = () => {
       height="36px"
       borderRadius=" 0px 0 0 5px"
     >
-      <Search >
+      <Search onKeyDown={handleKeyDown}>
         <SearchIconWrapper>
           <SearchIcon />
         </SearchIconWrapper>
@@ -36,7 +42,7 @@ const SearchMenu = () => {
           inputProps={{ "aria-label": "search" }}
           value={value}
           onChange={handleChange}
-          onBlur = {()=>setValue("")}
+          onBlur={() => setValue("")}
         />
       </Search>
     </Box>

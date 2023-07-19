@@ -11,7 +11,6 @@ export const unsetToken = () => {
   if (typeof window === "undefined") {
     return;
   }
-  console.log("unsetToken");
   localStorage.removeItem("user");
   localStorage.removeItem("accessToken");
   localStorage.removeItem("refreshToken");

@@ -62,7 +62,7 @@ class AuthController {
       return res.status(200).json(token);
     } catch (e) {
       console.log(e);
-      return res.status(500).json({ message: "Server error" });
+      return res.status(200).json({ message: "Token not found" });
     }
   }
   async activate(req, res) {

@@ -25,7 +25,7 @@ const ItemCard = ({ item, variant }) => {
           </Typography>
         </>
       )}
-      {item.customFields.length ? (
+      {variant !== "lastItems" && item.customFields.length ? (
         item.customFields.map((field, index) => (
           <Box key={index}>
             {field.fieldType !== "checkbox" && (
