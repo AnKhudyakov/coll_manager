@@ -22,12 +22,15 @@ class UserService {
   }
   async getAllUsers(query) {
     const { page, limit, sort_by, sort_order } = query;
+    const totalCount = await User.countDocuments();
+    const totalPages = Math.ceil(totalCount / limit);
     const offset = (page - 1) * limit;
-    return await User.find({})
+    const users = await User.find({})
       .skip(offset)
       .limit(limit)
       .sort({ [sort_by]: sort_order })
       .select({ password: 0 });
+    return { users, totalPages };
   }
   async updateUser(req) {
     const { id } = req.params;

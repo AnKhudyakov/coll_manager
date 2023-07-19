@@ -1,44 +1,26 @@
-import { useLazyGetUsersQuery, useGetUsersQuery } from "@/app/services/user";
+import { useGetUsersQuery } from "@/app/services/user";
 import Users from "@/components/Users";
 import withAdminRedirect from "@/hoc/withAdminRedirect";
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { Box, CircularProgress, Pagination, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useInView } from "react-intersection-observer";
 
 const AdminPage = () => {
   const { t } = useTranslation("translation", { keyPrefix: "admin" });
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(1);
   const [users, setUsers] = useState([]);
-  const { data, isLoading, error, refetch } = useGetUsersQuery({
+  const { data, isLoading, error } = useGetUsersQuery({
     page,
-    limit: 10,
+    limit: 5,
     sort_by: "username",
     sort_order: "asc",
   });
-
-  const { ref, inView, entry } = useInView({
-    threshold: 0.8,
-  });
-
   useEffect(() => {
     if (data) {
-      setUsers([...users, ...data]);
+      setUsers(data.users);
     }
   }, [data]);
-
-  useEffect(() => {
-    refetch();
-  }, [page]);
-
-  useEffect(() => {
-    if (entry) {
-      if (inView) {
-        setPage(page + 1);
-      }
-    }
-  }, [inView]);
   return (
     <Box pt="60px" mx="auto" height="100vh" bgcolor="background.light">
       {isLoading ? (
@@ -59,7 +41,11 @@ const AdminPage = () => {
           {users?.length ? (
             <>
               <Users users={users} setOpen={setOpen} open={open} />
-              <Box ref={ref} width={"100%"} height={"30px"}></Box>
+              <Pagination
+                count={data.totalPages}
+                page={page}
+                onChange={(e, value) => setPage(value)}
+              />
             </>
           ) : (
             <Typography variant="h3" align="center" color="text.secondary">
