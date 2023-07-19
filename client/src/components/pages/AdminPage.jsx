@@ -1,4 +1,4 @@
-import { useLazyGetUsersQuery } from "@/app/services/user";
+import { useLazyGetUsersQuery, useGetUsersQuery } from "@/app/services/user";
 import Users from "@/components/Users";
 import withAdminRedirect from "@/hoc/withAdminRedirect";
 import { Box, CircularProgress, Typography } from "@mui/material";
@@ -11,8 +11,13 @@ const AdminPage = () => {
   const [open, setOpen] = useState(false);
   const [page, setPage] = useState(1);
   const [users, setUsers] = useState([]);
-  const [getUsers, { data, isLoading, isFetching, error: getUserError }] =
-    useLazyGetUsersQuery();
+  const { data, isLoading, error, refetch } = useGetUsersQuery({
+    page,
+    limit: 10,
+    sort_by: "username",
+    sort_order: "asc",
+  });
+
   const { ref, inView, entry } = useInView({
     threshold: 0.8,
   });
@@ -24,7 +29,7 @@ const AdminPage = () => {
   }, [data]);
 
   useEffect(() => {
-    getUsers({ page, limit: 10, sort_by: "username", sort_order: "asc" });
+    refetch();
   }, [page]);
 
   useEffect(() => {

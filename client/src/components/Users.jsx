@@ -107,7 +107,6 @@ const Users = ({ users, setOpen, open }) => {
                     <Switch
                       checked={user.blocked}
                       onChange={(e) => {
-                        console.log(user._id);
                         updateUser({
                           id: user._id,
                           blocked: e.target.checked,
