@@ -43,7 +43,7 @@ const AdminPage = () => {
               <Users users={users} setOpen={setOpen} open={open} />
               <Pagination
                 sx={{ display: "flex", justifyContent: "center", mt: 1 }}
-                count={data.totalPages}
+                count={data ? data.totalPages : 1}
                 page={page}
                 onChange={(e, value) => setPage(value)}
               />

@@ -114,7 +114,8 @@
         "confirmTitle": "Are you sure?",
         "collection": "Collection",
         "author": "Author",
-        "deletedUser": "Deleted user"
+        "deletedUser": "Deleted user",
+        "backToCollection": "Back to Collection"
       },
       "search": {
         "results": "Results for",
@@ -248,7 +249,8 @@
         "confirmTitle": "Jsi si jistá?",
         "collection": "Sbírka",
         "author": "Autor",
-        "deletedUser": "Vymazaný uživatel"
+        "deletedUser": "Vymazaný uživatel",
+        "backToCollection": "Zpět do sbírky"
       },
       "search": {
         "results": "Výsledky pro",

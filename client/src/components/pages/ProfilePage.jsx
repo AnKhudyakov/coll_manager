@@ -89,7 +89,7 @@ const ProfilePage = () => {
               <Collections variant="profile" collections={collections} />
               <Pagination
                 sx={{ display: "flex", justifyContent: "center", mt: 1 }}
-                count={data.totalPages}
+                count={data ? data.totalPages : 1}
                 page={page}
                 onChange={(e, value) => setPage(value)}
               />
