@@ -45,7 +45,7 @@ class CollectionService {
   }
   async getCollectionsByUser(id, query) {
     const { page, limit, sort_by, sort_order } = query;
-    const totalCount = await Collection.countDocuments();
+    const totalCount = await Collection.countDocuments({ author: id });
     const totalPages = Math.ceil(totalCount / limit);
     const offset = (page - 1) * limit;
     const collections = await Collection.find({ author: id })
@@ -53,7 +53,7 @@ class CollectionService {
       .limit(limit)
       .sort({ [sort_by]: sort_order })
       .select({ password: 0 });
-    return { collections, totalPages };
+    return { collections, totalPages: totalPages ? totalPages : 1 };
   }
   async getCollectionById(id) {
     return await Collection.findOne({ _id: id });
