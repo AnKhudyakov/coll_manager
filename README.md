@@ -1,4 +1,4 @@
-# Welcome to Collection manager porject
+# Welcome to Collection manager project
 
 ## Getting Started
 
@@ -13,7 +13,7 @@ You need to complete the registation process [Click SignUp](https://coll-manager
 
 
 ### `Run the project on localhost`
-Open two terminal and run the following command in root directory in each of them
+Open two terminal and run the following commands in root directory in each of them
 Client Terminal
 1. Install dependencies for client
 ```sh
