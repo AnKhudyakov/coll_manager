@@ -2,6 +2,7 @@ export const INIT_VALUES_REG = {
   username: "",
   email: "",
   password: "",
+  confirmPassword: "",
 };
 
 export const INIT_VALUES_LOGIN = {

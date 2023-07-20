@@ -19,6 +19,10 @@ export const schemaReg = yup.object().shape({
     .required("No password provided.")
     .min(5, "Password must be longer then 4 chars")
     .max(20, "Password is too long - should be 20 chars maximum."),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Passwords must match")
+    .required("Please confirm your password"),
 });
 
 export const schemaLogin = yup.object().shape({
@@ -70,7 +74,9 @@ export const schemaCollection = yup.object().shape({
         .test("is-unique", "Name must be unique", function (value) {
           const { customFields } = this.options.context;
           if (!value) return true;
-          return customFields.filter((item) => item.name === value).length === 1;
+          return (
+            customFields.filter((item) => item.name === value).length === 1
+          );
         }),
       type: yup.string().required("Type is required"),
     })

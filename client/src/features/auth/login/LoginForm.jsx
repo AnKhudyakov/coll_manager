@@ -2,10 +2,13 @@ import { useLoginMutation } from "@/app/services/auth";
 import { INIT_VALUES_LOGIN as initialValues } from "@/constants/fields";
 import { setToken } from "@/helpers/auth";
 import { schemaLogin } from "@/helpers/validationForm";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Button,
   CircularProgress,
   Grid,
+  IconButton,
+  InputAdornment,
   TextField,
   Typography,
 } from "@mui/material";
@@ -16,10 +19,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { setCredentials } from "../authSlice";
-
+import { useState } from "react";
 
 const FormLogin = () => {
   const { t } = useTranslation("translation", { keyPrefix: "auth" });
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [login, { isLoading }] = useLoginMutation();
@@ -75,12 +80,24 @@ const FormLogin = () => {
       <TextField
         sx={{ mt: 2 }}
         fullWidth
-        type="password"
+        type={showPassword ? "text" : "password"}
         label={t("password")}
         onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         value={formik.values.password}
         name="password"
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle password visibility"
+                onClick={handleClickShowPassword}
+              >
+                {showPassword ? <Visibility /> : <VisibilityOff />}
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
         error={Boolean(formik.touched.password && formik.errors.password)}
         helperText={formik.touched.password && formik.errors.password}
       />

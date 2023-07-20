@@ -60,7 +60,8 @@ class CollectionService {
   }
   async removeCollection(id) {
     const collection = await Collection.findOneAndDelete({ _id: id });
-    await Item.deleteMany({ _id: { $in: collection.items } });
+    if (collection.items)
+      await Item.deleteMany({ _id: { $in: collection.items } });
     return collection;
   }
   async updateCollection(req) {

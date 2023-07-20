@@ -32,3 +32,11 @@ export const getRefreshToken = () => {
 export const getUser = () => {
   return JSON.parse(localStorage.getItem("user"));
 };
+
+export const getRegDto = (value) => {
+  return {
+    username: value.username,
+    email: value.email,
+    password: value.password,
+  };
+};
