@@ -2,6 +2,7 @@ import { DEFAULT_AVATAR_URL } from "@/constants/imageUrl";
 import EditIcon from "@mui/icons-material/Edit";
 import {
   Box,
+  Button,
   Card,
   CardContent,
   CardMedia,
@@ -11,10 +12,34 @@ import {
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import ProfileForm from "./ProfileForm";
+import { ExportToCsv } from "export-to-csv";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const Profile = ({ user }) => {
+const Profile = ({ user, collections }) => {
   const { t } = useTranslation("translation", { keyPrefix: "profile" });
   const [openForm, setOpenForm] = useState(false);
+  const handleCSV = () => {
+    if (collections?.length) {
+      const data = collections;
+      const options = {
+        fieldSeparator: ",",
+        quoteStrings: '"',
+        decimalSeparator: ".",
+        showLabels: true,
+        showTitle: true,
+        title: "Collections CSV",
+        useTextFile: false,
+        useBom: true,
+        useKeysAsHeaders: true,
+      };
+      const csvExporter = new ExportToCsv(options);
+      csvExporter.generateCsv(data);
+      toast.success(t("successDownload"));
+    } else {
+      toast.error(t("errorDownload"));
+    }
+  };
   return (
     <>
       <Card
@@ -44,6 +69,17 @@ const Profile = ({ user }) => {
           >
             {t("email")}: {user?.email}
           </Typography>
+          <Button
+            sx={{
+              mt: 2,
+              px: 2,
+              bgcolor: "background.main",
+              color: "text.secondary",
+            }}
+            onClick={handleCSV}
+          >
+            {t("downloadCollection")}
+          </Button>
         </CardContent>
         <Box>
           <Box>
@@ -66,6 +102,17 @@ const Profile = ({ user }) => {
           />
         </>
       )}
+      <ToastContainer
+        position="bottom-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </>
   );
 };

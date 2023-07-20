@@ -68,10 +68,13 @@
         "createBtn": "Create",
         "updateBtn": "Update",
         "password": "Password",
-        "success": "Successful!",
+        "success": "Success!",
         "uploadText": "Upload or drop a file right here",
         "collectionformTitle": "Submit the form to create a new collection",
-        "userFormTitle": "Submit the form to change a username"
+        "userFormTitle": "Submit the form to change a username",
+        "downloadCollection": "Export collections",
+        "successDownload": "Successful Export!",
+        "errorDownload": "Sorry, you don't have any collections yet"
       },
       "admin": {
         "users": "Users",
@@ -99,7 +102,7 @@
         "cancelBtn": "Cancel",
         "createBtn": "Create",
         "updateBtn": "Update",
-        "success": "Successful!",
+        "success": "Success!",
         "error": "Unexpected error! Please try again later",
         "newItemFormTitle": "Submit the form to create a new item",
         "updateItemFormTitle": "Submit the form to update the item"
@@ -204,10 +207,13 @@
         "cancelBtn": "Zrušení",
         "createBtn": "Vytvořit",
         "updateBtn": "Aktualizace",
-        "success": "Úspěšné!",
+        "success": "Úspěch!",
         "uploadText": "Nahrajte nebo přetáhněte soubor přímo sem",
         "collectionformTitle": "Chcete-li vytvořit novou kolekci, odešlete formulář",
-        "userFormTitle": "Chcete-li změnit uživatelské jméno, odešlete formulář"
+        "userFormTitle": "Chcete-li změnit uživatelské jméno, odešlete formulář",
+        "downloadCollection": "Export sbírek",
+        "successDownload": "Úspěšný export!",
+        "errorDownload": "Je nám líto, ale zatím nemáte žádné sbírky"
       },
       "admin": {
         "users": "Uživatelé",

@@ -21,6 +21,7 @@
     "@uiw/react-md-editor": "^3.23.3",
     "axios": "^1.4.0",
     "cloudinary-react": "^1.8.1",
+    "export-to-csv": "^0.2.1",
     "formik": "^2.4.1",
     "i18next": "^23.2.7",
     "i18next-browser-languagedetector": "^7.1.0",

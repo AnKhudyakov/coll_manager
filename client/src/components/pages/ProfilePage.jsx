@@ -69,7 +69,7 @@ const ProfilePage = () => {
               <CircularProgress />
             </Box>
           ) : (
-            <Profile user={user} />
+            <Profile user={user} collections={collections} />
           )}
           <Typography variant="h3" color="text.secondary" mt={3}>
             {t("collections")}:
