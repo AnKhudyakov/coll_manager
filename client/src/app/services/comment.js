@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { getUserId } from "@/helpers/auth";
+import { v4 as uuidv4 } from "uuid";
 
 export const commentApi = createApi({
   reducerPath: "commentApi",
@@ -27,7 +28,7 @@ export const connectSocket = (setSocket, setComments, item) => {
     console.log("WS Connected");
     const message = {
       event: "connection",
-      id: getUserId(),
+      id: getUserId() ? getUserId() : uuidv4(),
       itemId: item._id,
     };
     socket.send(JSON.stringify(message));

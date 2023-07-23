@@ -18,7 +18,8 @@ export const unsetToken = () => {
 
 export const getUserId = () => {
   const user = JSON.parse(localStorage.getItem("user"));
-  return user._id;
+  
+  return user ? user._id : "";
 };
 
 export const getToken = () => {
